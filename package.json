@@ -1,0 +1,17 @@
+{
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "packages/@*/*"
+  ],
+  "scripts": {
+    "format": "ts-standard --fix",
+    "build": "tsc -b tsconfig.json",
+    "build:watch": "tsc -b tsconfig.json --watch"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "ts-standard": "^12.0.2"
+  }
+}
