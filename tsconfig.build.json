@@ -1,0 +1,7 @@
+{
+  "references": [
+    { "path": "./packages/@pluggable-io/core"},
+    { "path": "./packages/pluggable-io"}
+  ],
+  "include": []
+}

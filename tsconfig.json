@@ -1,7 +1,6 @@
 {
-  "references": [
-    { "path": "./packages/@pluggable-io/core"},
-    { "path": "./packages/pluggable-io"}
-  ],
-  "include": []
+  "extends": "./tsconfig.base.json",
+  "include": [
+    "**/*.ts"
+  ]
 }
