@@ -1,5 +1,5 @@
 {
-  "name": "pluggable-io",
+  "name": "@pluggable-io/storage",
   "version": "0.0.0",
   "type": "module",
   "module": "./lib/index.js",
@@ -10,7 +10,7 @@
       "types": "./lib/index.d.ts"
     }
   },
-  "devDependencies": {
-    "typescript": "^5.1.3"
+  "dependencies": {
+    "@pluggable-io/core": "^0.0.0"
   }
 }

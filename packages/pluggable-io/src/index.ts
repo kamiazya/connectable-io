@@ -1,5 +1,8 @@
-console.log('Hello')
 
-export function hello(name: string) {
-  console.log('Hello', name)
-}
+// export interface Config {
+
+// }
+
+// export function defineConfig(config: Config) {
+//   //
+// }

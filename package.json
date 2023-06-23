@@ -3,18 +3,18 @@
   "private": true,
   "workspaces": [
     "packages/*",
-    "packages/@*/*"
+    "packages/@*/*",
+    "examples"
   ],
   "scripts": {
     "test": "vitest",
-    "format": "ts-standard --fix",
-    "build": "tsc -b tsconfig.json",
-    "build:watch": "tsc -b tsconfig.json --watch"
+    "build": "tsc -b tsconfig.build.json",
+    "build:watch": "tsc -b tsconfig.build.json --watch"
   },
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "ts-standard": "^12.0.2",
+    "@types/node": "^20.3.1",
     "vitest": "^0.32.2"
   }
 }
