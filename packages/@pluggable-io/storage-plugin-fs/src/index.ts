@@ -1,5 +1,5 @@
 import { Storage } from '@pluggable-io/storage';
 
-import { plugin } from './plugin.js';
+import { FileSystemPlugin } from './plugin.js';
 
-Storage.register('fs:', plugin);
+Storage.register('fs:', new FileSystemPlugin());

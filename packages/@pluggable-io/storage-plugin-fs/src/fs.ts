@@ -4,7 +4,10 @@ import { resolve } from "node:path";
 
 import { FileNotExixtsError, Resource, Storage } from "@pluggable-io/storage";
 
-export class FS implements Storage {
+/**
+ * A Storage implementation for the file system
+ */
+export class FileSystem implements Storage {
   constructor(public readonly url: URL) {}
 
   resolvePath(...filePath: string[]) {
@@ -33,17 +36,14 @@ export class FS implements Storage {
     return {
       uri: new URL(key, this.url),
       createReadStream: async () => {
-        const readable = file.createReadStream();
-        return Readable.toWeb(readable);
+        return Readable.toWeb(file.createReadStream());
       },
       createWriteStream: async () => {
-        const writable = file.createWriteStream();
-        return Writable.toWeb(writable);
+        return Writable.toWeb(file.createWriteStream());
       },
     };
   }
   async list(filePath?: string) {
     return readdir(filePath ? this.resolvePath(filePath): '.');
   }
-  async close() {}
 }
