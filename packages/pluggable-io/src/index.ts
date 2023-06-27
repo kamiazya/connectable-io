@@ -1,8 +1,3 @@
-
-// export interface Config {
-
-// }
-
-// export function defineConfig(config: Config) {
-//   //
-// }
+export const WELL_KNOWN_STOGARE_PLUGINS = {
+  'fs:': () => import('@pluggable-io/storage-plugin-fs'),
+}

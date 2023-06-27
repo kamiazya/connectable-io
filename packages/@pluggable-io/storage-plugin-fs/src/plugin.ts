@@ -3,12 +3,12 @@ import { mkdir } from "node:fs/promises";
 
 import { ResourcePlugin } from "@pluggable-io/core";
 
-import { FileSystem } from "./fs.js";
+import { FileSystemAdapter } from "./fs.js";
 
 /**
  * A plugin for building a FileSyetem Storage from a URL
  */
-export class FileSystemPlugin implements ResourcePlugin<FileSystem> {
+export class FileSystemPlugin implements ResourcePlugin<FileSystemAdapter> {
 
   constructor(
     public baseDir: string = process.cwd()
@@ -23,7 +23,7 @@ export class FileSystemPlugin implements ResourcePlugin<FileSystem> {
     if (url_.host !== "") {
       url_.host = "";
     }
-    const storage = new FileSystem(url_);
+    const storage = new FileSystemAdapter(url_);
     const exists = await storage.exists(path);
     if (!exists) {
       await mkdir(path, { recursive: true });

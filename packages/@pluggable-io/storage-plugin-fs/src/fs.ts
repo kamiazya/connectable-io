@@ -7,7 +7,7 @@ import { FileNotExixtsError, Resource, Storage } from "@pluggable-io/storage";
 /**
  * A Storage implementation for the file system
  */
-export class FileSystem implements Storage {
+export class FileSystemAdapter implements Storage {
   constructor(public readonly url: URL) {}
 
   resolvePath(...filePath: string[]) {
