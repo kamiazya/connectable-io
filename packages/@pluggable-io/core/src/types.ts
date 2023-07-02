@@ -30,7 +30,7 @@ export interface Registory<T> {
    * })
    * ```
    */
-  registerPlugin(protocol: string, plugin: ResourcePlugin<T>): void;
+  registerPlugin(protocol: string, plugin: ResourcePlugin<T>): void
   /**
    * Build an instance from a URL
    * @param url The URL to build from
@@ -38,5 +38,5 @@ export interface Registory<T> {
    * @throws {Error} If no plugin is registered for the protocol
    * @throws {TypeError} If url is not a valid URL
    */
-  from(url: string): Promise<T>;
+  from(url: string): Promise<T>
 }

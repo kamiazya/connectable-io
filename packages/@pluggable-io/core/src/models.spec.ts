@@ -1,13 +1,13 @@
-import { beforeEach, describe, expect, it } from 'vitest';
-import { RegistoryBase } from './models.js';
-import { PluginNotInstalled } from './errors.js';
+import { beforeEach, describe, expect, it } from 'vitest'
+import { RegistoryBase } from './models.js'
+import { PluginNotInstalled } from './errors.js'
 
 describe('RegistoryBase', () => {
   let registory: RegistoryBase<{
-    test: string;
-  }>;
+    test: string
+  }>
   beforeEach(async () => {
-    registory = new RegistoryBase();
+    registory = new RegistoryBase()
   })
   describe('registerPlugin function', () => {
     it('should register a plugin', () => {
@@ -15,9 +15,9 @@ describe('RegistoryBase', () => {
         build: async () => ({
           test: 'test',
         }),
-      };
+      }
       registory.registerPlugin('test:', plugin)
-      expect(registory.plugins.get('test:')).toBe(plugin);
+      expect(registory.plugins.get('test:')).toBe(plugin)
     })
   })
   describe('from function', () => {
@@ -26,12 +26,12 @@ describe('RegistoryBase', () => {
         build: async () => ({
           test: 'test',
         }),
-      };
+      }
       registory.registerPlugin('test:', plugin)
       const instance = await registory.from('test://')
       expect(instance).toStrictEqual({
         test: 'test',
-      });
+      })
     })
 
     it('should throw an error if no plugin is registered', async () => {

@@ -1,9 +1,9 @@
-import Storage from '@pluggable-io/storage';
+import Storage from '@pluggable-io/storage'
 
-import { FileSystemPlugin } from './plugin.js';
+import { FileSystemPlugin } from './plugin.js'
 
 declare module '@pluggable-io/storage' {
-  type URLString = `fs://${string}`;
+  type URLString = `fs://${string}`
 
   export interface StorageStatic {
     /**
@@ -36,8 +36,8 @@ declare module '@pluggable-io/storage' {
      * const storage = await Storage.from('fs:///path/to/storage');
      * ```
      */
-    from(url: URLString): Promise<Storage>;
+    from(url: URLString): Promise<Storage>
   }
 }
 
-Storage.registerPlugin('fs:', new FileSystemPlugin());
+Storage.registerPlugin('fs:', new FileSystemPlugin())

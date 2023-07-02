@@ -1,4 +1,3 @@
-
 export interface Logger {
   name: string
   log(message: string, context?: Record<string, any>): void

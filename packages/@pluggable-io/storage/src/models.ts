@@ -1,5 +1,5 @@
-import { Registory, RegistoryBase } from "@pluggable-io/core"
-import { ReadableStream, WritableStream } from "node:stream/web"
+import { Registory, RegistoryBase } from '@pluggable-io/core'
+import { ReadableStream, WritableStream } from 'node:stream/web'
 
 /**
  * Storage is a pluggable interface for file system.
@@ -33,7 +33,6 @@ export interface Storage {
    */
   list(prefix?: string): Promise<string[]>
 }
-
 
 /**
  * Resource is a pluggable interface for file.
@@ -73,4 +72,4 @@ export interface Resource {
  * ```
  */
 export interface StorageStatic extends Registory<Storage> {}
-export const Storage: StorageStatic = new class extends RegistoryBase<Storage>{} ();
+export const Storage: StorageStatic = new (class extends RegistoryBase<Storage> {})()

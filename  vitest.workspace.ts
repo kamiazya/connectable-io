@@ -1,6 +1,3 @@
 import { defineWorkspace } from 'vitest/config'
 
-export default defineWorkspace([
-  'packages/*',
-  'packages/@pluggable-io/*',
-])
+export default defineWorkspace(['packages/*', 'packages/@pluggable-io/*'])
