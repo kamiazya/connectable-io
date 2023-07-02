@@ -1,17 +1,43 @@
-import { $keywords } from '@pluggable-io/core';
-import { Storage } from '@pluggable-io/storage';
+import Storage from '@pluggable-io/storage';
 
 import { FileSystemPlugin } from './plugin.js';
-import { FileSystemAdapter } from './fs.js';
 
 declare module '@pluggable-io/storage' {
-  namespace Storage {
-    interface $schema extends $keywords<'fs:'> {}
+  type URLString = `fs://${string}`;
 
-    interface $storages {
-      'fs:': FileSystemAdapter;
-    }
+  export interface StorageStatic {
+    /**
+     * Build a storage based on local FileSystem from a URL
+     *
+     * @example use current directory as storage
+     *
+     * ```ts
+     * import { Storage } from '@pluggable-io/storage';
+     * import '@pluggable-io/storage-plugin-fs';
+     *
+     * const storage = await Storage.from('fs://.');
+     * ```
+     *
+     * @example use a directory as storage
+     *
+     * ```ts
+     * import { Storage } from '@pluggable-io/storage';
+     * import '@pluggable-io/storage-plugin-fs';
+     *
+     * const storage = await Storage.from('fs://./path/to/storage');
+     * ```
+     *
+     *  @example use absolute path as storage
+     *
+     * ```ts
+     * import { Storage } from '@pluggable-io/storage';
+     * import '@pluggable-io/storage-plugin-fs';
+     *
+     * const storage = await Storage.from('fs:///path/to/storage');
+     * ```
+     */
+    from(url: URLString): Promise<Storage>;
   }
 }
 
-Storage.register('fs:', new FileSystemPlugin());
+Storage.registerPlugin('fs:', new FileSystemPlugin());

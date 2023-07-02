@@ -1,8 +1,3 @@
-export type $keywords<T extends string> = {
-  [key in T]: key;
-};
-
-
 /**
  * A plugin for building a resource from a URL
  */
@@ -16,28 +11,51 @@ export interface ResourcePlugin<T = any> {
 }
 
 /**
- * A registry of plugins
+ * A registry for resources.
  */
-export class Registory<T, SCHEMA extends string> {
-  private map = new Map<SCHEMA, ResourcePlugin<T>>();
+export interface Registory<T> {
   /**
    * Register a plugin
    * @param protocol The protocol to register for
    * @param plugin The plugin to register
+   * @throws {Error} If a plugin is already registered for the scheme
+   * @example
+   * ```ts
+   * const registory = new Registory();
+   *
+   * registory.registerPlugin('sample:', {
+   *    async build(url) {
+   *     return new SampleStorage(url);
+   *   }
+   * })
+   * ```
    */
-  register(protocol: SCHEMA, plugin: ResourcePlugin<T>) {
-    this.map.set(protocol, plugin);
-  }
-
+  registerPlugin(protocol: string, plugin: ResourcePlugin<T>): void;
   /**
    * Build an instance from a URL
    * @param url The URL to build from
    * @returns The built instance
-   * @throws If no plugin is registered for the protocol
+   * @throws {Error} If no plugin is registered for the protocol
+   * @throws {TypeError} If url is not a valid URL
    */
-  from(url: URL): Promise<T> {
-    const plugin = this.map.get(url.protocol as SCHEMA);
-    if (!plugin) throw new Error(`No plugin registered for protocol ${url.protocol}`)
-    return plugin.build(url);
+  from(url: string): Promise<T>;
+}
+
+/**
+ * A registry for resources.
+ *
+ * @todo Add caching mechanism for instances
+ */
+export class RegistoryCore<T> implements Registory<T> {
+  #plugins = new Map<string, ResourcePlugin<T>>();
+
+  registerPlugin(protocol: string, plugin: ResourcePlugin<T>) {
+    this.#plugins.set(protocol, plugin);
+  }
+  from(url: string): Promise<T> {
+    const url_ = new URL(url);
+    const plugin = this.#plugins.get(url_.protocol);
+    if (!plugin) throw new Error(`No plugin registered for protocol ${url_.protocol}`)
+    return plugin.build(url_);
   }
 }

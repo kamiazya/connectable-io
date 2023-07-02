@@ -1,5 +1,5 @@
-import 'pluggable-io';
-import { Storage } from '@pluggable-io/storage';
+import '@pluggable-io/storage-plugin-fs';
+import Storage from '@pluggable-io/storage';
 
 const storage = await Storage.from('fs://.');
 
