@@ -3,6 +3,8 @@
     { "path": "./packages/@pluggable-io/core"},
     { "path": "./packages/@pluggable-io/storage"},
     { "path": "./packages/@pluggable-io/storage-plugin-fs"},
+    { "path": "./packages/@pluggable-io/logger"},
+    { "path": "./packages/@pluggable-io/queue"},
     { "path": "./packages/pluggable-io"}
   ],
   "include": []
