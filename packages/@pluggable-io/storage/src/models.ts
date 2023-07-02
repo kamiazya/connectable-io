@@ -1,4 +1,4 @@
-import { Registory, RegistoryCore } from "@pluggable-io/core"
+import { Registory, RegistoryBase } from "@pluggable-io/core"
 import { ReadableStream, WritableStream } from "node:stream/web"
 
 /**
@@ -73,4 +73,4 @@ export interface Resource {
  * ```
  */
 export interface StorageStatic extends Registory<Storage> {}
-export const Storage: StorageStatic = new class extends RegistoryCore<Storage>{} ();
+export const Storage: StorageStatic = new class extends RegistoryBase<Storage>{} ();
