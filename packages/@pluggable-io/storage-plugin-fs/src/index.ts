@@ -1,6 +1,6 @@
 import Storage from '@pluggable-io/storage'
 
-import { FileSystemPlugin } from './plugin.js'
+import { FileSystemStoragePlugin } from './plugin.js'
 
 declare module '@pluggable-io/storage' {
   type URLString = `fs://${string}`
@@ -40,4 +40,4 @@ declare module '@pluggable-io/storage' {
   }
 }
 
-Storage.registerPlugin('fs:', new FileSystemPlugin())
+Storage.registerPlugin('fs:', new FileSystemStoragePlugin())

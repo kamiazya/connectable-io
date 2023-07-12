@@ -47,7 +47,7 @@ export interface Resource {
    * console.log(file.uri.toString());
    * ```
    */
-  uri: URL
+  // uri: URL
   /**
    * Create a readable stream.
    */
