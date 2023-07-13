@@ -1,3 +1,8 @@
+import { Registory, RegistoryBase } from '@pluggable-io/core';
+
+/**
+ * Logger is a pluggable interface for logging.
+ */
 export interface Logger {
   name: string
   log(message: string, context?: Record<string, any>): void
@@ -6,6 +11,24 @@ export interface Logger {
   notice(message: string, context?: Record<string, any>): void
   warn(message: string, context?: Record<string, any>): void
   error(message: string, context?: Record<string, any>): void
+  /**
+   * Set context for all logs.
+   *
+   * @param context
+   */
   setContext(context: Record<string, any>): void
+  /**
+   * Create a child logger.
+   * @param name Logger name
+   * @param context Context for all logs of child logger
+   */
   createChild(name: string, context?: Record<string, any>): Logger
 }
+
+/**
+ * LoggerStatic is a pluggable interface for logger.
+ */
+export interface LoggerStatic extends Registory<Logger> {}
+export const Logger: LoggerStatic = new (class LoggerRegistory extends RegistoryBase<Logger> {})()
+
+export { Logger as default }

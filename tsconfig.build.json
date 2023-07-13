@@ -4,6 +4,8 @@
     { "path": "./packages/@pluggable-io/storage" },
     { "path": "./packages/@pluggable-io/storage-plugin-fs" },
     { "path": "./packages/@pluggable-io/logger" },
+    { "path": "./packages/@pluggable-io/logger-plugin-console" },
+    { "path": "./packages/@pluggable-io/logger-plugin-testing" },
     { "path": "./packages/@pluggable-io/queue" },
     { "path": "./packages/pluggable-io" }
   ],
