@@ -51,7 +51,7 @@ export class FileSystemStorageAdapter implements Storage {
   }
   async get(key: string): Promise<Resource> {
     return {
-      uri: new URL(key, this.url),
+      // uri: new URL(key, this.url),
       createReadStream: async () => {
         const exists = await this.exists(key)
         if (exists === false) throw new FileNotExixtsError(`File dose not exists. url:${key}`)
