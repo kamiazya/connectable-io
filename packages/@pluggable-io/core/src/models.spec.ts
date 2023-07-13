@@ -27,9 +27,7 @@ describe('RegistoryBase', () => {
         }),
       }
       registory.registerPlugin('test:', plugin)
-      expect(() => registory.registerPlugin('test:', plugin)).toThrow(
-        PluginAlreadyInstalledError
-      )
+      expect(() => registory.registerPlugin('test:', plugin)).toThrow(PluginAlreadyInstalledError)
     })
   })
   describe('from function', () => {

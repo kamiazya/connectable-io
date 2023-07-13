@@ -8,8 +8,8 @@ import { join } from 'node:path'
 import { FileNotExixtsError } from '@pluggable-io/storage'
 
 afterEach(() => {
-  vi.resetAllMocks();
-  vi.restoreAllMocks();
+  vi.resetAllMocks()
+  vi.restoreAllMocks()
 })
 
 describe('FileSystemStorageAdapter', () => {

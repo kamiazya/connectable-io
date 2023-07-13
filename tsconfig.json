@@ -10,9 +10,9 @@
       "@pluggable-io/logger": ["./packages/@pluggable-io/logger/src/index.ts"],
       "@pluggable-io/logger-plugin-console": ["./packages/@pluggable-io/logger-plugin-console/src/index.ts"],
       "@pluggable-io/logger-plugin-testing": ["./packages/@pluggable-io/logger-plugin-testing/src/index.ts"],
-      "pluggable-io": ["./packages/pluggable-io/src/index.ts"],
+      "pluggable-io": ["./packages/pluggable-io/src/index.ts"]
     }
   },
   "include": ["**/*.ts"],
-  "exclude": ["node_modules", "packages/**/lib"],
+  "exclude": ["node_modules", "packages/**/lib"]
 }

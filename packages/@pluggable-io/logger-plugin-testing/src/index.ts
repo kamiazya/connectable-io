@@ -1,10 +1,9 @@
-import { Logger } from "@pluggable-io/logger"
+import { Logger } from '@pluggable-io/logger'
 
-declare module "@pluggable-io/logger" {
+declare module '@pluggable-io/logger' {
   type URLString = `null:` | 'memory:'
 
   export interface LoggerStatic {
-
     /**
      * Build a logger from a URL
      *
@@ -30,14 +29,12 @@ declare module "@pluggable-io/logger" {
   }
 }
 
-
 export class NullLogger implements Logger {
   constructor(public readonly name: string) {}
 
   log(message: string, context: Record<string, any> = {}) {}
   debug(message: string, context: Record<string, any> = {}) {}
-  info(message: string, context: Record<string, any
-  > = {}) {}
+  info(message: string, context: Record<string, any> = {}) {}
   notice(message: string, context: Record<string, any> = {}) {}
   warn(message: string, context: Record<string, any> = {}) {}
   error(message: string, context: Record<string, any> = {}) {}
@@ -47,13 +44,9 @@ export class NullLogger implements Logger {
   }
 }
 
-
 export class MemoryLogger implements Logger {
   public logs: any = []
-  constructor(
-    public readonly name: string,
-    public globalLogFields: Record<string, any> = {},
-  ) {}
+  constructor(public readonly name: string, public globalLogFields: Record<string, any> = {}) {}
 
   log(message: string, context: Record<string, any> = {}) {
     const entry = Object.assign(
@@ -94,11 +87,11 @@ export class MemoryLogger implements Logger {
 Logger.registerPlugin('console:', {
   async build(url) {
     return new NullLogger(url.toString())
-  }
+  },
 })
 
 Logger.registerPlugin('memory:', {
   async build(url) {
     return new MemoryLogger(url.toString())
-  }
+  },
 })

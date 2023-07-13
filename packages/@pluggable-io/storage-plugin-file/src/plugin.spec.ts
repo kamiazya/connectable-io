@@ -1,16 +1,15 @@
-import { describe, expect, it } from "vitest";
-import { FileSystemStoragePlugin } from "./plugin.js";
-import { join } from "node:path";
-import { FileSystemStorageAdapter } from "./fs.js";
+import { describe, expect, it } from 'vitest'
+import { FileSystemStoragePlugin } from './plugin.js'
+import { join } from 'node:path'
+import { FileSystemStorageAdapter } from './fs.js'
 
 describe('FileSystemStoragePlugin', () => {
   describe('constructor', () => {
-
     describe('baseDir option', () => {
       describe('when given an absolute path', () => {
         it('should set baseDir', () => {
           const plugin = new FileSystemStoragePlugin({
-            baseDir: '/foo'
+            baseDir: '/foo',
           })
           expect(plugin.baseDir).toBe('/foo')
         })
@@ -18,7 +17,7 @@ describe('FileSystemStoragePlugin', () => {
       describe('when given a relative path', () => {
         it('should set baseDir', () => {
           const plugin = new FileSystemStoragePlugin({
-            baseDir: 'foo'
+            baseDir: 'foo',
           })
           expect(plugin.baseDir).toBe(join(process.cwd(), 'foo'))
         })
@@ -33,7 +32,7 @@ describe('FileSystemStoragePlugin', () => {
     describe('createIfNotExists option', () => {
       it('should set createIfNotExists', () => {
         const plugin = new FileSystemStoragePlugin({
-          createIfNotExists: true
+          createIfNotExists: true,
         })
         expect(plugin.createIfNotExists).toBe(true)
       })
@@ -46,7 +45,6 @@ describe('FileSystemStoragePlugin', () => {
   })
 
   describe('build', () => {
-
     it('should return a FileSystemStorageAdapter', async () => {
       const plugin = new FileSystemStoragePlugin()
       const storage = await plugin.build(new URL('fs://'))

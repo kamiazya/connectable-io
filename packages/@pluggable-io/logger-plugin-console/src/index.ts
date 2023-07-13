@@ -1,10 +1,9 @@
-import { Logger } from "@pluggable-io/logger"
+import { Logger } from '@pluggable-io/logger'
 
-declare module "@pluggable-io/logger" {
+declare module '@pluggable-io/logger' {
   type URLString = `console:`
 
   export interface LoggerStatic {
-
     /**
      * Build a logger from a URL
      *
@@ -22,10 +21,7 @@ declare module "@pluggable-io/logger" {
 }
 
 export class ConsoleLogger implements Logger {
-  constructor(
-    public readonly name: string,
-    public globalLogFields: Record<string, any> = {},
-  ) {}
+  constructor(public readonly name: string, public globalLogFields: Record<string, any> = {}) {}
 
   log(message: string, context: Record<string, any> = {}) {
     console.log(`${message}@${this.name}`, {
@@ -74,5 +70,5 @@ export class ConsoleLogger implements Logger {
 Logger.registerPlugin('console:', {
   async build(url) {
     return new ConsoleLogger(url.toString())
-  }
+  },
 })

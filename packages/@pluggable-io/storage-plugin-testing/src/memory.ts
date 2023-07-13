@@ -1,9 +1,8 @@
-import { Readable, Writable } from "node:stream";
-import { ResourcePlugin } from "@pluggable-io/core";
-import { Storage, FileNotExixtsError } from "@pluggable-io/storage";
+import { Readable, Writable } from 'node:stream'
+import { ResourcePlugin } from '@pluggable-io/core'
+import { Storage, FileNotExixtsError } from '@pluggable-io/storage'
 
 export class MemoryStorageAdapter implements Storage {
-
   public memfs: Map<string, string>
   constructor(public readonly url: URL, entities: [path: string, source: string][] = []) {
     this.memfs = new Map(entities)
@@ -14,10 +13,7 @@ export class MemoryStorageAdapter implements Storage {
   }
   async delete(key: string): Promise<void> {
     const exists = await this.exists(key)
-    if (exists === false)
-      throw new FileNotExixtsError(
-        `File dose not exists. url:${key}`,
-      )
+    if (exists === false) throw new FileNotExixtsError(`File dose not exists. url:${key}`)
     this.memfs.delete(key)
   }
 
@@ -26,10 +22,7 @@ export class MemoryStorageAdapter implements Storage {
       // uri: new URL(key, this.baseURL),
       createReadStream: async () => {
         const exists = await this.exists(key)
-        if (exists === false)
-          throw new FileNotExixtsError(
-            `File dose not exists. url:${key}`,
-          )
+        if (exists === false) throw new FileNotExixtsError(`File dose not exists. url:${key}`)
         const stream = Readable.from(Buffer.from(this.memfs.get(key) ?? ''))
         return Readable.toWeb(stream)
       },
@@ -47,7 +40,7 @@ export class MemoryStorageAdapter implements Storage {
           this.memfs.set(key, Buffer.concat(chunks).toString('utf8'))
         })
         return Writable.toWeb(stream)
-      }
+      },
     }
   }
 
@@ -57,7 +50,6 @@ export class MemoryStorageAdapter implements Storage {
       .map((key) => (prefix === '.' ? key : key.slice(prefix.length + 1)))
   }
 }
-
 
 export class MemoryStoragePlugin implements ResourcePlugin<MemoryStorageAdapter> {
   async build(url: URL) {

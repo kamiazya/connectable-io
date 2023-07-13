@@ -10,7 +10,7 @@ export class RegistoryBase<T> implements Registory<T> {
 
   registerPlugin(protocol: string, plugin: ResourcePlugin<T>) {
     if (this.plugins.has(protocol))
-      throw new PluginAlreadyInstalledError(`Plugin for protocol "${protocol}" already registered`);
+      throw new PluginAlreadyInstalledError(`Plugin for protocol "${protocol}" already registered`)
     this.plugins.set(protocol, plugin)
   }
 

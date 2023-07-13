@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest';
-import { MemoryStorageAdapter } from './memory.js';
+import { describe, expect, it } from 'vitest'
+import { MemoryStorageAdapter } from './memory.js'
 
 describe('MemoryStorageAdapter', () => {
   const url = new URL('memory://')
@@ -25,5 +25,4 @@ describe('MemoryStorageAdapter', () => {
       await expect(storage.delete('bar')).rejects.toThrow()
     })
   })
-
 })

@@ -25,9 +25,7 @@ export class FileSystemStorageAdapter implements Storage {
   public get url(): URL {
     return new URL(`${this.urlSchema}://${this.baseDir}`)
   }
-  constructor(
-    { urlSchema, baseDir = process.cwd() }: FileSystemStorageAdapterOptions
-  ) {
+  constructor({ urlSchema, baseDir = process.cwd() }: FileSystemStorageAdapterOptions) {
     this.urlSchema = urlSchema
     this.baseDir = isAbsolute(baseDir) ? baseDir : resolve(process.cwd(), baseDir)
   }

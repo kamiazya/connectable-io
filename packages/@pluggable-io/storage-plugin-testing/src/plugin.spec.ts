@@ -1,6 +1,6 @@
-import { describe, expect, it } from "vitest";
-import { MemoryStoragePlugin } from "./plugin.js";
-import { MemoryStorageAdapter } from "./memory.js";
+import { describe, expect, it } from 'vitest'
+import { MemoryStoragePlugin } from './plugin.js'
+import { MemoryStorageAdapter } from './memory.js'
 
 describe('FileSystemStoragePlugin', () => {
   describe('build', () => {

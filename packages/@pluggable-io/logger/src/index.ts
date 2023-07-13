@@ -1,4 +1,4 @@
-import { Registory, RegistoryBase } from '@pluggable-io/core';
+import { Registory, RegistoryBase } from '@pluggable-io/core'
 
 /**
  * Logger is a pluggable interface for logging.
