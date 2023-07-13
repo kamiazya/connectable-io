@@ -2,7 +2,7 @@
   "references": [
     { "path": "./packages/@pluggable-io/core" },
     { "path": "./packages/@pluggable-io/storage" },
-    { "path": "./packages/@pluggable-io/storage-plugin-fs" },
+    { "path": "./packages/@pluggable-io/storage-plugin-file" },
     { "path": "./packages/@pluggable-io/storage-plugin-testing" },
     { "path": "./packages/@pluggable-io/logger" },
     { "path": "./packages/@pluggable-io/logger-plugin-console" },

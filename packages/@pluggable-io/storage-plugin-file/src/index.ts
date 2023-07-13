@@ -3,7 +3,7 @@ import Storage from '@pluggable-io/storage'
 import { FileSystemStoragePlugin } from './plugin.js'
 
 declare module '@pluggable-io/storage' {
-  type URLString = `fs://${string}`
+  type URLString = `file://${string}`
 
   export interface StorageStatic {
     /**
@@ -13,31 +13,31 @@ declare module '@pluggable-io/storage' {
      *
      * ```ts
      * import { Storage } from '@pluggable-io/storage';
-     * import '@pluggable-io/storage-plugin-fs';
+     * import '@pluggable-io/storage-plugin-file';
      *
-     * const storage = await Storage.from('fs://.');
+     * const storage = await Storage.from('file://.');
      * ```
      *
      * @example use a directory as storage
      *
      * ```ts
      * import { Storage } from '@pluggable-io/storage';
-     * import '@pluggable-io/storage-plugin-fs';
+     * import '@pluggable-io/storage-plugin-file';
      *
-     * const storage = await Storage.from('fs://./path/to/storage');
+     * const storage = await Storage.from('file://./path/to/storage');
      * ```
      *
      *  @example use absolute path as storage
      *
      * ```ts
      * import { Storage } from '@pluggable-io/storage';
-     * import '@pluggable-io/storage-plugin-fs';
+     * import '@pluggable-io/storage-plugin-file';
      *
-     * const storage = await Storage.from('fs:///path/to/storage');
+     * const storage = await Storage.from('file:///path/to/storage');
      * ```
      */
     from(url: URLString): Promise<Storage>
   }
 }
 
-Storage.registerPlugin('fs:', new FileSystemStoragePlugin())
+Storage.registerPlugin('file:', new FileSystemStoragePlugin())
