@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { MemoryStorageAdapter } from './memory.js';
 
-describe('InMemoryStorageAdapter', () => {
+describe('MemoryStorageAdapter', () => {
   const url = new URL('memory://')
   describe('exists', () => {
     it('should return true if the file exists', async () => {

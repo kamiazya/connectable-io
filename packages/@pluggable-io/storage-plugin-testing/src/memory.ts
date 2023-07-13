@@ -1,7 +1,6 @@
 import { Readable, Writable } from "node:stream";
-import { FileNotExixtsError } from "./errors.js";
-import { Storage } from "./models.js";
 import { ResourcePlugin } from "@pluggable-io/core";
+import { Storage, FileNotExixtsError } from "@pluggable-io/storage";
 
 export class MemoryStorageAdapter implements Storage {
 
