@@ -72,4 +72,4 @@ export interface Resource {
  * ```
  */
 export interface StorageStatic extends Registory<Storage> {}
-export const Storage: StorageStatic = new (class extends RegistoryBase<Storage> {})()
+export const Storage: StorageStatic = new (class StorageRegistory extends RegistoryBase<Storage> {})()

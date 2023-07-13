@@ -1,4 +1,15 @@
 {
   "extends": "./tsconfig.base.json",
-  "include": ["**/*.ts"]
+  "compilerOptions": {
+    "paths": {
+      "@pluggable-io/core": ["./packages/@pluggable-io/core/src/index.ts"],
+      "@pluggable-io/storage": ["./packages/@pluggable-io/storage/src/index.ts"],
+      "@pluggable-io/queue": ["./packages/@pluggable-io/queue/src/index.ts"],
+      "@pluggable-io/logger": ["./packages/@pluggable-io/logger/src/index.ts"],
+      "@pluggable-io/storage-plugin-fs": ["./packages/@pluggable-io/storage-plugin-fs/src/index.ts"],
+      "pluggable-io": ["./packages/pluggable-io/src/index.ts"],
+    }
+  },
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules", "packages/**/lib"],
 }
