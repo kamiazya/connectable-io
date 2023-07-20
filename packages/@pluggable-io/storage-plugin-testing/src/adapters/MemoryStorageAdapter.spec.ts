@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { MemoryStorageAdapter } from './memory.js'
+import { MemoryStorageAdapter } from './MemoryStorageAdapter.js'
 
 describe('MemoryStorageAdapter', () => {
   const url = new URL('memory://')

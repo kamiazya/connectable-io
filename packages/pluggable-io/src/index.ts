@@ -3,10 +3,10 @@
  */
 export const PLUG_AND_PLAY = Object.freeze({
   STORAGE: Object.freeze({
-    'file:': () => import('@pluggable-io/storage-plugin-file'),
+    'file:': () => import('@pluggable-io/storage-plugin-file/pnp'),
   }),
   LOGGER: Object.freeze({
-    'console:': () => import('@pluggable-io/logger-plugin-console'),
+    'console:': () => import('@pluggable-io/logger-plugin-console/pnp'),
   }),
 })
 

@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, afterEach } from 'vitest'
-import { FileSystemStorageAdapter } from './fs.js'
+import { FileSystemStorageAdapter } from './FileSystemStorageAdapter.js'
 import { lstat, readdir, rm } from 'node:fs/promises'
 
 vi.mock('node:fs/promises')

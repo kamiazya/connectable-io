@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
-import { FileSystemStoragePlugin } from './plugin.js'
+import { FileSystemStoragePlugin } from './FileSystemStoragePlugin.js'
 import { join } from 'node:path'
-import { FileSystemStorageAdapter } from './fs.js'
+import { FileSystemStorageAdapter } from '../adapters/FileSystemStorageAdapter.js'
 
 describe('FileSystemStoragePlugin', () => {
   describe('constructor', () => {

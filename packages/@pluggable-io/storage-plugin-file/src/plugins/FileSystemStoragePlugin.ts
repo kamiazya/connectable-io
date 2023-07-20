@@ -3,7 +3,7 @@ import { mkdir } from 'node:fs/promises'
 
 import { ResourcePlugin } from '@pluggable-io/core'
 
-import { FileSystemStorageAdapter } from './fs.js'
+import { FileSystemStorageAdapter } from '../adapters/FileSystemStorageAdapter.js'
 
 export interface FileSystemStoragePluginOptions {
   /**

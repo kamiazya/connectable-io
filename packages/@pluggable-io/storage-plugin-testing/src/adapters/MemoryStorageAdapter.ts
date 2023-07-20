@@ -1,5 +1,4 @@
 import { Readable, Writable } from 'node:stream'
-import { ResourcePlugin } from '@pluggable-io/core'
 import { Storage, FileNotExixtsError } from '@pluggable-io/storage'
 
 export class MemoryStorageAdapter implements Storage {
@@ -48,11 +47,5 @@ export class MemoryStorageAdapter implements Storage {
     return Array.from(this.memfs.keys())
       .filter((key) => prefix === '.' || key.startsWith(prefix))
       .map((key) => (prefix === '.' ? key : key.slice(prefix.length + 1)))
-  }
-}
-
-export class MemoryStoragePlugin implements ResourcePlugin<MemoryStorageAdapter> {
-  async build(url: URL) {
-    return new MemoryStorageAdapter(url, [])
   }
 }
