@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import { RegistoryBase } from './models.js'
-import { PluginAlreadyInstalledError, PluginNotInstalledError } from './types.js'
+import { PluginAlreadyRegisteredError, PluginNotRegisteredError } from './types.js'
 
 describe('RegistoryBase', () => {
   let registory: RegistoryBase<{
@@ -27,7 +27,7 @@ describe('RegistoryBase', () => {
         }),
       }
       registory.registerPlugin('test:', plugin)
-      expect(() => registory.registerPlugin('test:', plugin)).toThrow(PluginAlreadyInstalledError)
+      expect(() => registory.registerPlugin('test:', plugin)).toThrow(PluginAlreadyRegisteredError)
     })
   })
   describe('from function', () => {
@@ -45,7 +45,7 @@ describe('RegistoryBase', () => {
     })
 
     it('should throw an error if no plugin is registered', async () => {
-      await expect(registory.from('not-registerd://')).rejects.toThrow(PluginNotInstalledError)
+      await expect(registory.from('not-registerd://')).rejects.toThrow(PluginNotRegisteredError)
     })
   })
 })

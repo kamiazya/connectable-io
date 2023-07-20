@@ -1,18 +1,18 @@
 /**
- * Error thrown when a plugin is not installed.
+ * Error thrown when a plugin is not registerd.
  */
-export class PluginNotInstalledError extends Error {
+export class PluginNotRegisteredError extends Error {
   static {
-    this.prototype.name = 'PluginNotInstalledError'
+    this.prototype.name = 'PluginNotRegisteredError'
   }
 }
 
 /**
- * Error thrown when a plugin is already installed.
+ * Error thrown when a plugin is already registered.
  */
-export class PluginAlreadyInstalledError extends Error {
+export class PluginAlreadyRegisteredError extends Error {
   static {
-    this.prototype.name = 'PluginAlreadyInstalledError'
+    this.prototype.name = 'PluginAlreadyRegisteredError'
   }
 }
 
@@ -36,7 +36,7 @@ export interface Registory<T> {
    * Register a plugin
    * @param protocol The protocol to register for
    * @param plugin The plugin to register
-   * @throws {PluginAlreadyInstalledError} If a plugin is already registered for the scheme
+   * @throws {PluginAlreadyRegisteredError} If a plugin is already registered for the scheme
    * @example
    * ```ts
    * const registory = new Registory();
@@ -53,7 +53,7 @@ export interface Registory<T> {
    * Build an instance from a URL
    * @param url The URL to build from
    * @returns The built instance
-   * @throws {PluginNotInstalledError} If no plugin is registered for the protocol
+   * @throws {PluginNotRegisteredError} If no plugin is registered for the protocol
    * @throws {TypeError} If url is not a valid URL
    */
   from(url: string): Promise<T>
