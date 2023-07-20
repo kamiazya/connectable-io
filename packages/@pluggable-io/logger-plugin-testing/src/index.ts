@@ -11,7 +11,7 @@ declare module '@pluggable-io/logger' {
      *
      * ```ts
      * import { Logger } from '@pluggable-io/logger';
-     * import '@pluggable-io/logger-plugin-null';
+     * import '@pluggable-io/logger-plugin-testing';
      *
      * const logger = await Logger.from('null:');
      * ```

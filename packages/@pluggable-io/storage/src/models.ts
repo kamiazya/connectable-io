@@ -1,5 +1,5 @@
+import { ReadableStream, WritableStream } from '@pluggable-io/common'
 import { Registory, RegistoryBase } from '@pluggable-io/core'
-import { ReadableStream, WritableStream } from 'node:stream/web'
 
 /**
  * Storage is a pluggable interface for file system.
@@ -20,11 +20,11 @@ export interface Storage {
    * @throws {FileNotExixtsError} if the file does not exists.
    * @example
    * ```ts
-   * const storage = await Storage.from('fs://.');
-   * const file = await storage.get('package.json');
+   * const storage = await Storage.from('example://.');
+   * const file = await storage.open('package.json');
    * ```
    */
-  get(key: string): Promise<Resource>
+  open(key: string): Promise<FileHandle>
 
   /**
    * List files.
@@ -37,7 +37,7 @@ export interface Storage {
 /**
  * Resource is a pluggable interface for file.
  */
-export interface Resource {
+export interface FileHandle {
   /**
    * URI of the file.
    * @example
@@ -47,7 +47,7 @@ export interface Resource {
    * console.log(file.uri.toString());
    * ```
    */
-  // uri: URL
+  uri: URL
   /**
    * Create a readable stream.
    */

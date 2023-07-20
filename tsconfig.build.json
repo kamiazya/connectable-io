@@ -1,14 +1,35 @@
 {
   "references": [
-    { "path": "./packages/@pluggable-io/core" },
-    { "path": "./packages/@pluggable-io/storage" },
-    { "path": "./packages/@pluggable-io/storage-plugin-file" },
-    { "path": "./packages/@pluggable-io/storage-plugin-testing" },
-    { "path": "./packages/@pluggable-io/logger" },
-    { "path": "./packages/@pluggable-io/logger-plugin-console" },
-    { "path": "./packages/@pluggable-io/logger-plugin-testing" },
-    { "path": "./packages/@pluggable-io/queue" },
-    { "path": "./packages/pluggable-io" }
+    {
+      "path": "./packages/@pluggable-io/common"
+    },
+    {
+      "path": "./packages/@pluggable-io/core"
+    },
+    {
+      "path": "./packages/@pluggable-io/storage"
+    },
+    {
+      "path": "./packages/@pluggable-io/storage-plugin-file"
+    },
+    {
+      "path": "./packages/@pluggable-io/storage-plugin-testing"
+    },
+    {
+      "path": "./packages/@pluggable-io/logger"
+    },
+    {
+      "path": "./packages/@pluggable-io/logger-plugin-console"
+    },
+    {
+      "path": "./packages/@pluggable-io/logger-plugin-testing"
+    },
+    {
+      "path": "./packages/@pluggable-io/queue"
+    },
+    {
+      "path": "./packages/pluggable-io"
+    }
   ],
   "include": []
 }

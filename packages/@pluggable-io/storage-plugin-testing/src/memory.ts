@@ -17,9 +17,9 @@ export class MemoryStorageAdapter implements Storage {
     this.memfs.delete(key)
   }
 
-  async get(key: string) {
+  async open(key: string) {
     return {
-      // uri: new URL(key, this.baseURL),
+      uri: new URL('memory://' + key),
       createReadStream: async () => {
         const exists = await this.exists(key)
         if (exists === false) throw new FileNotExixtsError(`File dose not exists. url:${key}`)

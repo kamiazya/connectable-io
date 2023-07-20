@@ -2,7 +2,7 @@ import { Readable, Writable } from 'node:stream'
 import { open, lstat, readdir, rm } from 'node:fs/promises'
 import { isAbsolute, resolve } from 'node:path'
 
-import { FileNotExixtsError, Resource, Storage } from '@pluggable-io/storage'
+import { FileNotExixtsError, FileHandle, Storage } from '@pluggable-io/storage'
 
 interface FileSystemStorageAdapterOptions {
   urlSchema: string
@@ -47,9 +47,9 @@ export class FileSystemStorageAdapter implements Storage {
     if (exists === false) throw new FileNotExixtsError(`File dose not exists. url:${filePath}`)
     await rm(this.resolvePath(filePath))
   }
-  async get(key: string): Promise<Resource> {
+  async open(key: string): Promise<FileHandle> {
     return {
-      // uri: new URL(key, this.url),
+      uri: new URL(key, this.url),
       createReadStream: async () => {
         const exists = await this.exists(key)
         if (exists === false) throw new FileNotExixtsError(`File dose not exists. url:${key}`)
