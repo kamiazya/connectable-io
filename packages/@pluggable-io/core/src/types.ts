@@ -33,6 +33,11 @@ export interface ResourcePlugin<T = any> {
  */
 export interface Registory<T> {
   /**
+   * @beta This is experimental.
+   */
+  PLUGIN_PLUG_AND_PLAY: Record<string, () => Promise<any>>
+
+  /**
    * Register a plugin
    * @param protocol The protocol to register for
    * @param plugin The plugin to register

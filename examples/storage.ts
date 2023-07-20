@@ -1,7 +1,6 @@
-import '@pluggable-io/storage-plugin-fs'
-import Storage from '@pluggable-io/storage'
-
-const storage = await Storage.from('fs://.')
+import { Storage, Logger } from 'pluggable-io'
+const storage = await Storage.from('file://.')
+const logger = await Logger.from('console:')
 
 const files = await storage.list()
-console.log(files)
+logger.log(`Got ${files.length} files`, { files })

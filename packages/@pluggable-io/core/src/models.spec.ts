@@ -44,8 +44,42 @@ describe('RegistoryBase', () => {
       })
     })
 
+    it('should throw an error if invalid URL was given', async () => {
+      await expect(registory.from('invalid')).rejects.toThrow(TypeError)
+    })
+
     it('should throw an error if no plugin is registered', async () => {
       await expect(registory.from('not-registerd://')).rejects.toThrow(PluginNotRegisteredError)
+    })
+
+    it('should not throw an error if no plugin is registered but PLUGIN_PLUG_AND_PLAY is set and the plugin is not registered', async () => {
+      registory.PLUGIN_PLUG_AND_PLAY['not-registerd:'] = async () => {
+        registory.registerPlugin('not-registerd:', {
+          build: async () => ({
+            test: 'test',
+          }),
+        })
+      }
+      await expect(registory.from('not-registerd://')).resolves.toStrictEqual({
+        test: 'test',
+      })
+    })
+
+    it('shold throw an error if no plugin is registered but PLUGIN_PLUG_AND_PLAY is set, but failed to execute PLUGIN_PLUG_AND_PLAY', async () => {
+      registory.PLUGIN_PLUG_AND_PLAY['not-registerd:'] = async () => {
+        registory.registerPlugin('not-registerd:', {
+          build: async () => ({
+            test: 'test',
+          }),
+        })
+        throw new Error('test')
+      }
+      await expect(registory.from('not-registerd://')).rejects.toThrow(PluginNotRegisteredError)
+
+      // Check plugin is not registered
+      expect(registory.plugins.has('not-registerd:')).toBe(false)
+      // Check if PLUGIN_PLUG_AND_PLAY is removed
+      expect(registory.PLUGIN_PLUG_AND_PLAY['not-registerd:']).toBe(undefined)
     })
   })
 })
