@@ -71,5 +71,31 @@ export interface FileHandle {
  * console.log(files);
  * ```
  */
-export interface StorageStatic extends Registory<Storage> {}
-export const Storage: StorageStatic = new (class StorageRegistory extends RegistoryBase<Storage> {})()
+export interface StorageStatic extends Registory<Storage> {
+  /**
+   * Open a file.
+   * @param url URI of the file.
+   * @throws {PluginNotInstalledError} if the scheme is not registered.
+   * @example
+   * ```ts
+   * const file = await Storage.open('fs://./package.json');
+   * ```
+   * @beta This method is experimental.
+   */
+  open(url: string): Promise<FileHandle>
+}
+
+export class StorageRegistory extends RegistoryBase<Storage> implements StorageStatic {
+  /**
+   * Open a file.
+   * @beta This method is experimental.
+   */
+  async open(url: string): Promise<FileHandle> {
+    const path = new URL(url)
+    const storageURL = new URL('/', path)
+    const storage = await this.from(storageURL.toString())
+    return storage.open(path.pathname)
+  }
+}
+
+export const Storage: StorageStatic = new StorageRegistory()
