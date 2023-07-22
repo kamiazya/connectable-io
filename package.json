@@ -12,12 +12,21 @@
     "build": "tsc -b tsconfig.build.json",
     "build:watch": "tsc -b tsconfig.build.json --watch",
     "format": "prettier --write '**/**/*.{ts,json}'",
-    "lint": "prettier --check '**/**/*.{ts,json}'"
+    "lint": "prettier --check '**/**/*.{ts,json}'",
+    "prepare": "husky install",
+    "lint-staged": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,ts,jsx,tsx}": [
+      "npx prettier --write ."
+    ]
   },
   "author": "",
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^20.3.1",
+    "husky": "^8.0.0",
+    "lint-staged": "^13.2.3",
     "prettier": "2.8.8",
     "rimraf": "^5.0.1",
     "vite-tsconfig-paths": "^4.2.0",
