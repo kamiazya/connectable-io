@@ -1,5 +1,7 @@
 {
+  "name": "@pluggable-io/examples",
   "type": "module",
+  "private": true,
   "devDependencies": {
     "typescript": "^5.1.3"
   }
