@@ -14,7 +14,9 @@
     "format": "prettier --write '**/**/*.{ts,json}'",
     "lint": "prettier --check '**/**/*.{ts,json}'",
     "prepare": "husky install",
-    "lint-staged": "lint-staged"
+    "lint-staged": "lint-staged",
+    "changeset": "changeset",
+    "release": "changeset publish"
   },
   "lint-staged": {
     "*.{js,ts,jsx,tsx}": [
@@ -24,6 +26,7 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "@changesets/cli": "^2.26.2",
     "@types/node": "^20.3.1",
     "husky": "^8.0.0",
     "lint-staged": "^13.2.3",
