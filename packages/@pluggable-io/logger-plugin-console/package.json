@@ -1,6 +1,6 @@
 {
   "name": "@pluggable-io/logger-plugin-console",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -15,7 +15,7 @@
     }
   },
   "dependencies": {
-    "@pluggable-io/core": "^0.0.0",
-    "@pluggable-io/logger": "^0.0.0"
+    "@pluggable-io/core": "^0.0.1",
+    "@pluggable-io/logger": "^0.0.1"
   }
 }
