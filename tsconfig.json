@@ -2,22 +2,61 @@
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "paths": {
-      "@pluggable-io/common": ["./packages/@pluggable-io/common/src/index.ts"],
-      "@pluggable-io/core": ["./packages/@pluggable-io/core/src/index.ts"],
-      "@pluggable-io/storage": ["./packages/@pluggable-io/storage/src/index.ts"],
-      "@pluggable-io/storage-plugin-file": ["./packages/@pluggable-io/storage-plugin-file/src/index.ts"],
-      "@pluggable-io/storage-plugin-file/pnp": ["./packages/@pluggable-io/storage-plugin-file/src/pnp.ts"],
-      "@pluggable-io/storage-plugin-testing": ["./packages/@pluggable-io/storage-plugin-testing/src/index.ts"],
-      "@pluggable-io/storage-plugin-testing/pnp": ["./packages/@pluggable-io/storage-plugin-testing/src/pnp.ts"],
-      "@pluggable-io/queue": ["./packages/@pluggable-io/queue/src/index.ts"],
-      "@pluggable-io/logger": ["./packages/@pluggable-io/logger/src/index.ts"],
-      "@pluggable-io/logger-plugin-console": ["./packages/@pluggable-io/logger-plugin-console/src/index.ts"],
-      "@pluggable-io/logger-plugin-console/pnp": ["./packages/@pluggable-io/logger-plugin-console/src/pnp.ts"],
-      "@pluggable-io/logger-plugin-testing": ["./packages/@pluggable-io/logger-plugin-testing/src/index.ts"],
-      "@pluggable-io/logger-plugin-testing/pnp": ["./packages/@pluggable-io/logger-plugin-testing/src/pnp.ts"],
-      "pluggable-io": ["./packages/pluggable-io/src/index.ts"]
+      "@pluggable-io/common": [
+        "./packages/@pluggable-io/common/src/index.ts"
+      ],
+      "@pluggable-io/core": [
+        "./packages/@pluggable-io/core/src/index.ts"
+      ],
+      "@pluggable-io/storage": [
+        "./packages/@pluggable-io/storage/src/index.ts"
+      ],
+      "@pluggable-io/storage-plugin-file": [
+        "./packages/@pluggable-io/storage-plugin-file/src/index.ts"
+      ],
+      "@pluggable-io/storage-plugin-file/pnp": [
+        "./packages/@pluggable-io/storage-plugin-file/src/pnp.ts"
+      ],
+      "@pluggable-io/storage-plugin-testing": [
+        "./packages/@pluggable-io/storage-plugin-testing/src/index.ts"
+      ],
+      "@pluggable-io/storage-plugin-testing/pnp": [
+        "./packages/@pluggable-io/storage-plugin-testing/src/pnp.ts"
+      ],
+      "@pluggable-io/queue": [
+        "./packages/@pluggable-io/queue/src/index.ts"
+      ],
+      "@pluggable-io/logger": [
+        "./packages/@pluggable-io/logger/src/index.ts"
+      ],
+      "@pluggable-io/logger-plugin-console": [
+        "./packages/@pluggable-io/logger-plugin-console/src/index.ts"
+      ],
+      "@pluggable-io/logger-plugin-console/pnp": [
+        "./packages/@pluggable-io/logger-plugin-console/src/pnp.ts"
+      ],
+      "@pluggable-io/logger-plugin-memory": [
+        "./packages/@pluggable-io/logger-plugin-memory/src/index.ts"
+      ],
+      "@pluggable-io/logger-plugin-memory/pnp": [
+        "./packages/@pluggable-io/logger-plugin-memory/src/pnp.ts"
+      ],
+      "@pluggable-io/logger-plugin-null": [
+        "./packages/@pluggable-io/logger-plugin-null/src/index.ts"
+      ],
+      "@pluggable-io/logger-plugin-null/pnp": [
+        "./packages/@pluggable-io/logger-plugin-null/src/pnp.ts"
+      ],
+      "pluggable-io": [
+        "./packages/pluggable-io/src/index.ts"
+      ]
     }
   },
-  "include": ["**/*.ts"],
-  "exclude": ["node_modules", "packages/**/lib"]
+  "include": [
+    "**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "packages/**/lib"
+  ]
 }

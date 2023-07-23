@@ -13,7 +13,7 @@
       "path": "./packages/@pluggable-io/storage-plugin-file"
     },
     {
-      "path": "./packages/@pluggable-io/storage-plugin-testing"
+      "path": "./packages/@pluggable-io/storage-plugin-memory"
     },
     {
       "path": "./packages/@pluggable-io/logger"
@@ -22,7 +22,10 @@
       "path": "./packages/@pluggable-io/logger-plugin-console"
     },
     {
-      "path": "./packages/@pluggable-io/logger-plugin-testing"
+      "path": "./packages/@pluggable-io/logger-plugin-memory"
+    },
+    {
+      "path": "./packages/@pluggable-io/logger-plugin-null"
     },
     {
       "path": "./packages/@pluggable-io/queue"

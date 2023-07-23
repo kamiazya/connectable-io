@@ -1,9 +1,8 @@
 import { Logger } from '@pluggable-io/logger'
-import { NullLoggerAdapter } from './adapters/NullLogger.js'
 import { MemoryLoggerAdapter } from './adapters/MemoryLoggerAdapter.js'
 
 declare module '@pluggable-io/logger' {
-  type URLString = `null:` | 'memory:'
+  type URLString = 'memory:'
 
   export interface LoggerStatic {
     /**
@@ -30,12 +29,6 @@ declare module '@pluggable-io/logger' {
     from(url: URLString): Promise<Logger>
   }
 }
-
-Logger.registerPlugin('console:', {
-  async build(url) {
-    return new NullLoggerAdapter(url.toString())
-  },
-})
 
 Logger.registerPlugin('memory:', {
   async build(url) {

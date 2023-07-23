@@ -1,5 +1,5 @@
 {
-  "name": "@pluggable-io/logger-plugin-testing",
+  "name": "@pluggable-io/logger-plugin-null",
   "version": "0.0.0",
   "type": "module",
   "module": "./lib/index.js",

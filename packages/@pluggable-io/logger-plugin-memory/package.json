@@ -1,5 +1,5 @@
 {
-  "name": "@pluggable-io/storage-plugin-testing",
+  "name": "@pluggable-io/logger-plugin-logger-plugin-memory",
   "version": "0.0.0",
   "type": "module",
   "module": "./lib/index.js",
@@ -16,6 +16,6 @@
   },
   "dependencies": {
     "@pluggable-io/core": "^0.0.0",
-    "@pluggable-io/storage": "^0.0.0"
+    "@pluggable-io/logger": "^0.0.0"
   }
 }
