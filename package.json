@@ -7,6 +7,7 @@
     "examples"
   ],
   "scripts": {
+    "coverage": "vitest run --coverage",
     "test": "vitest",
     "clean": "npm exec -ws -- rimraf ./lib",
     "build": "tsc -b tsconfig.build.json",
@@ -27,6 +28,7 @@
     "@types/node": "^20.3.1",
     "@typescript-eslint/eslint-plugin": "^6.2.0",
     "@typescript-eslint/parser": "^6.2.0",
+    "@vitest/coverage-v8": "^0.33.0",
     "eslint": "^8.45.0",
     "husky": "^8.0.0",
     "lint-staged": "^13.2.3",
