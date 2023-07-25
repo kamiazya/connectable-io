@@ -30,5 +30,3 @@ export interface Logger {
  */
 export interface LoggerStatic extends Registory<Logger> {}
 export const Logger: LoggerStatic = new (class LoggerRegistory extends RegistoryBase<Logger> {})()
-
-export { Logger as default }

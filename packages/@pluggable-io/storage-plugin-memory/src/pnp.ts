@@ -1,4 +1,4 @@
-import Storage from '@pluggable-io/storage'
+import { Storage } from '@pluggable-io/storage'
 import { MemoryStoragePlugin } from './plugins/MemoryStoragePlugin.js'
 
 declare module '@pluggable-io/storage' {

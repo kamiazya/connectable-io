@@ -17,7 +17,7 @@ for (const [protocol, plugin] of Object.entries(PLUG_AND_PLAY.LOGGER)) {
   Logger.PLUGIN_PLUG_AND_PLAY[protocol] = plugin
 }
 
-import Storage from '@pluggable-io/storage'
-import Logger from '@pluggable-io/logger'
+import { Storage } from '@pluggable-io/storage'
+import { Logger } from '@pluggable-io/logger'
 
 export { Storage, Logger }

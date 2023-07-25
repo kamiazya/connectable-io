@@ -1,4 +1,4 @@
-import Storage from '@pluggable-io/storage'
+import { Storage } from '@pluggable-io/storage'
 
 import { FileSystemStoragePlugin } from './plugins/FileSystemStoragePlugin.js'
 

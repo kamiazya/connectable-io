@@ -1,4 +1,4 @@
-import Logger from '@pluggable-io/logger'
+import { Logger } from '@pluggable-io/logger'
 import { ConsoleLoggerAddapter } from './index.js'
 
 declare module '@pluggable-io/logger' {
