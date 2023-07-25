@@ -11,8 +11,8 @@
     "clean": "npm exec -ws -- rimraf ./lib",
     "build": "tsc -b tsconfig.build.json",
     "build:watch": "tsc -b tsconfig.build.json --watch",
-    "format": "prettier --write '**/**/*.{ts,json}'",
-    "lint": "prettier --check '**/**/*.{ts,json}'",
+    "format": "eslint --ext ts packages --fix && prettier --write '**/**/*.{ts,json}'",
+    "lint": "eslint --ext ts packages && prettier --check '**/**/*.{ts,json}'",
     "prepare": "husky install",
     "lint-staged": "lint-staged"
   },
@@ -25,6 +25,9 @@
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^20.3.1",
+    "@typescript-eslint/eslint-plugin": "^6.2.0",
+    "@typescript-eslint/parser": "^6.2.0",
+    "eslint": "^8.45.0",
     "husky": "^8.0.0",
     "lint-staged": "^13.2.3",
     "prettier": "2.8.8",

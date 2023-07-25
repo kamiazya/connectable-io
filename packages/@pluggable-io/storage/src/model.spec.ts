@@ -15,7 +15,7 @@ describe('StorageRegistory', () => {
       list: vi.fn(),
     }
     registyory.registerPlugin('test:', {
-      async build(url: URL) {
+      async build() {
         return storage
       },
     })
