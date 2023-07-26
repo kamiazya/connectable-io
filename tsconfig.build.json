@@ -28,6 +28,9 @@
       "path": "./packages/@pluggable-io/logger-plugin-null"
     },
     {
+      "path": "./packages/@pluggable-io/preset-standard"
+    },
+    {
       "path": "./packages/@pluggable-io/queue"
     },
     {

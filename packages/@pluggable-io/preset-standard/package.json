@@ -1,5 +1,5 @@
 {
-  "name": "@pluggable-io/logger-plugin-memory",
+  "name": "@pluggable-io/preset-standard",
   "version": "0.0.0",
   "type": "module",
   "module": "./lib/index.js",
@@ -8,14 +8,12 @@
     ".": {
       "import": "./lib/index.js",
       "types": "./lib/index.d.ts"
-    },
-    "./pnp": {
-      "import": "./lib/pnp.js",
-      "types": "./lib/pnp.d.ts"
     }
   },
   "dependencies": {
-    "@pluggable-io/core": "^0.0.0",
-    "@pluggable-io/logger": "^0.0.0"
+    "@pluggable-io/storage": "^0.0.0",
+    "@pluggable-io/logger": "^0.0.0",
+    "@pluggable-io/logger-plugin-console": "^0.0.0",
+    "@pluggable-io/storage-plugin-file": "^0.0.0"
   }
 }
