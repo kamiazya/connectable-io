@@ -1,9 +1,9 @@
 import { Logger } from '@pluggable-io/logger'
 import { MemoryLoggerAdapter } from './adapters/MemoryLoggerAdapter.js'
 
-declare module '@pluggable-io/logger' {
-  type URLString = 'memory:'
+type URLString = 'memory:'
 
+declare module '@pluggable-io/logger' {
   export interface LoggerStatic {
     /**
      * Build a logger from a URL

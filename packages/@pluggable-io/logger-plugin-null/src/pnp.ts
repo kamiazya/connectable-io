@@ -1,9 +1,9 @@
 import { Logger } from '@pluggable-io/logger'
 import { NullLoggerAdapter } from './adapters/NullLogger.js'
 
-declare module '@pluggable-io/logger' {
-  type URLString = 'null:'
+type URLString = 'null:'
 
+declare module '@pluggable-io/logger' {
   export interface LoggerStatic {
     /**
      * Build a logger from a URL

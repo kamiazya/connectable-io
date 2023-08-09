@@ -16,6 +16,9 @@
       "path": "./packages/@pluggable-io/storage-plugin-memory"
     },
     {
+      "path": "./packages/@pluggable-io/storage-plugin-gs"
+    },
+    {
       "path": "./packages/@pluggable-io/logger"
     },
     {
@@ -29,6 +32,12 @@
     },
     {
       "path": "./packages/@pluggable-io/preset-standard"
+    },
+    {
+      "path": "./packages/@pluggable-io/preset-testing"
+    },
+    {
+      "path": "./packages/@pluggable-io/preset-gcp"
     },
     {
       "path": "./packages/@pluggable-io/queue"
