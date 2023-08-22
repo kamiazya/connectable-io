@@ -3,7 +3,7 @@ import { Storage, FileNotExixtsError } from '@pluggable-io/storage'
 
 export class MemoryStorageAdapter implements Storage {
   public memfs: Map<string, string>
-  constructor(public readonly url: URL, entities: [path: string, source: string][] = []) {
+  constructor(entities: [path: string, source: string][] = []) {
     this.memfs = new Map(entities)
   }
 
