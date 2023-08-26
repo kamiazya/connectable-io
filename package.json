@@ -34,6 +34,7 @@
     "lint-staged": "^13.2.3",
     "prettier": "2.8.8",
     "rimraf": "^5.0.1",
+    "typescript": "^5.2.2",
     "vite-tsconfig-paths": "^4.2.0",
     "vitest": "^0.32.2"
   }

@@ -12,8 +12,5 @@
   },
   "dependencies": {
     "@pluggable-io/preset-standard": "^0.0.0"
-  },
-  "devDependencies": {
-    "typescript": "^5.1.3"
   }
 }
