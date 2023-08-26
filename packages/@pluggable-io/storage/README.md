@@ -53,8 +53,8 @@ const storage = await Storage.from('file://./path/to/storage')
 
 You can also use an absolute path:
 
-```bash
-const storage = await Storage.from('file:///absolute/path/to/storage');
+```ts
+const storage = await Storage.from('file:///absolute/path/to/storage')
 ```
 
 ### 3. Interacting with Storage
