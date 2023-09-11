@@ -10,4 +10,4 @@ declare module '@pluggable-io/storage' {
   }
 }
 
-Storage.registerPlugin('gs:', new GoogleCloudStoragePlugin())
+Storage.load('gs:', new GoogleCloudStoragePlugin())

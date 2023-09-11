@@ -41,4 +41,4 @@ declare module '@pluggable-io/storage' {
   }
 }
 
-Storage.registerPlugin(DEFAULT_SCHEMA, new FileSystemStoragePlugin())
+Storage.load(DEFAULT_SCHEMA, new FileSystemStoragePlugin())

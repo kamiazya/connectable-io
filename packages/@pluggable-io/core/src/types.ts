@@ -1,18 +1,18 @@
 /**
- * Error thrown when a plugin is not registerd.
+ * Error thrown when the corresponding plugin for the schema is not loaded.
  */
-export class PluginNotRegisteredError extends Error {
+export class PluginNotLoadedError extends Error {
   static {
-    this.prototype.name = 'PluginNotRegisteredError'
+    this.prototype.name = 'PluginNotLoadedError'
   }
 }
 
 /**
- * Error thrown when a plugin is already registered.
+ * Error thrown when a plugin corresponding to the schema has already been loaded.
  */
-export class PluginAlreadyRegisteredError extends Error {
+export class PluginAlreadyLoadedError extends Error {
   static {
-    this.prototype.name = 'PluginAlreadyRegisteredError'
+    this.prototype.name = 'PluginAlreadyLoadedError'
   }
 }
 
@@ -38,27 +38,27 @@ export interface Registory<T> {
   PLUGIN_PLUG_AND_PLAY: Record<string, () => Promise<any>>
 
   /**
-   * Register a plugin
-   * @param protocol The protocol to register for
-   * @param plugin The plugin to register
-   * @throws {PluginAlreadyRegisteredError} If a plugin is already registered for the scheme
+   * Load a plugin
+   * @param protocol The protocol to load for
+   * @param plugin The plugin to load
+   * @throws {PluginAlreadyLoadedError} If a plugin is already loaded for the scheme
    * @example
    * ```ts
    * const registory = new Registory();
    *
-   * registory.registerPlugin('sample:', {
+   * registory.load('sample:', {
    *    async build(url) {
    *     return new SampleStorage(url);
    *   }
    * })
    * ```
    */
-  registerPlugin(protocol: string, plugin: ResourcePlugin<T>): void
+  load(protocol: string, plugin: ResourcePlugin<T>): void
   /**
    * Build an instance from a URL
    * @param url The URL to build from
    * @returns The built instance
-   * @throws {PluginNotRegisteredError} If no plugin is registered for the protocol
+   * @throws {PluginNotLoadedError} If no plugin is loaded for the protocol
    * @throws {TypeError} If url is not a valid URL
    */
   from(url: string): Promise<T>
