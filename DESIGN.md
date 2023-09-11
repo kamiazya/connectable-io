@@ -86,7 +86,7 @@ Each package within Pluggable IO follows a consistent naming pattern, ensuring c
 
 - **Plug-n-Play (PnP) Resource Plugins**: `@pluggable-io/{resource}-plugin-{protocol}/pnp`
 
-  When imported, these plugins are immediately registered with the default schema in the registry and are ready for use.
+  When imported, these plugins are immediately loaded with the default schema in the registry and are ready for use.
 
   They inherently import and utilize the corresponding `@pluggable-io/{resource}-plugin-{protocol}` package, ensuring extensibility and consistency.
 
