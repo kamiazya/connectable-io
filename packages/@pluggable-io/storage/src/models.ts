@@ -1,6 +1,21 @@
 import { ReadableStream, WritableStream } from '@pluggable-io/common'
 import { Registory, RegistoryBase } from '@pluggable-io/core'
 
+export interface FileHundleOpenOptions {
+  /**
+   * Open the file for reading.
+   */
+  read?: boolean
+  /**
+   * Open the file for writing.
+   */
+  write?: boolean
+  /**
+   * Create the file if it does not exist.
+   */
+  create?: boolean
+}
+
 /**
  * Storage is a pluggable interface for file system.
  */
@@ -24,7 +39,7 @@ export interface Storage {
    * const file = await storage.open('package.json');
    * ```
    */
-  open(key: string): Promise<FileHandle>
+  open(key: string, options?: FileHundleOpenOptions): Promise<FileHandle>
 
   /**
    * List files.
@@ -43,7 +58,7 @@ export interface FileHandle {
    * @example
    * ```ts
    * const storage = await Storage.from('fs://.');
-   * const file = await storage.get('package.json');
+   * const file = await storage.open('package.json');
    * console.log(file.uri.toString());
    * ```
    */
@@ -82,7 +97,7 @@ export interface StorageStatic extends Registory<Storage> {
    * ```
    * @beta This method is experimental.
    */
-  open(url: string): Promise<FileHandle>
+  open(url: string, options?: FileHundleOpenOptions): Promise<FileHandle>
 }
 
 export class StorageRegistory extends RegistoryBase<Storage> implements StorageStatic {
@@ -90,11 +105,11 @@ export class StorageRegistory extends RegistoryBase<Storage> implements StorageS
    * Open a file.
    * @beta This method is experimental.
    */
-  async open(url: string): Promise<FileHandle> {
+  async open(url: string, options?: FileHundleOpenOptions): Promise<FileHandle> {
     const path = new URL(url)
     const storageURL = new URL('/', path)
     const storage = await this.from(storageURL.toString())
-    return storage.open(path.pathname)
+    return storage.open(path.pathname, options)
   }
 }
 
