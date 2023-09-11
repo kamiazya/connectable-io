@@ -75,7 +75,7 @@ export interface StorageStatic extends Registory<Storage> {
   /**
    * Open a file.
    * @param url URI of the file.
-   * @throws {PluginNotInstalledError} if the scheme is not registered.
+   * @throws {PluginNotInstalledError} if the scheme is not loaded.
    * @example
    * ```ts
    * const file = await Storage.open('fs://./package.json');

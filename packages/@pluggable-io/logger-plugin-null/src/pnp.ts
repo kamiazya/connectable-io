@@ -30,7 +30,7 @@ declare module '@pluggable-io/logger' {
   }
 }
 
-Logger.registerPlugin('null:', {
+Logger.load('null:', {
   async build(url) {
     return new NullLoggerAdapter(url.toString())
   },

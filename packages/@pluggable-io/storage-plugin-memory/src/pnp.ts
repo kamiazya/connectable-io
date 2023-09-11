@@ -21,4 +21,4 @@ declare module '@pluggable-io/storage' {
   }
 }
 
-Storage.registerPlugin('memory:', new MemoryStoragePlugin())
+Storage.load('memory:', new MemoryStoragePlugin())

@@ -1,4 +1,4 @@
-import { PluginAlreadyRegisteredError, PluginNotRegisteredError, Registory, ResourcePlugin } from './types.js'
+import { PluginAlreadyLoadedError, PluginNotLoadedError, Registory, ResourcePlugin } from './types.js'
 
 /**
  * A registry for resources.
@@ -10,15 +10,15 @@ export class RegistoryBase<T> implements Registory<T> {
 
   plugins = new Map<string, ResourcePlugin<T>>()
 
-  registerPlugin(protocol: string, plugin: ResourcePlugin<T>) {
+  load(protocol: string, plugin: ResourcePlugin<T>) {
     if (this.plugins.has(protocol))
-      throw new PluginAlreadyRegisteredError(`Plugin for protocol "${protocol}" already registered`)
+      throw new PluginAlreadyLoadedError(`Plugin for protocol "${protocol}" already loaded`)
     this.plugins.set(protocol, plugin)
   }
 
   async _from(url: URL): Promise<T> {
     const plugin = this.plugins.get(url.protocol)
-    if (!plugin) throw new PluginNotRegisteredError(`No plugin registered for protocol "${url.protocol}"`)
+    if (!plugin) throw new PluginNotLoadedError(`No plugin loaded for protocol "${url.protocol}"`)
     return plugin.build(url)
   }
 
@@ -27,14 +27,14 @@ export class RegistoryBase<T> implements Registory<T> {
     try {
       return await this._from(url_)
     } catch (error) {
-      if (error instanceof PluginNotRegisteredError) {
+      if (error instanceof PluginNotLoadedError) {
         if (url_.protocol in this.PLUGIN_PLUG_AND_PLAY) {
           try {
             await this.PLUGIN_PLUG_AND_PLAY[url_.protocol]()
           } catch (error2) {
             delete this.PLUGIN_PLUG_AND_PLAY[url_.protocol]
             this.plugins.delete(url_.protocol)
-            new PluginNotRegisteredError(`Tried Plug and Play for "${url_.protocol}", but it failed.`, {
+            new PluginNotLoadedError(`Tried Plug and Play for "${url_.protocol}", but it failed.`, {
               cause: new AggregateError([error, error2]),
             })
           }

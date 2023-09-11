@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { Storage, StorageRegistory } from './models.js'
-import { PluginNotRegisteredError } from '@pluggable-io/core'
+import { PluginNotLoadedError } from '@pluggable-io/core'
 
 describe('StorageRegistory', () => {
   let registyory: StorageRegistory
@@ -14,7 +14,7 @@ describe('StorageRegistory', () => {
       open: vi.fn(),
       list: vi.fn(),
     }
-    registyory.registerPlugin('test:', {
+    registyory.load('test:', {
       async build() {
         return storage
       },
@@ -30,8 +30,8 @@ describe('StorageRegistory', () => {
       expect(storage.open).toBeCalledWith('/package.json')
     })
 
-    it('should throw an error if the scheme is not registered', async () => {
-      await expect(registyory.open('unknown://origin/package.json')).rejects.toThrow(PluginNotRegisteredError)
+    it('should throw an error if the scheme is not loaded', async () => {
+      await expect(registyory.open('unknown://origin/package.json')).rejects.toThrow(PluginNotLoadedError)
     })
   })
 })
