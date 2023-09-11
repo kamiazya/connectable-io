@@ -22,7 +22,7 @@ It will automatically register the file system storage plugin.
 import '@pluggable-io/storage-plugin-file/pnp'
 ```
 
-#### Manual Setup using `registerPlugin`
+#### Manual Setup using `load`
 
 Alternatively, if you want more control over the registration process,
 you can manually register the plugin.
@@ -31,10 +31,10 @@ you can manually register the plugin.
 import { Storage } from '@pluggable-io/storage'
 import { FileSystemStoragePlugin } from '@pluggable-io/storage-plugin-file'
 
-Storage.registerPlugin('file:', new FileSystemStoragePlugin())
+Storage.load('file:', new FileSystemStoragePlugin())
 ```
 
-When manually registering the plugin using registerPlugin,
+When manually registering the plugin using load,
 you can provide options to configure the behavior of the `FileSystemStoragePlugin`.
 
 Here are the available options:
@@ -52,7 +52,7 @@ Here are the available options:
   Default is `false`.
 
 ```ts
-Storage.registerPlugin(
+Storage.load(
   'file:',
   new FileSystemStoragePlugin({
     baseDir: './path/to/storage', // Set the base directory
@@ -62,7 +62,7 @@ Storage.registerPlugin(
 ```
 
 > **Note**
-> If already registered `"file:"` protocol, you can use another protocol like `"file+custom:"`.
+> If already loaded plugin for `"file:"` protocol, you can use another protocol like `"file+custom:"`.
 
 ### Using the Storage Plugin
 

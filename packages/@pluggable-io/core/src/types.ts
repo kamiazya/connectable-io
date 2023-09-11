@@ -29,13 +29,30 @@ export interface ResourcePlugin<T = any> {
 }
 
 /**
+ * A loader for a resource plugin
+ */
+export interface DynamicPluginLoader {
+  (input: URLPatternComponentResult): Promise<void>
+}
+
+/**
  * A registry for resources.
  */
 export interface Registory<T> {
   /**
-   * @beta This is experimental.
+   * Add a dynamic plugin loader
+   *
+   * @example Add a dynamic plugin loader for `sample+{:encoding}:` scheme
+   * ```ts
+   * const registory = new Registory();
+   * registory.addDynamicPluginLoader('sample+{:encoding}:', async ({ groups: { encoding } }) => {
+   *   await import(`./plugins/sample/${encoding}.pnp.js`);
+   * })
+   * ```
+   * @param pattern The pattern to load for
+   * @param loader The loader to load
    */
-  PLUGIN_PLUG_AND_PLAY: Record<string, () => Promise<any>>
+  addDynamicPluginLoader(pattern: string, loader: DynamicPluginLoader): void
 
   /**
    * Load a plugin

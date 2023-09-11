@@ -1,4 +1,11 @@
-import { PluginAlreadyLoadedError, PluginNotLoadedError, Registory, ResourcePlugin } from './types.js'
+/// <reference types="urlpattern-polyfill" />
+import {
+  DynamicPluginLoader,
+  PluginAlreadyLoadedError,
+  PluginNotLoadedError,
+  Registory,
+  ResourcePlugin,
+} from './types.js'
 
 /**
  * A registry for resources.
@@ -6,9 +13,29 @@ import { PluginAlreadyLoadedError, PluginNotLoadedError, Registory, ResourcePlug
  * @todo Add caching mechanism for instances
  */
 export class RegistoryBase<T> implements Registory<T> {
-  PLUGIN_PLUG_AND_PLAY: Record<string, () => Promise<any>> = {}
+  dynamicLoaders: [pattern: string, loader: DynamicPluginLoader][] = []
 
   plugins = new Map<string, ResourcePlugin<T>>()
+
+  addDynamicPluginLoader(pattern: string, loader: DynamicPluginLoader) {
+    this.dynamicLoaders.push([pattern, loader])
+  }
+
+  async dynamicPluginLoad(url: URL) {
+    for (const [protocol, loader] of this.dynamicLoaders) {
+      const pattern = new URLPattern({ protocol })
+      if (pattern.test(url)) {
+        const input = pattern.exec(url)
+        await loader(
+          input?.protocol ?? {
+            input: url.protocol,
+            groups: {},
+          },
+        )
+        return
+      }
+    }
+  }
 
   load(protocol: string, plugin: ResourcePlugin<T>) {
     if (this.plugins.has(protocol))
@@ -28,17 +55,14 @@ export class RegistoryBase<T> implements Registory<T> {
       return await this._from(url_)
     } catch (error) {
       if (error instanceof PluginNotLoadedError) {
-        if (url_.protocol in this.PLUGIN_PLUG_AND_PLAY) {
-          try {
-            await this.PLUGIN_PLUG_AND_PLAY[url_.protocol]()
-          } catch (error2) {
-            delete this.PLUGIN_PLUG_AND_PLAY[url_.protocol]
-            this.plugins.delete(url_.protocol)
-            new PluginNotLoadedError(`Tried Plug and Play for "${url_.protocol}", but it failed.`, {
-              cause: new AggregateError([error, error2]),
-            })
-          }
+        try {
+          await this.dynamicPluginLoad(url_)
           return await this._from(url_)
+        } catch (error2) {
+          this.plugins.delete(url_.protocol)
+          throw new PluginNotLoadedError(`Tried dynamic load for "${url_.protocol}", but it failed.`, {
+            cause: new AggregateError([error, error2]),
+          })
         }
       }
       throw error
