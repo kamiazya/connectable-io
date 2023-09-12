@@ -9,7 +9,7 @@ try {
 
   if ((await storage.exists('.gitignore')) === false) {
     // Create ,gitignore if it doesn't exist
-    const file = await storage.open('.gitignore')
+    const file = await storage.open('.gitignore', { write: true, create: true })
     const stream = await file.createWriteStream()
     const writer = stream.getWriter()
     try {
@@ -31,7 +31,7 @@ try {
   if (!files.includes('input.txt')) {
     // Create a file and write to it
     console.log('Creating input.txt')
-    const file = await storage.open('input.txt')
+    const file = await storage.open('input.txt', { write: true, create: true })
     const stream = await file.createWriteStream()
     const writer = stream.getWriter()
     try {
@@ -46,7 +46,7 @@ try {
   } else {
     // Read a file and write it to another file
     const input = await storage.open('input.txt')
-    const output = await storage.open('output.txt')
+    const output = await storage.open('output.txt', { write: true, create: true })
 
     const inputContent = await input.createReadStream()
 

@@ -29,17 +29,17 @@ describe('FileSystemStoragePlugin', () => {
       })
     })
 
-    describe('createIfNotExists option', () => {
-      it('should set createIfNotExists', () => {
+    describe('createDirectoryIfNotExists option', () => {
+      it('should set createDirectoryIfNotExists', () => {
         const plugin = new FileSystemStoragePlugin({
-          createIfNotExists: true,
+          createDirectoryIfNotExists: true,
         })
-        expect(plugin.createIfNotExists).toBe(true)
+        expect(plugin.createDirectoryIfNotExists).toBe(true)
       })
 
-      it('should set createIfNotExists to false by default', () => {
+      it('should set createDirectoryIfNotExists to true by default', () => {
         const plugin = new FileSystemStoragePlugin()
-        expect(plugin.createIfNotExists).toBe(false)
+        expect(plugin.createDirectoryIfNotExists).toBe(true)
       })
     })
   })
@@ -76,11 +76,11 @@ describe('FileSystemStoragePlugin', () => {
     //   })
     // })
 
-    // describe('when createIfNotExists is true', () => {
+    // describe('when createDirectoryIfNotExists is true', () => {
     //   describe('when the baseDir does not exist', () => {
     //     it('should create the baseDir', async () => {
     //       const plugin = new FileSystemStoragePlugin({
-    //         createIfNotExists: true
+    //         createDirectoryIfNotExists: true
     //       })
     //       const storage = await plugin.build(new URL('fs:///foo'))
     //       expect(storage.baseURL.host).toBe('')

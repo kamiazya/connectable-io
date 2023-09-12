@@ -6,13 +6,6 @@
     "composite": true,
     "tsBuildInfoFile": ".tsbuildinfo"
   },
-  "include": [
-    "./src/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "./**/*.test.ts",
-    "./**/*.spec.ts",
-    "./**/*.test-d.ts"
-  ]
+  "include": ["./src/**/*.ts"],
+  "exclude": ["node_modules", "./**/*.test.ts", "./**/*.spec.ts", "./**/*.test-d.ts"]
 }

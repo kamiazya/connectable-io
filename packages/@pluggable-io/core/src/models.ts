@@ -4,6 +4,7 @@ import {
   PluginAlreadyLoadedError,
   PluginNotLoadedError,
   Registory,
+  ResourceBuildError,
   ResourcePlugin,
 } from './types.js'
 
@@ -46,7 +47,13 @@ export class RegistoryBase<T> implements Registory<T> {
   async _from(url: URL): Promise<T> {
     const plugin = this.plugins.get(url.protocol)
     if (!plugin) throw new PluginNotLoadedError(`No plugin loaded for protocol "${url.protocol}"`)
-    return plugin.build(url)
+    try {
+      return await plugin.build(url)
+    } catch (error) {
+      throw new ResourceBuildError(`Failed to build resource from "${url}"`, {
+        cause: error,
+      })
+    }
   }
 
   async from(url: string): Promise<T> {

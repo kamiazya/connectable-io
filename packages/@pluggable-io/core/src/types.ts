@@ -17,6 +17,15 @@ export class PluginAlreadyLoadedError extends Error {
 }
 
 /**
+ * Error thrown when a plugin fails to build a resource.
+ */
+export class ResourceBuildError extends Error {
+  static {
+    this.prototype.name = 'ResourceBuildError'
+  }
+}
+
+/**
  * A plugin for building a resource from a URL
  */
 export interface ResourcePlugin<T = any> {
@@ -77,6 +86,7 @@ export interface Registory<T> {
    * @returns The built instance
    * @throws {PluginNotLoadedError} If no plugin is loaded for the protocol
    * @throws {TypeError} If url is not a valid URL
+   * @throws {ResourceBuildError} If the plugin fails to build the instance
    */
   from(url: string): Promise<T>
 }

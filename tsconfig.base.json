@@ -6,11 +6,6 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
-    "skipLibCheck": false,
-    "lib": [
-      "ES2022.Error",
-      "ESNext",
-      "DOM"
-    ]
+    "skipLibCheck": false
   }
 }
