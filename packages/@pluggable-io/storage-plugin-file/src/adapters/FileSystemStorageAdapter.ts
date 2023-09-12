@@ -138,7 +138,7 @@ export class FileSystemStorageAdapter implements Storage {
       throw new PermissionDeniedError(`Path is out of base directory. url:${key}`)
 
     return {
-      uri: Object.freeze(new URL(key, `${this.url}/`)),
+      uri: new URL(key, `${this.url}/`).toString(),
       createReadStream: async () => {
         // Check storage level read permission
         if (read === false) throw new PermissionDeniedError(`Read permission denied. url:${key}`)

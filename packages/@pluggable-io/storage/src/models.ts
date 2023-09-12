@@ -113,10 +113,11 @@ export interface FileHandle {
    * ```ts
    * const storage = await Storage.from('file://.');
    * const file = await storage.open('package.json');
-   * console.log(file.uri.toString());
+   * console.log(file.uri);
+   * // => file:///absolute/path/to/package.json
    * ```
    */
-  uri: URL
+  uri: string
   /**
    * Create a readable stream.
    *

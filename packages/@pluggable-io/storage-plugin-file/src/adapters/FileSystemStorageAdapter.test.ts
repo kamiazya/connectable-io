@@ -185,7 +185,7 @@ describe('FileSystemStorageAdapter', () => {
       it('should return the uri', async () => {
         const storage = new FileSystemStorageAdapter()
         const hundle = await storage.open('bar')
-        expect(hundle.uri.href).toBe(`file://${process.cwd()}/bar`)
+        expect(hundle.uri).toBe(`file://${process.cwd()}/bar`)
       })
 
       describe('createReadStream method', () => {

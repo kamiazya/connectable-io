@@ -48,7 +48,7 @@ export class GoogleCloudStorageAdapter implements Storage {
   }
   async open(key: string): Promise<FileHandle> {
     return {
-      uri: new URL(key, this.url),
+      uri: new URL(key, this.url).toString(),
       createReadStream: async () => {
         const exists = await this.exists(key)
         if (exists === false) throw new FileNotExixtsError(`File dose not exists. url:${key}`)
