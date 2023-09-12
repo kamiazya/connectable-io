@@ -9,7 +9,7 @@
   "scripts": {
     "coverage": "vitest run --coverage",
     "test": "vitest",
-    "clean": "npm exec -ws -- rimraf ./lib tsconfig.tsbuildinfo",
+    "clean": "npm exec -ws -- rimraf ./lib .tsbuildinfo",
     "build": "tsc -b tsconfig.build.json",
     "build:watch": "tsc -b tsconfig.build.json --watch",
     "format": "eslint --ext ts packages --fix && prettier --write '**/**/*.{ts,json}'",
