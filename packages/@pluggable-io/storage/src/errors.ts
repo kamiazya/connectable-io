@@ -4,7 +4,7 @@
  * ```ts
  * const storage = await Storage.from('file://.');
  * try {
- *   const file = await storage.get('package.json');
+ *   const file = await storage.open('package.json');
  * } catch (e) {
  *   if (e instanceof FileNotExixtsError) {
  *    console.log('File dose not exists.');
@@ -26,7 +26,7 @@ export class FileNotExixtsError extends Error {
  * ```ts
  * const storage = await Storage.from('file://.');
  * try {
- *  const file = await storage.get('../package.json');
+ *  const file = await storage.open('../package.json');
  * } catch (e) {
  *  if (e instanceof PermissionDeniedError) {
  *    console.log('Permission denied.');
