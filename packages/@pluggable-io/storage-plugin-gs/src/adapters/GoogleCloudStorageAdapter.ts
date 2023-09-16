@@ -1,7 +1,15 @@
+/// <reference lib="esnext" />
 import { Readable, Writable } from 'node:stream'
 import { join } from 'node:path'
 import { Storage as Client } from '@google-cloud/storage'
-import { FileNotExixtsError, FileHandle, Storage } from '@pluggable-io/storage'
+import {
+  FileNotExixtsError,
+  FileHandle,
+  Storage,
+  FileHundleOpenOptions,
+  PermissionDeniedError,
+  OperationFailedError,
+} from '@pluggable-io/storage'
 
 interface GoogleCloudStorageAdapterOptions {
   urlSchema?: string
@@ -46,26 +54,51 @@ export class GoogleCloudStorageAdapter implements Storage {
     if (exists === false) throw new FileNotExixtsError(`File dose not exists. url:${filePath}`)
     await this.bucket.file(this.resolvePath(filePath)).delete()
   }
-  async open(key: string): Promise<FileHandle> {
+  async open(
+    key: string,
+    { read = true, write = false, create = false }: FileHundleOpenOptions = {},
+  ): Promise<FileHandle> {
+    key = this.resolvePath(key)
+    if (key.startsWith('..')) throw new PermissionDeniedError(`Path is out of base directory. url:${key}`)
     return {
       uri: new URL(key, this.url).toString(),
       createReadStream: async () => {
+        if (read === false) throw new PermissionDeniedError(`Read permission denied. url:${key}`)
         const exists = await this.exists(key)
         if (exists === false) throw new FileNotExixtsError(`File dose not exists. url:${key}`)
-        const readable = this.bucket.file(this.resolvePath(key)).createReadStream()
-        return Readable.toWeb(readable)
+        try {
+          const readable = this.bucket.file(this.resolvePath(key)).createReadStream()
+          return Readable.toWeb(readable)
+        } catch (e) {
+          throw new OperationFailedError(`Failed to read file. url:${key}`, { cause: e })
+        }
       },
       createWriteStream: async () => {
-        const writable = this.bucket.file(this.resolvePath(key)).createWriteStream()
-        return Writable.toWeb(writable)
+        if (write === false) throw new PermissionDeniedError(`Write permission denied. url:${key}`)
+
+        const exists = await this.exists(key)
+        if (exists === false && create === false) throw new FileNotExixtsError(`File dose not exists. url:${key}`)
+
+        try {
+          const writable = this.bucket.file(this.resolvePath(key)).createWriteStream()
+          return Writable.toWeb(writable)
+        } catch (e) {
+          throw new OperationFailedError(`Failed to write file. url:${key}`, { cause: e })
+        }
       },
     }
   }
   async list(filePath?: string) {
     const prefix = this.resolvePath(...(filePath ? [filePath] : []))
-    const [files] = await this.bucket.getFiles({
-      prefix: prefix === '.' ? undefined : prefix,
-    })
-    return files.map((file) => file.name)
+    if (prefix.startsWith('..')) throw new PermissionDeniedError(`Path is out of base directory. url:${filePath}`)
+
+    try {
+      const [files] = await this.bucket.getFiles({
+        prefix: prefix === '.' ? undefined : prefix,
+      })
+      return files.map((file) => file.name)
+    } catch (e) {
+      throw new OperationFailedError(`Failed to list files. url:${filePath}`, { cause: e })
+    }
   }
 }

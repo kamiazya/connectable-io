@@ -51,8 +51,8 @@ export class MemoryStorageAdapter implements Storage {
     return {
       uri: new URL('memory://' + key).toString(),
       createReadStream: async () => {
-        const exists = await this.exists(key)
         if (read === false) throw new PermissionDeniedError(`Read permission denied. url:${key}`)
+        const exists = await this.exists(key)
         if (exists === false) throw new FileNotExixtsError(`File dose not exists. url:${key}`)
 
         try {
