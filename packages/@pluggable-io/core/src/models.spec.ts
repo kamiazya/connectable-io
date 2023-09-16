@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import { RegistoryBase } from './models.js'
-import { PluginAlreadyLoadedError, PluginNotLoadedError } from './types.js'
+import { PluginAlreadyLoadedError, PluginNotLoadedError, ResourceBuildError } from './types.js'
 
 describe('RegistoryBase', () => {
   let registory: RegistoryBase<{
@@ -20,7 +20,7 @@ describe('RegistoryBase', () => {
       expect(registory.plugins.get('test:')).toBe(plugin)
     })
 
-    it('should throw an error if a plugin is already loaded', () => {
+    it('should throw PluginAlreadyLoadedError if a plugin is already loaded', () => {
       const plugin = {
         build: async () => ({
           test: 'test',
@@ -44,12 +44,21 @@ describe('RegistoryBase', () => {
       })
     })
 
-    it('should throw an error if invalid URL was given', async () => {
+    it('should throw TypeError if invalid URL was given', async () => {
       await expect(registory.from('invalid')).rejects.toThrow(TypeError)
     })
 
-    it('should throw an error if no plugin is loaded', async () => {
+    it('should throw PluginNotLoadedError if no plugin is loaded', async () => {
       await expect(registory.from('not-loaded://')).rejects.toThrow(PluginNotLoadedError)
+    })
+
+    it('should throw ResourceBuildError if failed to build an instance', async () => {
+      registory.load('test:', {
+        build: async () => {
+          throw new Error('test')
+        },
+      })
+      await expect(registory.from('test://')).rejects.toThrow(ResourceBuildError)
     })
   })
   describe('addDynamicPluginLoader method', () => {
@@ -112,7 +121,7 @@ describe('RegistoryBase', () => {
       expect(registory.plugins.has('dynamic-load:')).toBe(true)
     })
 
-    it('shold throw an error if no plugin is loaded but dunamic loader is set, but failed to execute dynamic loader', async () => {
+    it('shold throw PluginNotLoadedError if no plugin is loaded but dunamic loader is set, but failed to execute dynamic loader', async () => {
       registory.addDynamicPluginLoader('dynamic-load:', async () => {
         registory.load('dynamic-load:', {
           build: async () => ({

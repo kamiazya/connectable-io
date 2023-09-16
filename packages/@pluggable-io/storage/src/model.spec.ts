@@ -27,11 +27,16 @@ describe('StorageRegistory', () => {
 
       await registyory.open('test://origin/package.json')
       expect(fromSpy).toBeCalledWith('test://origin/')
-      expect(storage.open).toBeCalledWith('/package.json')
+      expect(storage.open).toBeCalledWith('/package.json', undefined)
     })
 
     it('should throw an error if the scheme is not loaded', async () => {
       await expect(registyory.open('unknown://origin/package.json')).rejects.toThrow(PluginNotLoadedError)
+    })
+
+    it('should propagation options to open method of storage', async () => {
+      await registyory.open('test://origin/package.json', { read: true })
+      expect(storage.open).toBeCalledWith('/package.json', { read: true })
     })
   })
 })

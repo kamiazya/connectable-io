@@ -6,8 +6,6 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
-    "skipLibCheck": false,
-    "tsBuildInfoFile": ".tsbuildinfo",
-    "lib": ["ESNext", "DOM"]
+    "skipLibCheck": false
   }
 }

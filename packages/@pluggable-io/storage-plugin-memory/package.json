@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@pluggable-io/core": "^0.0.0",
-    "@pluggable-io/storage": "^0.0.0"
+    "@pluggable-io/storage": "^0.0.0",
+    "minimatch": "^9.0.3"
   }
 }

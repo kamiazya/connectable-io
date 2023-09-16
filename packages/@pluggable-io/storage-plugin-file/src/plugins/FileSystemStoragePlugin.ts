@@ -3,40 +3,35 @@ import { mkdir } from 'node:fs/promises'
 
 import { ResourcePlugin } from '@pluggable-io/core'
 
-import { FileSystemStorageAdapter } from '../adapters/FileSystemStorageAdapter.js'
+import { FileSystemStorageAdapter, FileSystemStorageAdapterOptions } from '../adapters/FileSystemStorageAdapter.js'
 
-export interface FileSystemStoragePluginOptions {
-  /**
-   * The base directory to use for the storage.
-   *
-   * Absolute paths are used as is.
-   * Paths given as relative paths are resolved starting from `process.pwd()`.
-   * @default `process.cwd()`
-   */
-  baseDir?: string
-
-  /**
-   * If true, the base directory will be created if it does not exist.
-   *
-   * @default `false`
-   */
-  createIfNotExists?: boolean
-}
+/**
+ * Options for FileSystemStoragePlugin
+ */
+export interface FileSystemStoragePluginOptions extends Omit<FileSystemStorageAdapterOptions, 'urlSchema'> {}
 
 /**
  * A plugin for building a FileSyetem Storage from a URL
  */
 export class FileSystemStoragePlugin implements ResourcePlugin<FileSystemStorageAdapter> {
   public readonly baseDir: string
-  public readonly createIfNotExists: boolean
-  constructor({ baseDir = process.cwd(), createIfNotExists = false }: FileSystemStoragePluginOptions = {}) {
-    if (isAbsolute(baseDir)) {
-      this.baseDir = baseDir
-    } else {
-      this.baseDir = join(process.cwd(), baseDir)
-    }
+  public readonly options: {
+    read?: boolean
+    write?: boolean
+    create?: boolean
+    mode?: number
+  }
+  public readonly createDirectoryIfNotExists: boolean
 
-    this.createIfNotExists = createIfNotExists
+  constructor({
+    baseDir = process.cwd(),
+    createDirectoryIfNotExists = true,
+    ...options
+  }: FileSystemStoragePluginOptions = {}) {
+    this.baseDir = isAbsolute(baseDir) ? baseDir : join(process.cwd(), baseDir)
+    this.options = options
+
+    this.createDirectoryIfNotExists = createDirectoryIfNotExists
   }
 
   async build(url: URL) {
@@ -47,8 +42,9 @@ export class FileSystemStoragePlugin implements ResourcePlugin<FileSystemStorage
     const storage = new FileSystemStorageAdapter({
       urlSchema: url.protocol,
       baseDir: path,
+      ...this.options,
     })
-    if (this.createIfNotExists) {
+    if (this.createDirectoryIfNotExists) {
       const exists = await storage.exists(path)
       if (!exists) {
         await mkdir(path, { recursive: true })

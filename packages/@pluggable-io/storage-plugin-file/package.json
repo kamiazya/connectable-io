@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@pluggable-io/core": "^0.0.0",
-    "@pluggable-io/storage": "^0.0.0"
+    "@pluggable-io/storage": "^0.0.0",
+    "glob": "^10.3.4"
   }
 }
