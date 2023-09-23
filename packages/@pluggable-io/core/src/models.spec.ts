@@ -1,13 +1,18 @@
-import { beforeEach, describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { RegistoryBase } from './models.js'
 import { PluginAlreadyLoadedError, PluginNotLoadedError, ResourceBuildError } from './types.js'
+import { subscribe } from 'diagnostics_channel'
 
 describe('RegistoryBase', () => {
-  let registory: RegistoryBase<{
-    test: string
-  }>
+  class TestRegistory extends RegistoryBase<{ test: string }> {
+    constructor() {
+      super('Test')
+    }
+  }
+
+  let registory: TestRegistory
   beforeEach(async () => {
-    registory = new RegistoryBase()
+    registory = new TestRegistory()
   })
   describe('load method', () => {
     it('should load a plugin', () => {
@@ -29,7 +34,26 @@ describe('RegistoryBase', () => {
       registory.load('test:', plugin)
       expect(() => registory.load('test:', plugin)).toThrow(PluginAlreadyLoadedError)
     })
+
+    it('should publish message to diagnostic channel "pluggable-io.Test:onPluginLoaded" when a plugin is loaded', async () => {
+      const plugin = {
+        build: async () => ({
+          test: 'test',
+        }),
+      }
+      const onPluginLoaded = vi.fn()
+      subscribe('pluggable-io.Test:onPluginLoaded', onPluginLoaded)
+      registory.load('test:', plugin)
+      expect(onPluginLoaded).toBeCalledWith(
+        {
+          protocol: 'test:',
+          plugin,
+        },
+        'pluggable-io.Test:onPluginLoaded',
+      )
+    })
   })
+
   describe('from method', () => {
     it('should return an instance of plugin', async () => {
       const plugin = {
@@ -135,6 +159,20 @@ describe('RegistoryBase', () => {
 
       // Check plugin is not loaded
       expect(registory.plugins.has('dynamic-load:')).toBe(false)
+    })
+
+    it('should publish message to diagnostic channel "pluggable-io.Test:onDynamicPluginLoaderAdded" when a dynamic loader is added', async () => {
+      const loader = async () => {}
+      const onDynamicPluginLoaderAdded = vi.fn()
+      subscribe('pluggable-io.Test:onDynamicPluginLoaderAdded', onDynamicPluginLoaderAdded)
+      registory.addDynamicPluginLoader('dynamic-load:', loader)
+      expect(onDynamicPluginLoaderAdded).toBeCalledWith(
+        {
+          pattern: 'dynamic-load:',
+          loader,
+        },
+        'pluggable-io.Test:onDynamicPluginLoaderAdded',
+      )
     })
   })
 })

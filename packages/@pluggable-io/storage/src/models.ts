@@ -168,6 +168,9 @@ export interface StorageStatic extends Registory<Storage> {
 }
 
 export class StorageRegistory extends RegistoryBase<Storage> implements StorageStatic {
+  constructor() {
+    super('Storage')
+  }
   /**
    * Open a file.
    *

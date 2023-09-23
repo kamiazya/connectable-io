@@ -1,4 +1,5 @@
 /// <reference types="urlpattern-polyfill" />
+import { Channel, channel } from 'node:diagnostics_channel'
 import {
   DynamicPluginLoader,
   PluginAlreadyLoadedError,
@@ -14,12 +15,29 @@ import {
  * @todo Add caching mechanism for instances
  */
 export class RegistoryBase<T> implements Registory<T> {
+  dc: Readonly<{
+    onPluginLoaded: Channel
+    onDynamicPluginLoaderAdded: Channel
+  }>
   dynamicLoaders: [pattern: string, loader: DynamicPluginLoader][] = []
 
   plugins = new Map<string, ResourcePlugin<T>>()
 
+  /**
+   * Create a new registry.
+   *
+   * @param name Resource name of the registry.
+   */
+  constructor(name: string) {
+    this.dc = {
+      onPluginLoaded: channel(`pluggable-io.${name}:onPluginLoaded`),
+      onDynamicPluginLoaderAdded: channel(`pluggable-io.${name}:onDynamicPluginLoaderAdded`),
+    }
+  }
+
   addDynamicPluginLoader(pattern: string, loader: DynamicPluginLoader) {
     this.dynamicLoaders.push([pattern, loader])
+    this.dc.onDynamicPluginLoaderAdded.publish({ pattern, loader })
   }
 
   async dynamicPluginLoad(url: URL) {
@@ -42,6 +60,7 @@ export class RegistoryBase<T> implements Registory<T> {
     if (this.plugins.has(protocol))
       throw new PluginAlreadyLoadedError(`Plugin for protocol "${protocol}" already loaded`)
     this.plugins.set(protocol, plugin)
+    this.dc.onPluginLoaded.publish({ protocol, plugin })
   }
 
   async _from(url: URL): Promise<T> {
