@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { Storage, StorageRegistory } from './models.js'
 import { PluginNotLoadedError } from '@pluggable-io/core'
+import { subscribe } from 'node:diagnostics_channel'
 
 describe('StorageRegistory', () => {
   let registyory: StorageRegistory
@@ -18,6 +19,47 @@ describe('StorageRegistory', () => {
       async build() {
         return storage
       },
+    })
+  })
+
+  describe('load method', () => {
+    it('should publish message to diagnostic channel "pluggable-io.Storage:onPluginLoaded" when a plugin is loaded', async () => {
+      const onPluginLoaded = vi.fn()
+      subscribe('pluggable-io.Storage:onPluginLoaded', onPluginLoaded)
+      registyory.load('new:', {
+        async build() {
+          return storage
+        },
+      })
+      expect(onPluginLoaded).toBeCalledWith(
+        {
+          protocol: 'new:',
+          plugin: expect.any(Object),
+        },
+        'pluggable-io.Storage:onPluginLoaded',
+      )
+    })
+  })
+
+  describe('addDynamicPluginLoader method', () => {
+    it('should publish message to diagnostic channel "pluggable-io.Storage:onPluginLoaded" when a plugin is loaded', async () => {
+      const onDynamicPluginLoaderAdded = vi.fn()
+      subscribe('pluggable-io.Storage:onDynamicPluginLoaderAdded', onDynamicPluginLoaderAdded)
+      const loader = async () => {
+        registyory.load('test:', {
+          async build() {
+            return storage
+          },
+        })
+      }
+      registyory.addDynamicPluginLoader('test+{:encoding}:', loader)
+      expect(onDynamicPluginLoaderAdded).toBeCalledWith(
+        {
+          pattern: 'test+{:encoding}:',
+          loader: loader,
+        },
+        'pluggable-io.Storage:onDynamicPluginLoaderAdded',
+      )
     })
   })
 

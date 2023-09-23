@@ -29,4 +29,8 @@ export interface Logger {
  * LoggerStatic is a pluggable interface for logger.
  */
 export interface LoggerStatic extends Registory<Logger> {}
-export const Logger: LoggerStatic = new (class LoggerRegistory extends RegistoryBase<Logger> {})()
+export const Logger: LoggerStatic = new (class LoggerRegistory extends RegistoryBase<Logger> {
+  constructor() {
+    super('Logger')
+  }
+})()
