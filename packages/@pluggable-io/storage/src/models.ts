@@ -2,10 +2,10 @@ import { ReadableStream, WritableStream } from '@pluggable-io/common'
 import { Registory, RegistoryBase } from '@pluggable-io/core'
 
 /**
- * FileHundleOpenOptions is a options for {@link Storage#open} method
+ * FileHandleOpenOptions is a options for {@link Storage#open} method
  * and {@link Storage.open} static method.
  */
-export interface FileHundleOpenOptions {
+export interface FileHandleOpenOptions {
   /**
    * Sets the option for read access.
    *
@@ -73,7 +73,7 @@ export interface Storage {
    * const file = await storage.open('package.json');
    * ```
    */
-  open(key: string, options?: FileHundleOpenOptions): Promise<FileHandle>
+  open(key: string, options?: FileHandleOpenOptions): Promise<FileHandle>
 
   /**
    * List files under the prefix.
@@ -164,7 +164,7 @@ export interface StorageStatic extends Registory<Storage> {
    * ```
    * @beta This method is experimental.
    */
-  open(url: string, options?: FileHundleOpenOptions): Promise<FileHandle>
+  open(url: string, options?: FileHandleOpenOptions): Promise<FileHandle>
 }
 
 export class StorageRegistory extends RegistoryBase<Storage> implements StorageStatic {
@@ -180,7 +180,7 @@ export class StorageRegistory extends RegistoryBase<Storage> implements StorageS
    * @throws {FileNotExistsError} if the file does not exists.
    * @beta This method is experimental.
    */
-  async open(uri: string, options?: FileHundleOpenOptions): Promise<FileHandle> {
+  async open(uri: string, options?: FileHandleOpenOptions): Promise<FileHandle> {
     const path = new URL(uri)
     const storageURL = new URL('/', path)
     const storage = await this.from(storageURL.toString())

@@ -9,7 +9,7 @@ import {
   FileHandle,
   Storage,
   PermissionDeniedError,
-  FileHundleOpenOptions,
+  FileHandleOpenOptions,
   OperationFailedError,
 } from '@pluggable-io/storage'
 import { DEFAULT_SCHEMA } from '../constant.js'
@@ -17,7 +17,7 @@ import { DEFAULT_SCHEMA } from '../constant.js'
 /**
  * Options for FileSystemStorageAdapter
  */
-export interface FileSystemStorageAdapterOptions extends FileHundleOpenOptions {
+export interface FileSystemStorageAdapterOptions extends FileHandleOpenOptions {
   /**
    * The schema to use for the url.
    * This is used to create the url for the storage.
@@ -131,7 +131,7 @@ export class FileSystemStorageAdapter implements Storage {
 
   async open(
     key: string,
-    { read = this.read, write = this.write, create = this.create }: FileHundleOpenOptions = {},
+    { read = this.read, write = this.write, create = this.create }: FileHandleOpenOptions = {},
   ): Promise<FileHandle> {
     const resolved = this._resolvePath(key)
     if (relative(this.baseDir, resolved).startsWith('..'))

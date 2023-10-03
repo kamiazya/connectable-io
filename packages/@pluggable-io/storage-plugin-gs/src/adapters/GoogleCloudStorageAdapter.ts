@@ -6,7 +6,7 @@ import {
   FileNotExistsError,
   FileHandle,
   Storage,
-  FileHundleOpenOptions,
+  FileHandleOpenOptions,
   PermissionDeniedError,
   OperationFailedError,
 } from '@pluggable-io/storage'
@@ -56,7 +56,7 @@ export class GoogleCloudStorageAdapter implements Storage {
   }
   async open(
     key: string,
-    { read = true, write = false, create = false }: FileHundleOpenOptions = {},
+    { read = true, write = false, create = false }: FileHandleOpenOptions = {},
   ): Promise<FileHandle> {
     key = this.resolvePath(key)
     if (key.startsWith('..')) throw new PermissionDeniedError(`Path is out of base directory. url:${key}`)
