@@ -163,7 +163,7 @@ describe('MemoryStorageAdapter', () => {
       await expect(storage.list('../bar')).rejects.toThrow(PermissionDeniedError)
     })
 
-    it('should thow OperationFailedError if the operation is failed', async () => {
+    it('should throw OperationFailedError if the operation is failed', async () => {
       const storage = new MemoryStorageAdapter([['foo', 'bar']])
 
       const mock = vi.spyOn(storage, '_list')
