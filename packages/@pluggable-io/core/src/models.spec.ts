@@ -145,7 +145,7 @@ describe('RegistryBase', () => {
       expect(registry.plugins.has('dynamic-load:')).toBe(true)
     })
 
-    it('should throw PluginNotLoadedError if no plugin is loaded but dunamic loader is set, but failed to execute dynamic loader', async () => {
+    it('should throw PluginNotLoadedError if no plugin is loaded but dynamic loader is set, but failed to execute dynamic loader', async () => {
       registry.addDynamicPluginLoader('dynamic-load:', async () => {
         registry.load('dynamic-load:', {
           build: async () => ({
