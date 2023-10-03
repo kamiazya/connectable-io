@@ -130,9 +130,9 @@ Each package within Pluggable IO follows a consistent naming pattern, ensuring c
   By maintaining consistent interfaces, developers can integrate new plugins with minimal friction.
   This design ensures that as new plugins are added, the overall system remains cohesive and intuitive.
 
-- **Registory**
+- **Registry**
 
-  The Registory plays a crucial role in managing plugins.
+  The Registry plays a crucial role in managing plugins.
   It allows for dynamic registration and retrieval of plugins based on protocols, ensuring the system can adapt to new requirements on-the-fly.
 
 - **Plug-n-Play (PnP) Mechanism**

@@ -1,21 +1,21 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { Storage, StorageRegistory } from './models.js'
+import { Storage, StorageRegistry } from './models.js'
 import { PluginNotLoadedError } from '@pluggable-io/core'
 import { subscribe } from 'node:diagnostics_channel'
 
-describe('StorageRegistory', () => {
-  let registyory: StorageRegistory
+describe('StorageRegistry', () => {
+  let registry: StorageRegistry
   let storage: Storage
 
   beforeEach(() => {
-    registyory = new StorageRegistory()
+    registry = new StorageRegistry()
     storage = {
       exists: vi.fn(),
       delete: vi.fn(),
       open: vi.fn(),
       list: vi.fn(),
     }
-    registyory.load('test:', {
+    registry.load('test:', {
       async build() {
         return storage
       },
@@ -26,7 +26,7 @@ describe('StorageRegistory', () => {
     it('should publish message to diagnostic channel "pluggable-io.Storage:onPluginLoaded" when a plugin is loaded', async () => {
       const onPluginLoaded = vi.fn()
       subscribe('pluggable-io.Storage:onPluginLoaded', onPluginLoaded)
-      registyory.load('new:', {
+      registry.load('new:', {
         async build() {
           return storage
         },
@@ -46,13 +46,13 @@ describe('StorageRegistory', () => {
       const onDynamicPluginLoaderAdded = vi.fn()
       subscribe('pluggable-io.Storage:onDynamicPluginLoaderAdded', onDynamicPluginLoaderAdded)
       const loader = async () => {
-        registyory.load('test:', {
+        registry.load('test:', {
           async build() {
             return storage
           },
         })
       }
-      registyory.addDynamicPluginLoader('test+{:encoding}:', loader)
+      registry.addDynamicPluginLoader('test+{:encoding}:', loader)
       expect(onDynamicPluginLoaderAdded).toBeCalledWith(
         {
           pattern: 'test+{:encoding}:',
@@ -65,19 +65,19 @@ describe('StorageRegistory', () => {
 
   describe('open method', () => {
     it('should open a file from storage', async () => {
-      const fromSpy = vi.spyOn(registyory, 'from')
+      const fromSpy = vi.spyOn(registry, 'from')
 
-      await registyory.open('test://origin/package.json')
+      await registry.open('test://origin/package.json')
       expect(fromSpy).toBeCalledWith('test://origin/')
       expect(storage.open).toBeCalledWith('/package.json', undefined)
     })
 
     it('should throw an error if the scheme is not loaded', async () => {
-      await expect(registyory.open('unknown://origin/package.json')).rejects.toThrow(PluginNotLoadedError)
+      await expect(registry.open('unknown://origin/package.json')).rejects.toThrow(PluginNotLoadedError)
     })
 
     it('should propagation options to open method of storage', async () => {
-      await registyory.open('test://origin/package.json', { read: true })
+      await registry.open('test://origin/package.json', { read: true })
       expect(storage.open).toBeCalledWith('/package.json', { read: true })
     })
   })
