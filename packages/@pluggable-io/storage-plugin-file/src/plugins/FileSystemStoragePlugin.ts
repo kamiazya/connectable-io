@@ -11,7 +11,7 @@ import { FileSystemStorageAdapter, FileSystemStorageAdapterOptions } from '../ad
 export interface FileSystemStoragePluginOptions extends Omit<FileSystemStorageAdapterOptions, 'urlSchema'> {}
 
 /**
- * A plugin for building a FileSyetem Storage from a URL
+ * A plugin for building a FileSystem Storage from a URL
  */
 export class FileSystemStoragePlugin implements ResourcePlugin<FileSystemStorageAdapter> {
   public readonly baseDir: string
