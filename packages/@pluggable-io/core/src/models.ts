@@ -4,7 +4,7 @@ import {
   DynamicPluginLoader,
   PluginAlreadyLoadedError,
   PluginNotLoadedError,
-  Registory,
+  Registry,
   ResourceBuildError,
   ResourcePlugin,
 } from './types.js'
@@ -14,7 +14,7 @@ import {
  *
  * @todo Add caching mechanism for instances
  */
-export class RegistoryBase<T> implements Registory<T> {
+export class RegistryBase<T> implements Registry<T> {
   dc: Readonly<{
     onPluginLoaded: Channel
     onDynamicPluginLoaderAdded: Channel

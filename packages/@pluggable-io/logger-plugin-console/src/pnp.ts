@@ -1,5 +1,5 @@
 import { Logger } from '@pluggable-io/logger'
-import { ConsoleLoggerAddapter } from './index.js'
+import { ConsoleLoggerAdapter } from './index.js'
 
 declare module '@pluggable-io/logger' {
   type URLString = `console:`
@@ -23,6 +23,6 @@ declare module '@pluggable-io/logger' {
 
 Logger.load('console:', {
   async build(url) {
-    return new ConsoleLoggerAddapter(url.toString())
+    return new ConsoleLoggerAdapter(url.toString())
   },
 })

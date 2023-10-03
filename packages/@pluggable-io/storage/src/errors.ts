@@ -1,20 +1,20 @@
 /**
- * FileNotExixtsError is an error thrown when a file does not exists.
+ * FileNotExistsError is an error thrown when a file does not exists.
  * @example
  * ```ts
  * const storage = await Storage.from('file://.');
  * try {
  *   const file = await storage.open('package.json');
  * } catch (e) {
- *   if (e instanceof FileNotExixtsError) {
+ *   if (e instanceof FileNotExistsError) {
  *    console.log('File dose not exists.');
  *   }
  * }
  * ```
  */
-export class FileNotExixtsError extends Error {
+export class FileNotExistsError extends Error {
   static {
-    this.prototype.name = 'FileNotExixtsError'
+    this.prototype.name = 'FileNotExistsError'
   }
 }
 

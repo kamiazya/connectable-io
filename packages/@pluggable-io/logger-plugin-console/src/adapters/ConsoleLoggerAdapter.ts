@@ -1,6 +1,6 @@
 import { Logger } from '@pluggable-io/logger'
 
-export class ConsoleLoggerAddapter implements Logger {
+export class ConsoleLoggerAdapter implements Logger {
   constructor(public readonly name: string, public globalLogFields: Record<string, any> = {}) {}
 
   log(message: string, context: Record<string, any> = {}) {
@@ -43,6 +43,6 @@ export class ConsoleLoggerAddapter implements Logger {
     this.globalLogFields = { ...this.globalLogFields, ...context }
   }
   createChild(name: string, context: Record<string, any> = {}) {
-    return new ConsoleLoggerAddapter(name, { ...this.globalLogFields, ...context })
+    return new ConsoleLoggerAdapter(name, { ...this.globalLogFields, ...context })
   }
 }

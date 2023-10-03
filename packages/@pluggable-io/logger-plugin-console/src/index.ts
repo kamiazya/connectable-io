@@ -1,1 +1,1 @@
-export * from './adapters/ConsoleLoggerAddapter.js'
+export * from './adapters/ConsoleLoggerAdapter.js'

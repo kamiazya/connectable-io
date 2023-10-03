@@ -1,6 +1,6 @@
 /// <reference lib="esnext" />
 import { Readable, Writable } from 'node:stream'
-import { Storage, FileNotExixtsError, PermissionDeniedError, OperationFailedError } from '@pluggable-io/storage'
+import { Storage, FileNotExistsError, PermissionDeniedError, OperationFailedError } from '@pluggable-io/storage'
 import { normalize } from 'node:path'
 
 import { Minimatch } from 'minimatch'
@@ -19,7 +19,7 @@ export class MemoryStorageAdapter implements Storage {
   async delete(key: string): Promise<void> {
     key = normalize(key)
     const exists = await this.exists(key)
-    if (exists === false) throw new FileNotExixtsError(`File dose not exists. url:${key}`)
+    if (exists === false) throw new FileNotExistsError(`File dose not exists. url:${key}`)
     this.memfs.delete(key)
   }
 
@@ -53,7 +53,7 @@ export class MemoryStorageAdapter implements Storage {
       createReadStream: async () => {
         if (read === false) throw new PermissionDeniedError(`Read permission denied. url:${key}`)
         const exists = await this.exists(key)
-        if (exists === false) throw new FileNotExixtsError(`File dose not exists. url:${key}`)
+        if (exists === false) throw new FileNotExistsError(`File dose not exists. url:${key}`)
 
         try {
           return await this.createReadStream(key)
@@ -65,7 +65,7 @@ export class MemoryStorageAdapter implements Storage {
         if (write === false) throw new PermissionDeniedError(`Write permission denied. url:${key}`)
 
         const exists = await this.exists(key)
-        if (exists === false && create === false) throw new FileNotExixtsError(`File dose not exists. url:${key}`)
+        if (exists === false && create === false) throw new FileNotExistsError(`File dose not exists. url:${key}`)
 
         try {
           return await this.createWriteStream(key)

@@ -32,10 +32,10 @@ npm install @pluggable-io/core
 Import the main types and interfaces provided by `@pluggable-io/core`.
 
 ```typescript
-import { Registory, ResourcePlugin, PluginNotLoadedError, PluginAlreadyLoadedError } from '@pluggable-io/core'
+import { Registry, ResourcePlugin, PluginNotLoadedError, PluginAlreadyLoadedError } from '@pluggable-io/core'
 ```
 
-### 2. Using the Registory
+### 2. Using the Registry
 
 Create a new registry instance and register plugins.
 
@@ -44,13 +44,13 @@ interface SampleResource {
   // ... some interface
 }
 
-class SampleResourceRegistory extends RegistoryBase<SampleResource> {
+class SampleResourceRegistry extends RegistryBase<SampleResource> {
   // ... some custom logic
 }
 
-const registory = new SampleResourceRegistory()
+const registry = new SampleResourceRegistry()
 
-registory.registerPlugin('sample:', {
+registry.registerPlugin('sample:', {
   async build(url) {
     // return a new resource instance
     return new SampleResourceAdapter(url)
@@ -63,7 +63,7 @@ registory.registerPlugin('sample:', {
 Retrieve resource instances using loaded plugins.
 
 ```typescript
-const resource = await registory.from('sample://url/of/resource')
+const resource = await registry.from('sample://url/of/resource')
 ```
 
 ## Contributing

@@ -47,14 +47,14 @@ export interface DynamicPluginLoader {
 /**
  * A registry for resources.
  */
-export interface Registory<T> {
+export interface Registry<T> {
   /**
    * Add a dynamic plugin loader
    *
    * @example Add a dynamic plugin loader for `sample+{:encoding}:` scheme
    * ```ts
-   * const registory = new Registory();
-   * registory.addDynamicPluginLoader('sample+{:encoding}:', async ({ groups: { encoding } }) => {
+   * const registry = new Registry();
+   * registry.addDynamicPluginLoader('sample+{:encoding}:', async ({ groups: { encoding } }) => {
    *   await import(`./plugins/sample/${encoding}.pnp.js`);
    * })
    * ```
@@ -70,9 +70,9 @@ export interface Registory<T> {
    * @throws {PluginAlreadyLoadedError} If a plugin is already loaded for the scheme
    * @example
    * ```ts
-   * const registory = new Registory();
+   * const registry = new Registry();
    *
-   * registory.load('sample:', {
+   * registry.load('sample:', {
    *    async build(url) {
    *     return new SampleStorage(url);
    *   }

@@ -1,11 +1,11 @@
 import { ReadableStream, WritableStream } from '@pluggable-io/common'
-import { Registory, RegistoryBase } from '@pluggable-io/core'
+import { Registry, RegistryBase } from '@pluggable-io/core'
 
 /**
- * FileHundleOpenOptions is a options for {@link Storage#open} method
+ * FileHandleOpenOptions is a options for {@link Storage#open} method
  * and {@link Storage.open} static method.
  */
-export interface FileHundleOpenOptions {
+export interface FileHandleOpenOptions {
   /**
    * Sets the option for read access.
    *
@@ -50,7 +50,7 @@ export interface Storage {
    * Delete a file.
    *
    * @throws {PermissionDeniedError} given key is outside of the storage.
-   * @throws {FileNotExixtsError} if the file does not exists.
+   * @throws {FileNotExistsError} if the file does not exists.
    * @throws {OperationFailedError} if the operation is failed.
    *
    * @param key key of the file.
@@ -65,7 +65,7 @@ export interface Storage {
    * Get a file.
    * @param key
    * @throws {PermissionDeniedError} given key is outside of the storage.
-   * @throws {FileNotExixtsError} if the file does not exists.
+   * @throws {FileNotExistsError} if the file does not exists.
    * @throws {OperationFailedError} if the operation is failed.
    * @example
    * ```ts
@@ -73,7 +73,7 @@ export interface Storage {
    * const file = await storage.open('package.json');
    * ```
    */
-  open(key: string, options?: FileHundleOpenOptions): Promise<FileHandle>
+  open(key: string, options?: FileHandleOpenOptions): Promise<FileHandle>
 
   /**
    * List files under the prefix.
@@ -124,7 +124,7 @@ export interface FileHandle {
    * @throws {PermissionDeniedError} if file is not readable.
    * A restricted security model at the software level for Storage
    * and a security model at the infrastructure layer will be identified.
-   * @throws {FileNotExixtsError} if the file does not exists.
+   * @throws {FileNotExistsError} if the file does not exists.
    * @throws {OperationFailedError} if the operation is failed.
    */
   createReadStream(): Promise<ReadableStream>
@@ -134,7 +134,7 @@ export interface FileHandle {
    * @throws {PermissionDeniedError} if file is not writable.
    * A restricted security model at the software level for Storage
    * and a security model at the infrastructure layer will be identified.
-   * @throws {FileNotExixtsError} if the file does not exists.
+   * @throws {FileNotExistsError} if the file does not exists.
    * @throws {OperationFailedError} if the operation is failed.
    */
   createWriteStream(): Promise<WritableStream>
@@ -153,7 +153,7 @@ export interface FileHandle {
  * console.log(files);
  * ```
  */
-export interface StorageStatic extends Registory<Storage> {
+export interface StorageStatic extends Registry<Storage> {
   /**
    * Open a file.
    * @param url URI of the file.
@@ -164,10 +164,10 @@ export interface StorageStatic extends Registory<Storage> {
    * ```
    * @beta This method is experimental.
    */
-  open(url: string, options?: FileHundleOpenOptions): Promise<FileHandle>
+  open(url: string, options?: FileHandleOpenOptions): Promise<FileHandle>
 }
 
-export class StorageRegistory extends RegistoryBase<Storage> implements StorageStatic {
+export class StorageRegistry extends RegistryBase<Storage> implements StorageStatic {
   constructor() {
     super('Storage')
   }
@@ -177,10 +177,10 @@ export class StorageRegistory extends RegistoryBase<Storage> implements StorageS
    * @param uri URI of the file.
    * @throws {import('@pluggable-io/core').PluginNotLoadedError} if the scheme is not loaded.
    * @throws {PermissionDeniedError} given key is outside of the storage.
-   * @throws {FileNotExixtsError} if the file does not exists.
+   * @throws {FileNotExistsError} if the file does not exists.
    * @beta This method is experimental.
    */
-  async open(uri: string, options?: FileHundleOpenOptions): Promise<FileHandle> {
+  async open(uri: string, options?: FileHandleOpenOptions): Promise<FileHandle> {
     const path = new URL(uri)
     const storageURL = new URL('/', path)
     const storage = await this.from(storageURL.toString())
@@ -188,4 +188,4 @@ export class StorageRegistory extends RegistoryBase<Storage> implements StorageS
   }
 }
 
-export const Storage: StorageStatic = new StorageRegistory()
+export const Storage: StorageStatic = new StorageRegistry()

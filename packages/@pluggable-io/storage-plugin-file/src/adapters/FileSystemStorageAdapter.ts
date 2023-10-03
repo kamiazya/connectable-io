@@ -5,11 +5,11 @@ import { isAbsolute, relative, resolve } from 'node:path'
 import { glob } from 'glob'
 
 import {
-  FileNotExixtsError,
+  FileNotExistsError,
   FileHandle,
   Storage,
   PermissionDeniedError,
-  FileHundleOpenOptions,
+  FileHandleOpenOptions,
   OperationFailedError,
 } from '@pluggable-io/storage'
 import { DEFAULT_SCHEMA } from '../constant.js'
@@ -17,7 +17,7 @@ import { DEFAULT_SCHEMA } from '../constant.js'
 /**
  * Options for FileSystemStorageAdapter
  */
-export interface FileSystemStorageAdapterOptions extends FileHundleOpenOptions {
+export interface FileSystemStorageAdapterOptions extends FileHandleOpenOptions {
   /**
    * The schema to use for the url.
    * This is used to create the url for the storage.
@@ -121,7 +121,7 @@ export class FileSystemStorageAdapter implements Storage {
       throw new PermissionDeniedError(`Path is out of base directory. url:${filePath}`)
 
     const exists = await this._exists(resolvedPath)
-    if (exists === false) throw new FileNotExixtsError(`File dose not exists. url:${filePath}`)
+    if (exists === false) throw new FileNotExistsError(`File dose not exists. url:${filePath}`)
     try {
       await rm(this._resolvePath(filePath))
     } catch (e) {
@@ -131,7 +131,7 @@ export class FileSystemStorageAdapter implements Storage {
 
   async open(
     key: string,
-    { read = this.read, write = this.write, create = this.create }: FileHundleOpenOptions = {},
+    { read = this.read, write = this.write, create = this.create }: FileHandleOpenOptions = {},
   ): Promise<FileHandle> {
     const resolved = this._resolvePath(key)
     if (relative(this.baseDir, resolved).startsWith('..'))
@@ -153,7 +153,7 @@ export class FileSystemStorageAdapter implements Storage {
             throw new PermissionDeniedError(`Read permission denied. url:${key}`, { cause: e })
           }
         } else {
-          throw new FileNotExixtsError(`File dose not exists. url:${key}`)
+          throw new FileNotExistsError(`File dose not exists. url:${key}`)
         }
 
         try {
@@ -193,7 +193,7 @@ export class FileSystemStorageAdapter implements Storage {
         } else {
           // Check storage level create permission
           if (create === false) {
-            throw new FileNotExixtsError(`File dose not exists. url:${key}`)
+            throw new FileNotExistsError(`File dose not exists. url:${key}`)
           }
         }
 
