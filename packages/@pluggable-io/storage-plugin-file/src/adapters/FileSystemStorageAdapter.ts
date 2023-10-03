@@ -5,7 +5,7 @@ import { isAbsolute, relative, resolve } from 'node:path'
 import { glob } from 'glob'
 
 import {
-  FileNotExixtsError,
+  FileNotExistsError,
   FileHandle,
   Storage,
   PermissionDeniedError,
@@ -121,7 +121,7 @@ export class FileSystemStorageAdapter implements Storage {
       throw new PermissionDeniedError(`Path is out of base directory. url:${filePath}`)
 
     const exists = await this._exists(resolvedPath)
-    if (exists === false) throw new FileNotExixtsError(`File dose not exists. url:${filePath}`)
+    if (exists === false) throw new FileNotExistsError(`File dose not exists. url:${filePath}`)
     try {
       await rm(this._resolvePath(filePath))
     } catch (e) {
@@ -153,7 +153,7 @@ export class FileSystemStorageAdapter implements Storage {
             throw new PermissionDeniedError(`Read permission denied. url:${key}`, { cause: e })
           }
         } else {
-          throw new FileNotExixtsError(`File dose not exists. url:${key}`)
+          throw new FileNotExistsError(`File dose not exists. url:${key}`)
         }
 
         try {
@@ -193,7 +193,7 @@ export class FileSystemStorageAdapter implements Storage {
         } else {
           // Check storage level create permission
           if (create === false) {
-            throw new FileNotExixtsError(`File dose not exists. url:${key}`)
+            throw new FileNotExistsError(`File dose not exists. url:${key}`)
           }
         }
 

@@ -7,7 +7,7 @@ vi.mock('glob')
 
 import { join } from 'node:path'
 import { PassThrough, Readable } from 'node:stream'
-import { FileNotExixtsError, OperationFailedError, PermissionDeniedError } from '@pluggable-io/storage'
+import { FileNotExistsError, OperationFailedError, PermissionDeniedError } from '@pluggable-io/storage'
 import { ReadableStream, WritableStream } from '@pluggable-io/common'
 import { glob } from 'glob'
 
@@ -106,7 +106,7 @@ describe('FileSystemStorageAdapter', () => {
     it('should throw if the file does not exist', async () => {
       const storage = new FileSystemStorageAdapter()
       vi.mocked(lstat).mockRejectedValue(new Error('File not found'))
-      await expect(storage.delete('bar')).rejects.toThrow(FileNotExixtsError)
+      await expect(storage.delete('bar')).rejects.toThrow(FileNotExistsError)
     })
 
     it('should throw if the file is out of the base directory', async () => {
@@ -225,10 +225,10 @@ describe('FileSystemStorageAdapter', () => {
           await expect(hundle.createReadStream()).rejects.toThrow(PermissionDeniedError)
         })
 
-        it('should throw FileNotExixtsError if the file does not exist', async () => {
+        it('should throw FileNotExistsError if the file does not exist', async () => {
           const storage = new FileSystemStorageAdapter()
           const hundle = await storage.open('bar')
-          await expect(hundle.createReadStream()).rejects.toThrow(FileNotExixtsError)
+          await expect(hundle.createReadStream()).rejects.toThrow(FileNotExistsError)
         })
 
         it('should throw PermissionDeniedError if open without read permission', async () => {
@@ -292,11 +292,11 @@ describe('FileSystemStorageAdapter', () => {
           expect(open).toHaveBeenCalledWith(join(process.cwd(), 'bar'), 'w', 0o777)
         })
 
-        it('should throw FileNotExixtsError if the file exists and create is false', async () => {
+        it('should throw FileNotExistsError if the file exists and create is false', async () => {
           const storage = new FileSystemStorageAdapter()
           vi.spyOn(storage, '_exists' as any).mockResolvedValueOnce(false)
           const hundle = await storage.open('bar', { write: true, create: false })
-          await expect(hundle.createWriteStream()).rejects.toThrow(FileNotExixtsError)
+          await expect(hundle.createWriteStream()).rejects.toThrow(FileNotExistsError)
         })
 
         it('should throw OperationFailedError if open failed', async () => {

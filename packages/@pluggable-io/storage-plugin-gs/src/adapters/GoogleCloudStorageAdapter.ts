@@ -3,7 +3,7 @@ import { Readable, Writable } from 'node:stream'
 import { join } from 'node:path'
 import { Storage as Client } from '@google-cloud/storage'
 import {
-  FileNotExixtsError,
+  FileNotExistsError,
   FileHandle,
   Storage,
   FileHundleOpenOptions,
@@ -51,7 +51,7 @@ export class GoogleCloudStorageAdapter implements Storage {
 
   async delete(filePath: string): Promise<void> {
     const exists = await this.exists(filePath)
-    if (exists === false) throw new FileNotExixtsError(`File dose not exists. url:${filePath}`)
+    if (exists === false) throw new FileNotExistsError(`File dose not exists. url:${filePath}`)
     await this.bucket.file(this.resolvePath(filePath)).delete()
   }
   async open(
@@ -65,7 +65,7 @@ export class GoogleCloudStorageAdapter implements Storage {
       createReadStream: async () => {
         if (read === false) throw new PermissionDeniedError(`Read permission denied. url:${key}`)
         const exists = await this.exists(key)
-        if (exists === false) throw new FileNotExixtsError(`File dose not exists. url:${key}`)
+        if (exists === false) throw new FileNotExistsError(`File dose not exists. url:${key}`)
         try {
           const readable = this.bucket.file(this.resolvePath(key)).createReadStream()
           return Readable.toWeb(readable)
@@ -77,7 +77,7 @@ export class GoogleCloudStorageAdapter implements Storage {
         if (write === false) throw new PermissionDeniedError(`Write permission denied. url:${key}`)
 
         const exists = await this.exists(key)
-        if (exists === false && create === false) throw new FileNotExixtsError(`File dose not exists. url:${key}`)
+        if (exists === false && create === false) throw new FileNotExistsError(`File dose not exists. url:${key}`)
 
         try {
           const writable = this.bucket.file(this.resolvePath(key)).createWriteStream()

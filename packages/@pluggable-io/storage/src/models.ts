@@ -50,7 +50,7 @@ export interface Storage {
    * Delete a file.
    *
    * @throws {PermissionDeniedError} given key is outside of the storage.
-   * @throws {FileNotExixtsError} if the file does not exists.
+   * @throws {FileNotExistsError} if the file does not exists.
    * @throws {OperationFailedError} if the operation is failed.
    *
    * @param key key of the file.
@@ -65,7 +65,7 @@ export interface Storage {
    * Get a file.
    * @param key
    * @throws {PermissionDeniedError} given key is outside of the storage.
-   * @throws {FileNotExixtsError} if the file does not exists.
+   * @throws {FileNotExistsError} if the file does not exists.
    * @throws {OperationFailedError} if the operation is failed.
    * @example
    * ```ts
@@ -124,7 +124,7 @@ export interface FileHandle {
    * @throws {PermissionDeniedError} if file is not readable.
    * A restricted security model at the software level for Storage
    * and a security model at the infrastructure layer will be identified.
-   * @throws {FileNotExixtsError} if the file does not exists.
+   * @throws {FileNotExistsError} if the file does not exists.
    * @throws {OperationFailedError} if the operation is failed.
    */
   createReadStream(): Promise<ReadableStream>
@@ -134,7 +134,7 @@ export interface FileHandle {
    * @throws {PermissionDeniedError} if file is not writable.
    * A restricted security model at the software level for Storage
    * and a security model at the infrastructure layer will be identified.
-   * @throws {FileNotExixtsError} if the file does not exists.
+   * @throws {FileNotExistsError} if the file does not exists.
    * @throws {OperationFailedError} if the operation is failed.
    */
   createWriteStream(): Promise<WritableStream>
@@ -177,7 +177,7 @@ export class StorageRegistory extends RegistoryBase<Storage> implements StorageS
    * @param uri URI of the file.
    * @throws {import('@pluggable-io/core').PluginNotLoadedError} if the scheme is not loaded.
    * @throws {PermissionDeniedError} given key is outside of the storage.
-   * @throws {FileNotExixtsError} if the file does not exists.
+   * @throws {FileNotExistsError} if the file does not exists.
    * @beta This method is experimental.
    */
   async open(uri: string, options?: FileHundleOpenOptions): Promise<FileHandle> {

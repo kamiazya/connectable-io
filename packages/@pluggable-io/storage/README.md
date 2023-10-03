@@ -32,7 +32,7 @@ npm install @pluggable-io/storage
 First, import the necessary types and interfaces provided by `@pluggable-io/storage`.
 
 ```ts
-import { Storage, FileNotExixtsError } from '@pluggable-io/storage'
+import { Storage, FileNotExistsError } from '@pluggable-io/storage'
 ```
 
 ### 2. Using the File System Storage Plugin

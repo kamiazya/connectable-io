@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { MemoryStorageAdapter } from './MemoryStorageAdapter.js'
-import { FileNotExixtsError, OperationFailedError, PermissionDeniedError } from '@pluggable-io/storage'
+import { FileNotExistsError, OperationFailedError, PermissionDeniedError } from '@pluggable-io/storage'
 
 import { ReadableStream, WritableStream } from '@pluggable-io/common'
 
@@ -44,9 +44,9 @@ describe('MemoryStorageAdapter', () => {
       await expect(storage.delete('../bar')).rejects.toThrow(PermissionDeniedError)
     })
 
-    it('should throw FileNotExixtsError if the file does not exist', async () => {
+    it('should throw FileNotExistsError if the file does not exist', async () => {
       const storage = new MemoryStorageAdapter([['foo', 'bar']])
-      await expect(storage.delete('bar')).rejects.toThrow(FileNotExixtsError)
+      await expect(storage.delete('bar')).rejects.toThrow(FileNotExistsError)
     })
   })
 
@@ -77,10 +77,10 @@ describe('MemoryStorageAdapter', () => {
           await expect(file.createReadStream()).rejects.toThrow(PermissionDeniedError)
         })
 
-        it('should throw FileNotExixtsError if the file does not exist', async () => {
+        it('should throw FileNotExistsError if the file does not exist', async () => {
           const storage = new MemoryStorageAdapter([['foo', 'bar']])
           const file = await storage.open('bar')
-          await expect(file.createReadStream()).rejects.toThrow(FileNotExixtsError)
+          await expect(file.createReadStream()).rejects.toThrow(FileNotExistsError)
         })
 
         it('should throw OperationFailedError if the operation is failed', async () => {
@@ -107,10 +107,10 @@ describe('MemoryStorageAdapter', () => {
           await expect(file.createWriteStream()).rejects.toThrow(PermissionDeniedError)
         })
 
-        it('should throw FileNotExixtsError if the file does not exist', async () => {
+        it('should throw FileNotExistsError if the file does not exist', async () => {
           const storage = new MemoryStorageAdapter([['foo', 'bar']])
           const file = await storage.open('bar', { write: true })
-          await expect(file.createWriteStream()).rejects.toThrow(FileNotExixtsError)
+          await expect(file.createWriteStream()).rejects.toThrow(FileNotExistsError)
         })
 
         it('should throw OperationFailedError if the operation is failed', async () => {
