@@ -19,6 +19,9 @@
       "path": "./packages/@pluggable-io/storage-plugin-gs"
     },
     {
+      "path": "./packages/@pluggable-io/storage-plugin-tmp"
+    },
+    {
       "path": "./packages/@pluggable-io/logger"
     },
     {
