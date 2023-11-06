@@ -75,7 +75,7 @@ describe('TmpStoragePlugin', () => {
     it('should set the baseDir to the host and relative pathname of the url', async () => {
       const plugin = new TmpStoragePlugin({ createDirectoryIfNotExists: false })
       const storage = await plugin.build(new URL('tmp://../foo/bar'))
-      expect(storage.baseDir).toBe(`${resolve(tmpdir(), '..')}/foo/bar`)
+      expect(storage.baseDir).toBe(`${join(resolve(tmpdir(), '..'), 'foo', 'bar')}`)
     })
 
     it('if you do not set a pathname, uuid as pathname', async () => {
