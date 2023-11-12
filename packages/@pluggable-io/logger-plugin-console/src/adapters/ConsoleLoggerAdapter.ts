@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { Logger } from '@pluggable-io/logger'
 
 export class ConsoleLoggerAdapter implements Logger {

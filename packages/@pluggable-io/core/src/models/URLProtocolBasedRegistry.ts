@@ -27,16 +27,16 @@ export class URLProtocolBasedRegistry<Resource, Options extends readonly any[] =
       if (urlPattern.test(url)) {
         const result = urlPattern.exec(url)
         if (result) {
-          delete (result as any).inputs
           await loader(
             url,
-            Object.entries(result).reduce<Record<string, string>>((acc, [key, value]) => {
-              console.log(key, value)
-              if (value.input === '' || 0 in value.groups) {
-                delete value.groups[0]
-              }
-              return Object.assign(acc, value.groups)
-            }, {}),
+            Object.entries(result)
+              .filter(([key]) => key !== 'inputs')
+              .reduce<Record<string, string>>((acc, [, value]) => {
+                if (value.input === '' || 0 in value.groups) {
+                  delete value.groups[0]
+                }
+                return Object.assign(acc, value.groups)
+              }, {}),
           )
         }
         return

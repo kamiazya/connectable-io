@@ -32,7 +32,7 @@ describe('URLProtocolBasedRegistry', () => {
   })
 
   describe('addDynamicPluginLoader method', () => {
-    it.only('should call the loader for the matching pattern', async () => {
+    it('should call the loader for the matching pattern', async () => {
       const loader = vi.fn(async () => {
         registry.load('dynamic-example', plugin)
       })
