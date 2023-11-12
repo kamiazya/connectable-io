@@ -1,4 +1,4 @@
-import { Registry, RegistryBase } from '@pluggable-io/core'
+import { Registry, URLProtocolBasedRegistry } from '@pluggable-io/core'
 
 /**
  * Logger is a pluggable interface for logging.
@@ -29,7 +29,7 @@ export interface Logger {
  * LoggerStatic is a pluggable interface for logger.
  */
 export interface LoggerStatic extends Registry<Logger> {}
-export const Logger: LoggerStatic = new (class LoggerRegistry extends RegistryBase<Logger> {
+export const Logger: LoggerStatic = new (class LoggerRegistry extends URLProtocolBasedRegistry<Logger> {
   constructor() {
     super('Logger')
   }

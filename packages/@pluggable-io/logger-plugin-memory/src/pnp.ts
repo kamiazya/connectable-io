@@ -30,8 +30,8 @@ declare module '@pluggable-io/logger' {
   }
 }
 
-Logger.load('memory:', {
+Logger.load('memory', {
   async build(url) {
-    return new MemoryLoggerAdapter(url.toString())
+    return new MemoryLoggerAdapter(url)
   },
 })

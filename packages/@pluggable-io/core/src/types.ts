@@ -26,28 +26,27 @@ export class ResourceBuildError extends Error {
 }
 
 /**
- * A plugin for building a resource from a URL
+ * A plugin for building a resource
  */
-export interface ResourcePlugin<T = any> {
+export interface ResourcePlugin<Resource, Options extends readonly any[] = []> {
   /**
-   * Build an instance from a URL
+   * Build an instance
    *
-   * @param url The URL to build from
    */
-  build(url: URL): Promise<T>
+  build(key: string, ...options: Options): Promise<Resource>
 }
 
 /**
  * A loader for a resource plugin
  */
-export interface DynamicPluginLoader {
-  (input: URLPatternComponentResult): Promise<void>
+export interface DynamicPluginLoader<Keys extends string = string> {
+  (key: string, params: Record<Keys, string>): Promise<void>
 }
 
 /**
  * A registry for resources.
  */
-export interface Registry<T> {
+export interface Registry<Resource, Options extends readonly any[] = [], Pattern = string> {
   /**
    * Add a dynamic plugin loader
    *
@@ -61,7 +60,7 @@ export interface Registry<T> {
    * @param pattern The pattern to load for
    * @param loader The loader to load
    */
-  addDynamicPluginLoader(pattern: string, loader: DynamicPluginLoader): void
+  addDynamicPluginLoader<Keys extends string>(pattern: Pattern, loader: DynamicPluginLoader<Keys>): void
 
   /**
    * Load a plugin
@@ -72,14 +71,14 @@ export interface Registry<T> {
    * ```ts
    * const registry = new Registry();
    *
-   * registry.load('sample:', {
+   * registry.load('sample', {
    *    async build(url) {
    *     return new SampleStorage(url);
    *   }
    * })
    * ```
    */
-  load(protocol: string, plugin: ResourcePlugin<T>): void
+  load(protocol: string, plugin: ResourcePlugin<Resource, Options>): void
   /**
    * Build an instance from a URL
    * @param url The URL to build from
@@ -88,5 +87,5 @@ export interface Registry<T> {
    * @throws {TypeError} If url is not a valid URL
    * @throws {ResourceBuildError} If the plugin fails to build the instance
    */
-  from(url: string): Promise<T>
+  from(key: string, ...options: Options): Promise<Resource>
 }

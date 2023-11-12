@@ -1,5 +1,5 @@
 import { ReadableStream, WritableStream } from '@pluggable-io/common'
-import { Registry, RegistryBase } from '@pluggable-io/core'
+import { Registry, URLProtocolBasedRegistry } from '@pluggable-io/core'
 
 /**
  * FileHandleOpenOptions is a options for {@link Storage#open} method
@@ -167,7 +167,7 @@ export interface StorageStatic extends Registry<Storage> {
   open(url: string, options?: FileHandleOpenOptions): Promise<FileHandle>
 }
 
-export class StorageRegistry extends RegistryBase<Storage> implements StorageStatic {
+export class StorageRegistry extends URLProtocolBasedRegistry<Storage> implements StorageStatic {
   constructor() {
     super('Storage')
   }

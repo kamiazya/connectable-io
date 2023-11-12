@@ -34,13 +34,14 @@ export class FileSystemStoragePlugin implements ResourcePlugin<FileSystemStorage
     this.createDirectoryIfNotExists = createDirectoryIfNotExists
   }
 
-  async build(url: URL) {
-    let path = url.host === '' ? url.pathname : join(this.baseDir, url.host, url.pathname)
+  async build(url: string) {
+    const url_ = new URL(url)
+    let path = url_.host === '' ? url_.pathname : join(this.baseDir, url_.host, url_.pathname)
     if (!isAbsolute(path)) {
       path = join(this.baseDir, path)
     }
     const storage = new FileSystemStorageAdapter({
-      urlSchema: url.protocol,
+      urlSchema: url_.protocol,
       baseDir: path,
       ...this.options,
     })

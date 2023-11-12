@@ -21,8 +21,8 @@ declare module '@pluggable-io/logger' {
   }
 }
 
-Logger.load('console:', {
+Logger.load('console', {
   async build(url) {
-    return new ConsoleLoggerAdapter(url.toString())
+    return new ConsoleLoggerAdapter(url)
   },
 })

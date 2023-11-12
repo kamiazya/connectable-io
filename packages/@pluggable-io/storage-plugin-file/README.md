@@ -31,7 +31,7 @@ you can manually register the plugin.
 import { Storage } from '@pluggable-io/storage'
 import { FileSystemStoragePlugin } from '@pluggable-io/storage-plugin-file'
 
-Storage.load('file:', new FileSystemStoragePlugin())
+Storage.load('file', new FileSystemStoragePlugin())
 ```
 
 When manually registering the plugin using load,
@@ -53,7 +53,7 @@ Here are the available options:
 
 ```ts
 Storage.load(
-  'file:',
+  'file',
   new FileSystemStoragePlugin({
     baseDir: './path/to/storage', // Set the base directory
     createIfNotExists: true, // Automatically create the directory if it doesn't exist
