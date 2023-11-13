@@ -4,6 +4,7 @@ import { isAbsolute, join } from 'node:path'
 import { mkdir } from 'node:fs/promises'
 
 import { ResourcePlugin } from '@pluggable-io/core'
+import { FileSystemStoragePlugin } from '@pluggable-io/storage-plugin-file'
 
 import { TmpStorageAdapter, TmpStorageAdapterOptions } from '../adapters/TmpStorageAdapter.js'
 
@@ -15,21 +16,9 @@ export interface TmpStoragePluginOptions extends Omit<TmpStorageAdapterOptions, 
 /**
  * A plugin for building a Tmp Storage from a URL
  */
-export class TmpStoragePlugin implements ResourcePlugin<TmpStorageAdapter> {
-  public readonly baseDir: string
-  public readonly options: {
-    read?: boolean
-    write?: boolean
-    create?: boolean
-    mode?: number
-  }
-  public readonly createDirectoryIfNotExists: boolean
-
-  constructor({ baseDir = tmpdir(), createDirectoryIfNotExists = true, ...options }: TmpStoragePluginOptions = {}) {
-    this.baseDir = isAbsolute(baseDir) ? baseDir : join(tmpdir(), baseDir)
-    this.options = options
-
-    this.createDirectoryIfNotExists = createDirectoryIfNotExists
+export class TmpStoragePlugin extends FileSystemStoragePlugin implements ResourcePlugin<TmpStorageAdapter> {
+  constructor({ baseDir = tmpdir(), ...options }: TmpStoragePluginOptions = {}) {
+    super({ baseDir: isAbsolute(baseDir) ? baseDir : join(tmpdir(), baseDir), ...options })
   }
 
   async build(url: URL) {

@@ -101,7 +101,7 @@ describe('FileSystemStorageAdapter', () => {
       vi.mocked(lstat).mockResolvedValueOnce({} as any)
       vi.mocked(rm).mockResolvedValueOnce(undefined)
       await storage.delete('foo')
-      expect(rm).toHaveBeenCalledWith(join(process.cwd(), 'foo'))
+      expect(rm).toHaveBeenCalledWith(join(storage.baseDir, 'foo'))
     })
     it('should throw if the file does not exist', async () => {
       const storage = new FileSystemStorageAdapter()
@@ -185,7 +185,7 @@ describe('FileSystemStorageAdapter', () => {
       it('should return the uri', async () => {
         const storage = new FileSystemStorageAdapter()
         const handle = await storage.open('bar')
-        expect(handle.uri).toBe(`file://${process.cwd()}/bar`)
+        expect(handle.uri).toBe(`file://${storage.baseDir}/bar`)
       })
 
       describe('createReadStream method', () => {
@@ -213,7 +213,7 @@ describe('FileSystemStorageAdapter', () => {
           const handle = await storage.open('bar')
           await handle.createReadStream()
 
-          expect(open).toHaveBeenCalledWith(join(process.cwd(), 'bar'), 'r')
+          expect(open).toHaveBeenCalledWith(join(storage.baseDir, 'bar'), 'r')
         })
 
         it('should throw PermissionDeniedError without read permission on file', async () => {
@@ -282,14 +282,14 @@ describe('FileSystemStorageAdapter', () => {
           const storage = new FileSystemStorageAdapter()
           const handle = await storage.open('bar', { create: true, write: true })
           await handle.createWriteStream()
-          expect(open).toHaveBeenCalledWith(join(process.cwd(), 'bar'), 'w', 0o666)
+          expect(open).toHaveBeenCalledWith(join(storage.baseDir, 'bar'), 'w', 0o666)
         })
 
         it('should open the file with given mode', async () => {
           const storage = new FileSystemStorageAdapter({ mode: 0o777 })
           const handle = await storage.open('bar', { create: true, write: true })
           await handle.createWriteStream()
-          expect(open).toHaveBeenCalledWith(join(process.cwd(), 'bar'), 'w', 0o777)
+          expect(open).toHaveBeenCalledWith(join(storage.baseDir, 'bar'), 'w', 0o777)
         })
 
         it('should throw FileNotExistsError if the file exists and create is false', async () => {
@@ -315,7 +315,7 @@ describe('FileSystemStorageAdapter', () => {
 
           const handle = await storage.open('bar', { write: true, create: true })
           await handle.createWriteStream()
-          expect(mkdir).toHaveBeenCalledWith(join(process.cwd()), { recursive: true })
+          expect(mkdir).toHaveBeenCalledWith(join(storage.baseDir), { recursive: true })
         })
 
         it('should not create the directory if createDirectoryIfNotExists is false', async () => {

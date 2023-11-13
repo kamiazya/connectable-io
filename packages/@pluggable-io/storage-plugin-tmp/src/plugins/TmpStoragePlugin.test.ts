@@ -37,20 +37,6 @@ describe('TmpStoragePlugin', () => {
         expect(plugin.baseDir).toBe(tmpdir())
       })
     })
-
-    describe('createDirectoryIfNotExists option', () => {
-      it('should set createDirectoryIfNotExists', () => {
-        const plugin = new TmpStoragePlugin({
-          createDirectoryIfNotExists: true,
-        })
-        expect(plugin.createDirectoryIfNotExists).toBe(true)
-      })
-
-      it('should set createDirectoryIfNotExists to true by default', () => {
-        const plugin = new TmpStoragePlugin()
-        expect(plugin.createDirectoryIfNotExists).toBe(true)
-      })
-    })
   })
 
   describe('build', () => {
