@@ -1,4 +1,4 @@
-# Connectable IO (Working Title)
+# Connectable IO
 
 Connectable IO is designed to offer unified interfaces for various resources, including storage, logging, queues, and more.
 By abstracting these resources, it enables seamless interactions across different solutions and protocols, simplifying integration and usage.
