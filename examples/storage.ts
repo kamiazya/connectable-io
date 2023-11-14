@@ -2,7 +2,7 @@
  * Create a file and write to it, or read a file and write it to another file.
  */
 import './polyfill.js'
-import { Storage } from 'pluggable-io'
+import { Storage } from 'connectable-io'
 
 try {
   const storage = await Storage.from('file://tmp')
