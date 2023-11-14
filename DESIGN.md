@@ -42,75 +42,75 @@ This document outlines the core concepts, architecture, and design principles be
 
 ### 2.1 Package Naming Convention and Structure
 
-Each package within Pluggable IO follows a consistent naming pattern, ensuring clarity and easy identification.
+Each package within Connectable IO follows a consistent naming pattern, ensuring clarity and easy identification.
 
-- **Common**: `@pluggable-io/common`
+- **Common**: `@connectable-io/common`
 
   Contains common types and interfaces used across the system.
 
-- **Core**: `@pluggable-io/core`
+- **Core**: `@connectable-io/core`
 
   Contains the foundational elements and interfaces for the system.
 
-- **Resources**: `@pluggable-io/{resource}`
+- **Resources**: `@connectable-io/{resource}`
 
   Provides the core functionalities for resource management.
 
   - _Examples_
 
-    - `@pluggable-io/storage`
+    - `@connectable-io/storage`
 
       Deals with file system interactions.
 
-    - `@pluggable-io/logger`
+    - `@connectable-io/logger`
 
       Handles logging functionalities.
 
-- **Resource Plugins**: `@pluggable-io/{resource}-plugin-{protocol}`
+- **Resource Plugins**: `@connectable-io/{resource}-plugin-{protocol}`
 
   Provides the necessary modules for integrating with specific protocols. These are designed to be imported and used by other programs.
 
   - _Examples_
 
-    - `@pluggable-io/storage-plugin-file`
+    - `@connectable-io/storage-plugin-file`
 
       Integrates with the local file system.
 
-    - `@pluggable-io/storage-plugin-s3`
+    - `@connectable-io/storage-plugin-s3`
 
       Integrates with AWS S3.
 
-    - `@pluggable-io/logger-plugin-console`
+    - `@connectable-io/logger-plugin-console`
 
       Integrates with the console.
 
-- **Plug-n-Play (PnP) Resource Plugins**: `@pluggable-io/{resource}-plugin-{protocol}/pnp`
+- **Plug-n-Play (PnP) Resource Plugins**: `@connectable-io/{resource}-plugin-{protocol}/pnp`
 
   When imported, these plugins are immediately loaded with the default schema in the registry and are ready for use.
 
-  They inherently import and utilize the corresponding `@pluggable-io/{resource}-plugin-{protocol}` package, ensuring extensibility and consistency.
+  They inherently import and utilize the corresponding `@connectable-io/{resource}-plugin-{protocol}` package, ensuring extensibility and consistency.
 
   - _Examples_
-    - `@pluggable-io/storage-plugin-file/pnp`
+    - `@connectable-io/storage-plugin-file/pnp`
       - Plug-n-play integration with the local file system.
-    - `@pluggable-io/storage-plugin-s3/pnp`
+    - `@connectable-io/storage-plugin-s3/pnp`
       - Plug-n-play integration with AWS S3.
 
-- **Presets**: `@pluggable-io/preset-{preset}`
+- **Presets**: `@connectable-io/preset-{preset}`
 
   Provides a set of plugins for a specific use case.
 
   - _Examples_
 
-    - `@pluggable-io/preset-standard`
+    - `@connectable-io/preset-standard`
 
       Provides a set of plugins for common use cases.
 
-    - `@pluggable-io/preset-aws`
+    - `@connectable-io/preset-aws`
 
       Provides a set of plugins for AWS.
 
-- **Easy API**: `pluggable-io`
+- **Easy API**: `connectable-io`
 
   This package is designed with user-friendliness in mind.
   Even for those unfamiliar with the project's philosophy, the Easy API ensures a seamless experience.
@@ -122,7 +122,7 @@ Each package within Pluggable IO follows a consistent naming pattern, ensuring c
 
 - **Plugin System**
 
-  At the heart of Pluggable IO's extensibility is its plugin system.
+  At the heart of Connectable IO's extensibility is its plugin system.
   By abstracting functionalities into plugins, new storage solutions or protocols can be added without altering the core system.
 
 - **Unified Interfaces**

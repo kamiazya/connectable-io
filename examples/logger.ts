@@ -1,4 +1,4 @@
-import { Storage, Logger } from 'pluggable-io'
+import { Storage, Logger } from 'connectable-io'
 const storage = await Storage.from('file://.')
 const logger = await Logger.from('console:')
 
