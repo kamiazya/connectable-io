@@ -1,11 +1,11 @@
-# Pluggable IO (Working Title)
+# Connectable IO (Working Title)
 
-Pluggable IO is designed to offer unified interfaces for various resources, including storage, logging, queues, and more.
+Connectable IO is designed to offer unified interfaces for various resources, including storage, logging, queues, and more.
 By abstracting these resources, it enables seamless interactions across different solutions and protocols, simplifying integration and usage.
 
 ## Concept
 
-Pluggable IO abstracts underlying protocols and storage solutions, aiming to provide a consistent interface for various resources.
+Connectable IO abstracts underlying protocols and storage solutions, aiming to provide a consistent interface for various resources.
 By integrating necessary modules, users can interact with different storage solutions, logging systems, or queues through a single, unified approach.
 
 ## Features
@@ -42,7 +42,7 @@ By integrating necessary modules, users can interact with different storage solu
 
 - **Multi-Cloud Integration**
 
-  Pluggable IO is not only designed to reduce vendor lock-in but also to facilitate seamless operations across multiple cloud platforms,
+  Connectable IO is not only designed to reduce vendor lock-in but also to facilitate seamless operations across multiple cloud platforms,
   such as bridging systems between GCP and AWS.
 
   This capability ensures flexibility in cloud resource management and optimizes operational efficiency,
@@ -50,4 +50,4 @@ By integrating necessary modules, users can interact with different storage solu
 
 ## Note
 
-Pluggable IO is in the development phase, and its API and features might undergo changes. Feedback and contributions are encouraged.
+Connectable IO is in the development phase, and its API and features might undergo changes. Feedback and contributions are encouraged.

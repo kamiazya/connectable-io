@@ -1,52 +1,52 @@
 {
   "references": [
     {
-      "path": "./packages/@pluggable-io/common"
+      "path": "./packages/@connectable-io/common"
     },
     {
-      "path": "./packages/@pluggable-io/core"
+      "path": "./packages/@connectable-io/core"
     },
     {
-      "path": "./packages/@pluggable-io/storage"
+      "path": "./packages/@connectable-io/storage"
     },
     {
-      "path": "./packages/@pluggable-io/storage-plugin-file"
+      "path": "./packages/@connectable-io/storage-plugin-file"
     },
     {
-      "path": "./packages/@pluggable-io/storage-plugin-memory"
+      "path": "./packages/@connectable-io/storage-plugin-memory"
     },
     {
-      "path": "./packages/@pluggable-io/storage-plugin-gs"
+      "path": "./packages/@connectable-io/storage-plugin-gs"
     },
     {
-      "path": "./packages/@pluggable-io/storage-plugin-tmp"
+      "path": "./packages/@connectable-io/storage-plugin-tmp"
     },
     {
-      "path": "./packages/@pluggable-io/logger"
+      "path": "./packages/@connectable-io/logger"
     },
     {
-      "path": "./packages/@pluggable-io/logger-plugin-console"
+      "path": "./packages/@connectable-io/logger-plugin-console"
     },
     {
-      "path": "./packages/@pluggable-io/logger-plugin-memory"
+      "path": "./packages/@connectable-io/logger-plugin-memory"
     },
     {
-      "path": "./packages/@pluggable-io/logger-plugin-null"
+      "path": "./packages/@connectable-io/logger-plugin-null"
     },
     {
-      "path": "./packages/@pluggable-io/preset-standard"
+      "path": "./packages/@connectable-io/preset-standard"
     },
     {
-      "path": "./packages/@pluggable-io/preset-testing"
+      "path": "./packages/@connectable-io/preset-testing"
     },
     {
-      "path": "./packages/@pluggable-io/preset-gcp"
+      "path": "./packages/@connectable-io/preset-gcp"
     },
     {
-      "path": "./packages/@pluggable-io/queue"
+      "path": "./packages/@connectable-io/queue"
     },
     {
-      "path": "./packages/pluggable-io"
+      "path": "./packages/connectable-io"
     }
   ],
   "include": []
