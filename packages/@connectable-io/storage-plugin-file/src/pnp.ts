@@ -3,9 +3,9 @@ import { Storage } from '@connectable-io/storage'
 import { FileSystemStoragePlugin } from './plugins/FileSystemStoragePlugin.js'
 import { DEFAULT_SCHEMA } from './constant.js'
 
-declare module '@connectable-io/storage' {
-  type URLString = `file://${string}`
+type URLString = `${typeof DEFAULT_SCHEMA}//${string}`
 
+declare module '@connectable-io/storage' {
   export interface StorageStatic {
     /**
      * Build a storage based on local FileSystem from a URL
