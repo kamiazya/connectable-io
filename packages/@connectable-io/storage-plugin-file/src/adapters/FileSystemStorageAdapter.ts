@@ -69,7 +69,7 @@ export class FileSystemStorageAdapter implements Storage {
   public readonly createDirectoryIfNotExists: boolean
 
   public get url(): URL {
-    return new URL(this.baseDir, `${this.urlSchema}/`)
+    return new URL(this.baseDir, `${this.urlSchema}//`)
   }
   constructor({
     urlSchema = DEFAULT_SCHEMA,

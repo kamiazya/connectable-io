@@ -36,9 +36,6 @@ export interface TmpStorageAdapterOptions extends FileSystemStorageAdapterOption
  * A Storage implementation for the tmp directory
  */
 export class TmpStorageAdapter extends FileSystemStorageAdapter {
-  public get url(): URL {
-    return new URL(this.baseDir, `${this.urlSchema}//`)
-  }
   constructor({ urlSchema = DEFAULT_SCHEMA, baseDir = tmpdir(), ...options }: TmpStorageAdapterOptions = {}) {
     super({ urlSchema, baseDir: isAbsolute(baseDir) ? baseDir : resolve(tmpdir(), baseDir), ...options })
   }
