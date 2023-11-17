@@ -6,7 +6,7 @@ describe('FileSystemStoragePlugin', () => {
   describe('build', () => {
     it('should return a MemoryStorageAdapter', async () => {
       const plugin = new MemoryStoragePlugin()
-      const storage = await plugin.build(new URL('memory:'))
+      const storage = await plugin.build('memory:')
       expect(storage).toBeInstanceOf(MemoryStorageAdapter)
     })
   })
