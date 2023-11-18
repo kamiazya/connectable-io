@@ -1,0 +1,17 @@
+{
+  "name": "@connectable-io/preset-gcp",
+  "version": "0.0.0",
+  "type": "module",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./lib/index.js",
+      "types": "./lib/index.d.ts"
+    }
+  },
+  "dependencies": {
+    "@connectable-io/storage": "^0.0.0",
+    "@connectable-io/storage-plugin-gs": "^0.0.0"
+  }
+}

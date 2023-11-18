@@ -1,0 +1,13 @@
+{
+  "name": "@connectable-io/core",
+  "version": "0.0.0",
+  "type": "module",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./lib/index.js",
+      "types": "./lib/index.d.ts"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "@connectable-io/preset-testing",
+  "version": "0.0.0",
+  "type": "module",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./lib/index.js",
+      "types": "./lib/index.d.ts"
+    }
+  },
+  "dependencies": {
+    "@connectable-io/storage": "^0.0.0",
+    "@connectable-io/logger": "^0.0.0",
+    "@connectable-io/logger-plugin-null": "^0.0.0",
+    "@connectable-io/logger-plugin-memory": "^0.0.0",
+    "@connectable-io/storage-plugin-memory": "^0.0.0"
+  }
+}
