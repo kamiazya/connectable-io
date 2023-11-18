@@ -1,13 +1,13 @@
 import { Mock, beforeEach, describe, expect, it, vi } from 'vitest'
-import { URLProtocolBasedRegistry } from './URLProtocolBasedRegistry.js'
+import { URLBasedRegistryBase } from './URLBasedRegistryBase.js'
 import { PluginNotLoadedError, ResourceBuildError } from '../types.js'
 
-describe('URLProtocolBasedRegistry', () => {
-  let registry: URLProtocolBasedRegistry<string>
+describe('URLBasedRegistryBase', () => {
+  let registry: URLBasedRegistryBase<string>
   let plugin: { build: (...args: any[]) => Promise<string> }
 
   beforeEach(() => {
-    registry = new URLProtocolBasedRegistry('Test')
+    registry = new URLBasedRegistryBase('Test')
     plugin = { build: vi.fn(async () => 'test') }
     registry.load('test', plugin)
   })

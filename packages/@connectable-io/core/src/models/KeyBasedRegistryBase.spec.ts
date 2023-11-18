@@ -1,13 +1,13 @@
 import { Mock, beforeEach, describe, expect, it, vi } from 'vitest'
-import { KeyBasedRegistry } from './KeyBasedRegistry.js'
+import { KeyBasedRegistryBase } from './KeyBasedRegistryBase.js'
 import { PluginNotLoadedError, ResourceBuildError } from '../types.js'
 
-describe('KeyBasedRegistry', () => {
-  let registry: KeyBasedRegistry<string>
+describe('KeyBasedRegistryBase', () => {
+  let registry: KeyBasedRegistryBase<string>
   let plugin: { build: (...args: any[]) => Promise<string> }
 
   beforeEach(() => {
-    registry = new KeyBasedRegistry('Test')
+    registry = new KeyBasedRegistryBase('Test')
     plugin = { build: vi.fn(async () => 'test') }
     registry.load('test', plugin)
   })

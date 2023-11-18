@@ -1,10 +1,10 @@
 /// <reference types="urlpattern-polyfill" />
-import { PluginNotLoadedError, Registry, ResourceBuildError } from '../types.js'
+import { PluginNotLoadedError, URLBasedRegistry, ResourceBuildError } from '../types.js'
 import { RegistryBase } from './RegistryBase.js'
 
-export class URLProtocolBasedRegistry<Resource, Options extends readonly any[] = []>
+export class URLBasedRegistryBase<Resource, Options extends readonly any[] = []>
   extends RegistryBase<Resource, Options, string | URLPatternInit>
-  implements Registry<Resource, Options, string | URLPatternInit>
+  implements URLBasedRegistry<Resource, Options>
 {
   async _buildResource(url: string, ...options: Options): Promise<Resource> {
     const url_ = new URL(url)

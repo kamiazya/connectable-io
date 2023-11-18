@@ -1,9 +1,9 @@
-import { PluginNotLoadedError, Registry, ResourceBuildError } from '../types.js'
+import { PluginNotLoadedError, KeyBasedRegistry, ResourceBuildError } from '../types.js'
 import { RegistryBase } from './RegistryBase.js'
 
-export class KeyBasedRegistry<Resource, Options extends readonly any[] = []>
+export class KeyBasedRegistryBase<Resource, Options extends readonly any[] = []>
   extends RegistryBase<Resource, Options, RegExp | string>
-  implements Registry<Resource, Options, RegExp | string>
+  implements KeyBasedRegistry<Resource, Options>
 {
   async _buildResource(key: string, ...options: Options): Promise<Resource> {
     const plugin = this.plugins.get(key)

@@ -1,3 +1,3 @@
 export * from './types.js'
-export * from './models/KeyBasedRegistry.js'
-export * from './models/URLProtocolBasedRegistry.js'
+export * from './models/KeyBasedRegistryBase.js'
+export * from './models/URLBasedRegistryBase.js'
