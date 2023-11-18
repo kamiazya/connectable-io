@@ -32,30 +32,38 @@ describe('URLProtocolBasedRegistry', () => {
   })
 
   describe('addDynamicPluginLoader method', () => {
-    it('should call the loader for the matching pattern', async () => {
-      const loader = vi.fn(async () => {
-        registry.load('dynamic-example', plugin)
-      })
-      registry.addDynamicPluginLoader(
-        {
-          protocol: 'dynamic-:option',
-        },
-        loader,
-      )
+    it.each([
+      {
+        protocol: 'dynamic-{:option}',
+      },
+      {
+        protocol: 'dynamic-{:option}',
+        host: 'example.com',
+      },
+      'dynamic-{:option}://**',
+    ])('should call the loader for the matching pattern', async (pattern) => {
+      const load = vi.fn(async () => registry.load('dynamic-example', plugin))
+      registry.addDynamicPluginLoader({ pattern, load })
       await registry.from('dynamic-example://dynamic')
-      expect(loader).toBeCalledWith('dynamic-example://dynamic', { option: 'example' })
+      expect(load).toBeCalledWith('dynamic-example://dynamic', { option: 'example' })
     })
 
-    it('should not call any loader if no pattern matches', async () => {
-      const loader = vi.fn(async () => {})
-      registry.addDynamicPluginLoader(
-        {
-          protocol: 'dynamic-{:option}',
-        },
-        loader,
-      )
+    it.each([
+      {
+        protocol: 'dynamic-{:option}',
+      },
+      {
+        protocol: 'dynamic-{:option}',
+        host: 'example.com',
+      },
+      'dynamic-{:option}://**',
+    ])('should not call any loader if no pattern matches', async (pattern) => {
+      const load = vi.fn(async () => {
+        /* noop */
+      })
+      registry.addDynamicPluginLoader({ pattern, load })
       expect(registry.from('unknown://')).rejects.toThrow(PluginNotLoadedError)
-      expect(loader).not.toBeCalled()
+      expect(load).not.toBeCalled()
     })
   })
 })

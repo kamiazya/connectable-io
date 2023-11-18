@@ -67,14 +67,14 @@ describe('FileSystemStoragePlugin', () => {
     it('should set the baseDir to the host and pathname of the url', async () => {
       const plugin = new FileSystemStoragePlugin({ createDirectoryIfNotExists: false })
       const storage = await plugin.build('file://foo/bar')
-      expect(storage.baseDir).toBe('/foo/bar')
+      expect(storage.baseDir).toBe(join(process.cwd(), 'foo/bar'))
     })
 
     it('should create the directory if createDirectoryIfNotExists is true(default)', async () => {
       const plugin = new FileSystemStoragePlugin()
       const mocked = vi.mocked(mkdir)
       await plugin.build('file://foo/bar')
-      expect(mocked).toHaveBeenCalledWith('/foo/bar', { recursive: true })
+      expect(mocked).toHaveBeenCalledWith(join(process.cwd(), 'foo/bar'), { recursive: true })
     })
 
     it('should not create the directory if createDirectoryIfNotExists is false', async () => {

@@ -14,7 +14,7 @@ export abstract class RegistryBase<Resource, Options extends readonly any[], Pat
     onPluginLoaded: Channel
     onDynamicPluginLoaderAdded: Channel
   }>
-  dynamicLoaders: [pattern: Pattern, loader: DynamicPluginLoader][] = []
+  dynamicLoaders: DynamicPluginLoader<Pattern>[] = []
 
   plugins = new Map<string, ResourcePlugin<Resource, Options>>()
 
@@ -30,9 +30,9 @@ export abstract class RegistryBase<Resource, Options extends readonly any[], Pat
     }
   }
 
-  addDynamicPluginLoader<Keys extends string>(pattern: Pattern, loader: DynamicPluginLoader<Keys>) {
-    this.dynamicLoaders.push([pattern, loader])
-    this.dc.onDynamicPluginLoaderAdded.publish({ pattern, loader })
+  addDynamicPluginLoader<Keys extends string>(loader: DynamicPluginLoader<Pattern, Keys>): void {
+    this.dynamicLoaders.push(loader)
+    this.dc.onDynamicPluginLoaderAdded.publish(loader)
   }
 
   load(key: string, plugin: ResourcePlugin<Resource, Options>) {

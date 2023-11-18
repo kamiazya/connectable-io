@@ -33,19 +33,25 @@ describe('KeyBasedRegistry', () => {
 
   describe('addDynamicPluginLoader method', () => {
     it('should call the loader for the matching pattern', async () => {
-      const loader = vi.fn(async () => {
+      const load = vi.fn(async () => {
         registry.load('test+option', plugin)
       })
-      registry.addDynamicPluginLoader('^test\\+(?<option>.+)$', loader)
+      registry.addDynamicPluginLoader({
+        pattern: /^test\+(?<option>.+)$/,
+        load,
+      })
       await registry.from('test+option')
-      expect(loader).toBeCalledWith('test+option', { option: 'option' })
+      expect(load).toBeCalledWith('test+option', { option: 'option' })
     })
 
     it('should not call any loader if no pattern matches', async () => {
-      const loader = vi.fn(async () => {})
-      registry.addDynamicPluginLoader('^test\\+(?<option>.+)$', loader)
+      const load = vi.fn(async () => {})
+      registry.addDynamicPluginLoader({
+        pattern: /^test\+(?<option>.+)$/,
+        load,
+      })
       expect(registry.from('unknown')).rejects.toThrow(PluginNotLoadedError)
-      expect(loader).not.toBeCalled()
+      expect(load).not.toBeCalled()
     })
   })
 })

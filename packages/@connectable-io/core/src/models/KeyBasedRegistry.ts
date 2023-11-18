@@ -18,12 +18,12 @@ export class KeyBasedRegistry<Resource, Options extends readonly any[] = []>
   }
 
   async _dynamicPluginLoad(key: string): Promise<void> {
-    for (const [pattern, loader] of this.dynamicLoaders) {
+    for (const { pattern, load } of this.dynamicLoaders) {
       const regex = typeof pattern === 'string' ? new RegExp(pattern) : pattern
       if (regex.test(key)) {
         const result = regex.exec(key)
         if (result) {
-          await loader(key, result.groups ?? {})
+          await load(key, result.groups ?? {})
         }
         return
       }

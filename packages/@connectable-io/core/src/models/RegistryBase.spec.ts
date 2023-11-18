@@ -62,23 +62,23 @@ describe('RegistryBase', () => {
 
   describe('addDynamicPluginLoader method', () => {
     it('should add a dynamic plugin loader', () => {
-      const loader = async () => {}
-      registry.addDynamicPluginLoader('dynamic-load', loader)
-      expect(registry.dynamicLoaders).toContainEqual(['dynamic-load', loader])
+      const loader = {
+        pattern: 'dynamic-load',
+        async load() {},
+      }
+      registry.addDynamicPluginLoader(loader)
+      expect(registry.dynamicLoaders).toContainEqual(loader)
     })
 
     it('should publish message to diagnostic channel "connectable-io.Test:onDynamicPluginLoaderAdded" when a dynamic loader is added', async () => {
-      const loader = async () => {}
+      const loader = {
+        pattern: 'dynamic-load',
+        async load() {},
+      }
       const onDynamicPluginLoaderAdded = vi.fn()
       subscribe('connectable-io.Test:onDynamicPluginLoaderAdded', onDynamicPluginLoaderAdded)
-      registry.addDynamicPluginLoader('dynamic-load', loader)
-      expect(onDynamicPluginLoaderAdded).toBeCalledWith(
-        {
-          pattern: 'dynamic-load',
-          loader,
-        },
-        'connectable-io.Test:onDynamicPluginLoaderAdded',
-      )
+      registry.addDynamicPluginLoader(loader)
+      expect(onDynamicPluginLoaderAdded).toBeCalledWith(loader, 'connectable-io.Test:onDynamicPluginLoaderAdded')
     })
   })
 })

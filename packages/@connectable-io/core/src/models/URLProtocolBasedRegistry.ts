@@ -22,12 +22,12 @@ export class URLProtocolBasedRegistry<Resource, Options extends readonly any[] =
   }
 
   async _dynamicPluginLoad(url: string): Promise<void> {
-    for (const [pattern, loader] of this.dynamicLoaders) {
+    for (const { pattern, load } of this.dynamicLoaders) {
       const urlPattern = new URLPattern(pattern)
       if (urlPattern.test(url)) {
         const result = urlPattern.exec(url)
         if (result) {
-          await loader(
+          await load(
             url,
             Object.entries(result)
               .filter(([key]) => key !== 'inputs')
