@@ -54,33 +54,33 @@ describe('FileSystemStoragePlugin', () => {
   describe('build', () => {
     it('should return a FileSystemStorageAdapter', async () => {
       const plugin = new FileSystemStoragePlugin()
-      const storage = await plugin.build(new URL('file://'))
+      const storage = await plugin.build('file://')
       expect(storage).toBeInstanceOf(FileSystemStorageAdapter)
     })
 
     it('should set the urlSchema to the protocol of the url', async () => {
       const plugin = new FileSystemStoragePlugin()
-      const storage = await plugin.build(new URL('file://'))
+      const storage = await plugin.build('file://')
       expect(storage.urlSchema).toBe('file:')
     })
 
     it('should set the baseDir to the host and pathname of the url', async () => {
       const plugin = new FileSystemStoragePlugin({ createDirectoryIfNotExists: false })
-      const storage = await plugin.build(new URL('file:///foo/bar'))
-      expect(storage.baseDir).toBe('/foo/bar')
+      const storage = await plugin.build('file://foo/bar')
+      expect(storage.baseDir).toBe(join(process.cwd(), 'foo/bar'))
     })
 
     it('should create the directory if createDirectoryIfNotExists is true(default)', async () => {
       const plugin = new FileSystemStoragePlugin()
       const mocked = vi.mocked(mkdir)
-      await plugin.build(new URL('file:///foo/bar'))
-      expect(mocked).toHaveBeenCalledWith('/foo/bar', { recursive: true })
+      await plugin.build('file://foo/bar')
+      expect(mocked).toHaveBeenCalledWith(join(process.cwd(), 'foo/bar'), { recursive: true })
     })
 
     it('should not create the directory if createDirectoryIfNotExists is false', async () => {
       const plugin = new FileSystemStoragePlugin({ createDirectoryIfNotExists: false })
       const mocked = vi.mocked(mkdir)
-      await plugin.build(new URL('file:///foo/bar'))
+      await plugin.build('file://foo/bar')
       expect(mocked).not.toHaveBeenCalled()
     })
   })

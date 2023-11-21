@@ -26,42 +26,60 @@ export class ResourceBuildError extends Error {
 }
 
 /**
- * A plugin for building a resource from a URL
+ * A plugin for building a resource
  */
-export interface ResourcePlugin<T = any> {
+export interface ResourcePlugin<Resource, Options extends readonly any[] = []> {
   /**
-   * Build an instance from a URL
+   * Build an instance
    *
-   * @param url The URL to build from
    */
-  build(url: URL): Promise<T>
+  build(key: string, ...options: Options): Promise<Resource>
 }
 
 /**
- * A loader for a resource plugin
+ * A plugin loader for dynamic plugin loading
+ *
+ * @template Pattern The pattern to load for
+ * @template Keys The keys to extract from the pattern
  */
-export interface DynamicPluginLoader {
-  (input: URLPatternComponentResult): Promise<void>
+export interface DynamicPluginLoader<Pattern = string, Keys extends string = string> {
+  /**
+   * The pattern to load for
+   * @example
+   * ```ts
+   * const loader: DynamicPluginLoader = {
+   *   pattern: 'sample+{:encoding}://**',
+   *   async load(key, { encoding }) {
+   *    await import(`./plugins/sample/${encoding}.pnp.js`)
+   *   }
+   * }
+   * ```
+   */
+  pattern: Pattern
+  load(key: string, params: Record<Keys, string>): Promise<void>
 }
 
 /**
  * A registry for resources.
  */
-export interface Registry<T> {
+export interface Registry<Resource, Options extends readonly any[] = [], Pattern = string> {
   /**
    * Add a dynamic plugin loader
    *
-   * @example Add a dynamic plugin loader for `sample+{:encoding}:` scheme
+   * @example Add a dynamic plugin loader for `sample+{:encoding}` scheme
    * ```ts
    * const registry = new Registry();
-   * registry.addDynamicPluginLoader('sample+{:encoding}:', async ({ groups: { encoding } }) => {
-   *   await import(`./plugins/sample/${encoding}.pnp.js`);
+   * registory.addDynamicPluginLoader({
+   *   pattern: 'sample+{:encoding}://**',
+   *   async load(key, { encoding }) {
+   *     await import(`./plugins/sample/${encoding}.pnp.js`)
+   *   },
    * })
    * ```
    * @param pattern The pattern to load for
    * @param loader The loader to load
    */
-  addDynamicPluginLoader(pattern: string, loader: DynamicPluginLoader): void
+  addDynamicPluginLoader<Keys extends string>(loader: DynamicPluginLoader<Pattern, Keys>): void
 
   /**
    * Load a plugin
@@ -72,14 +90,14 @@ export interface Registry<T> {
    * ```ts
    * const registry = new Registry();
    *
-   * registry.load('sample:', {
+   * registry.load('sample', {
    *    async build(url) {
    *     return new SampleStorage(url);
    *   }
    * })
    * ```
    */
-  load(protocol: string, plugin: ResourcePlugin<T>): void
+  load(protocol: string, plugin: ResourcePlugin<Resource, Options>): void
   /**
    * Build an instance from a URL
    * @param url The URL to build from
@@ -88,5 +106,75 @@ export interface Registry<T> {
    * @throws {TypeError} If url is not a valid URL
    * @throws {ResourceBuildError} If the plugin fails to build the instance
    */
-  from(url: string): Promise<T>
+  from(key: string, ...options: Options): Promise<Resource>
 }
+
+/**
+ * A plugin loader for key-based plugin loading
+ *
+ * @template Keys The keys to extract from the pattern
+ * @example Add a dynamic plugin loader for `sample+{:encoding}` key by using RegExp pattern
+ * ```ts
+ * const loader: KeyBasedPluginLoader<'encoding'> = {
+ *   pattern: /^sample\+(?<encoding>.+)$/,
+ *   async load(key, { encoding }) {
+ *    await import(`./plugins/sample/${encoding}.pnp.js`)
+ *   }
+ * }
+ * ```
+ *
+ * @example Add a dynamic plugin loader for `sample+{:encoding}` key by using string pattern
+ *
+ * ```ts
+ * const loader: KeyBasedPluginLoader<'encoding'> = {
+ *   pattern: '^sample\\+(?<encoding>.+)$',
+ *   async load(key, { encoding }) {
+ *     await import(`./plugins/sample/${encoding}.pnp.js`)
+ *  }
+ * }
+ * ```
+ */
+export interface KeyBasedPluginLoader<Keys extends string = string>
+  extends DynamicPluginLoader<string | RegExp, Keys> {}
+
+/**
+ * A plugin loader for URL-based plugin loading
+ *
+ * @template Keys The keys to extract from the URLPatternInit pattern
+ * @example
+ *
+ * ```ts
+ * const loader: URLBasedPluginLoader<'encoding'> = {
+ *   pattern: {
+ *     protocol: 'sample+{:encoding}',
+ *   },
+ *   async load(key, { encoding }) {
+ *     await import(`./plugins/sample/${encoding}.pnp.js`)
+ *   }
+ * }
+ * ```
+ *
+ * @example Add a dynamic plugin loader for `sample+{:encoding}` scheme by using string pattern
+ *
+ * ```ts
+ * const loader: URLBasedPluginLoader<'encoding'> = {
+ *   pattern: 'sample+{:encoding}://**',
+ *   async load(key, { encoding }) {
+ *     await import(`./plugins/sample/${encoding}.pnp.js`)
+ *   }
+ * }
+ */
+export interface URLBasedPluginLoader<Keys extends string = string>
+  extends DynamicPluginLoader<string | URLPatternInit, Keys> {}
+
+/**
+ * A registry for key-based resources.
+ */
+export interface URLBasedRegistry<Resource, Options extends readonly any[] = []>
+  extends Registry<Resource, Options, string | URLPatternInit> {}
+
+/**
+ * A registry for key-based resources.
+ */
+export interface KeyBasedRegistry<Resource, Options extends readonly any[] = []>
+  extends Registry<Resource, Options, string | RegExp> {}

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { Logger } from '@connectable-io/logger'
 
 export class ConsoleLoggerAdapter implements Logger {

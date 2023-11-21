@@ -1,5 +1,5 @@
 import { ReadableStream, WritableStream } from '@connectable-io/common'
-import { Registry, RegistryBase } from '@connectable-io/core'
+import { URLBasedRegistry, URLBasedRegistryBase } from '@connectable-io/core'
 
 /**
  * FileHandleOpenOptions is a options for {@link Storage#open} method
@@ -153,7 +153,7 @@ export interface FileHandle {
  * console.log(files);
  * ```
  */
-export interface StorageStatic extends Registry<Storage> {
+export interface StorageStatic extends URLBasedRegistry<Storage> {
   /**
    * Open a file.
    * @param url URI of the file.
@@ -167,7 +167,7 @@ export interface StorageStatic extends Registry<Storage> {
   open(url: string, options?: FileHandleOpenOptions): Promise<FileHandle>
 }
 
-export class StorageRegistry extends RegistryBase<Storage> implements StorageStatic {
+export class StorageRegistry extends URLBasedRegistryBase<Storage> implements StorageStatic {
   constructor() {
     super('Storage')
   }

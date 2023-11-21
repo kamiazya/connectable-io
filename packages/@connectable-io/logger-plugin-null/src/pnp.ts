@@ -30,8 +30,8 @@ declare module '@connectable-io/logger' {
   }
 }
 
-Logger.load('null:', {
+Logger.load('null', {
   async build(url) {
-    return new NullLoggerAdapter(url.toString())
+    return new NullLoggerAdapter(url)
   },
 })

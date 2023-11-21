@@ -15,7 +15,7 @@ describe('StorageRegistry', () => {
       open: vi.fn(),
       list: vi.fn(),
     }
-    registry.load('test:', {
+    registry.load('test', {
       async build() {
         return storage
       },
@@ -26,14 +26,14 @@ describe('StorageRegistry', () => {
     it('should publish message to diagnostic channel "connectable-io.Storage:onPluginLoaded" when a plugin is loaded', async () => {
       const onPluginLoaded = vi.fn()
       subscribe('connectable-io.Storage:onPluginLoaded', onPluginLoaded)
-      registry.load('new:', {
+      registry.load('new', {
         async build() {
           return storage
         },
       })
       expect(onPluginLoaded).toBeCalledWith(
         {
-          protocol: 'new:',
+          key: 'new',
           plugin: expect.any(Object),
         },
         'connectable-io.Storage:onPluginLoaded',
@@ -45,18 +45,18 @@ describe('StorageRegistry', () => {
     it('should publish message to diagnostic channel "connectable-io.Storage:onPluginLoaded" when a plugin is loaded', async () => {
       const onDynamicPluginLoaderAdded = vi.fn()
       subscribe('connectable-io.Storage:onDynamicPluginLoaderAdded', onDynamicPluginLoaderAdded)
-      const loader = async () => {
-        registry.load('test:', {
+      const load = async () => {
+        registry.load('test', {
           async build() {
             return storage
           },
         })
       }
-      registry.addDynamicPluginLoader('test+{:encoding}:', loader)
+      registry.addDynamicPluginLoader({ pattern: 'test+{:encoding}://**', load })
       expect(onDynamicPluginLoaderAdded).toBeCalledWith(
         {
-          pattern: 'test+{:encoding}:',
-          loader: loader,
+          pattern: 'test+{:encoding}://**',
+          load,
         },
         'connectable-io.Storage:onDynamicPluginLoaderAdded',
       )

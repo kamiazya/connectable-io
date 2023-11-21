@@ -21,4 +21,4 @@ declare module '@connectable-io/storage' {
   }
 }
 
-Storage.load('memory:', new MemoryStoragePlugin())
+Storage.load('memory', new MemoryStoragePlugin())

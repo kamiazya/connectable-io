@@ -35,9 +35,9 @@ describe('FileSystemStorageAdapter', () => {
       expect(storage.url.pathname).toBe('/foo')
     })
 
-    it.each(['fs:', 'test-fs:', 'any:'])(`should use the url schema "%s"`, (urlSchema) => {
+    it.each(['fs', 'test-fs', 'any'])(`should use the url schema "%s"`, (urlSchema) => {
       const storage = new FileSystemStorageAdapter({ urlSchema, baseDir: 'foo' })
-      expect(storage.url.protocol).toBe(urlSchema)
+      expect(storage.url.protocol).toBe(`${urlSchema}:`)
     })
 
     it('should use the default mode', () => {

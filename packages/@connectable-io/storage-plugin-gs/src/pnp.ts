@@ -10,4 +10,4 @@ declare module '@connectable-io/storage' {
   }
 }
 
-Storage.load('gs:', new GoogleCloudStoragePlugin())
+Storage.load('gs', new GoogleCloudStoragePlugin())

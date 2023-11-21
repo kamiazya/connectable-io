@@ -27,7 +27,7 @@ export interface FileSystemStorageAdapterOptions extends FileHandleOpenOptions {
    * const storage = new FileSystemStorageAdapter({ urlSchema: 'file', baseDir: 'foo' })
    * console.log(storage.url.toString()) // 'file://foo'
    * ```
-   * @default `file:`
+   * @default `file`
    */
   urlSchema?: string
   /**
@@ -69,7 +69,7 @@ export class FileSystemStorageAdapter implements Storage {
   public readonly createDirectoryIfNotExists: boolean
 
   public get url(): URL {
-    return new URL(this.baseDir, `${this.urlSchema}/`)
+    return new URL(this.baseDir, `${this.urlSchema}:/`)
   }
   constructor({
     urlSchema = DEFAULT_SCHEMA,

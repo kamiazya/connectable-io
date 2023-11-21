@@ -1,1 +1,1 @@
-export const DEFAULT_SCHEMA = 'file:'
+export const DEFAULT_SCHEMA = 'file'

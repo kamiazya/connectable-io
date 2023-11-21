@@ -1,9 +1,19 @@
 import { Storage } from '@connectable-io/storage'
 import { Logger } from '@connectable-io/logger'
 
-Storage.addDynamicPluginLoader('file:', async () => {
-  await import('@connectable-io/storage-plugin-file/pnp')
+Storage.addDynamicPluginLoader({
+  pattern: {
+    protocol: 'memory',
+  },
+  async load() {
+    await import('@connectable-io/storage-plugin-memory/pnp')
+  },
 })
-Logger.addDynamicPluginLoader('console:', async () => {
-  await import('@connectable-io/logger-plugin-console/pnp')
+Logger.addDynamicPluginLoader({
+  pattern: {
+    protocol: 'console',
+  },
+  async load() {
+    await import('@connectable-io/logger-plugin-console/pnp')
+  },
 })

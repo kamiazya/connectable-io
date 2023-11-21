@@ -1,3 +1,4 @@
+import './polyfill.js'
 import { Storage, Logger } from 'connectable-io'
 const storage = await Storage.from('file://.')
 const logger = await Logger.from('console:')

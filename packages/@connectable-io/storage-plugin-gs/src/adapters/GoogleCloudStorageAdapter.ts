@@ -24,7 +24,7 @@ export class GoogleCloudStorageAdapter implements Storage {
   public readonly prefix: string
   public readonly _bucket: string
 
-  constructor({ urlSchema = 'gs:', bucket, prefix = '' }: GoogleCloudStorageAdapterOptions) {
+  constructor({ urlSchema = 'gs', bucket, prefix = '' }: GoogleCloudStorageAdapterOptions) {
     this.client = new Client()
     this.urlSchema = urlSchema
     this.prefix = prefix
