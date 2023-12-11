@@ -1,6 +1,6 @@
 {
   "name": "@connectable-io/storage-plugin-file",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -15,8 +15,8 @@
     }
   },
   "dependencies": {
-    "@connectable-io/core": "^0.0.0",
-    "@connectable-io/storage": "^0.0.0",
+    "@connectable-io/core": "^0.0.1",
+    "@connectable-io/storage": "^0.0.1",
     "glob": "^10.3.4"
   }
 }
