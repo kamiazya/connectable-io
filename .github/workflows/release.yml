@@ -15,10 +15,10 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v3
 
-      - name: Setup Node.js 20
+      - name: Setup Node.js 18
         uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: 18.x
           registry-url: 'https://registry.npmjs.org' # to create .npmrc file with NODE_AUTH_TOKEN
 
       - name: Install Dependencies
