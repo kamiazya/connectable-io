@@ -1,3 +1,5 @@
 {
-  "type": "module"
+  "name": "@connectable-io/examples",
+  "type": "module",
+  "private": true
 }
