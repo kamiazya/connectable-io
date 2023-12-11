@@ -1,5 +1,6 @@
 {
   "name": "@connectable-io/logger-plugin-console",
+  "private": true,
   "version": "0.0.0",
   "type": "module",
   "module": "./lib/index.js",

@@ -12,8 +12,6 @@
   },
   "dependencies": {
     "@connectable-io/storage": "^0.0.0",
-    "@connectable-io/logger": "^0.0.0",
-    "@connectable-io/logger-plugin-console": "^0.0.0",
     "@connectable-io/storage-plugin-file": "^0.0.0"
   }
 }

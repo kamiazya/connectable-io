@@ -1,4 +1,5 @@
 {
+  "name": "connectable-io",
   "type": "module",
   "private": true,
   "workspaces": [
