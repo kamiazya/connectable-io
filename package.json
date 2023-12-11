@@ -1,5 +1,4 @@
 {
-  "name": "@connectable-io/repository",
   "type": "module",
   "private": true,
   "workspaces": [
