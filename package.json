@@ -15,7 +15,8 @@
     "format": "eslint --ext ts packages --fix && prettier --write '**/**/*.{ts,json}'",
     "lint": "eslint --ext ts packages && prettier --check '**/**/*.{ts,json}'",
     "prepare": "husky install",
-    "lint-staged": "lint-staged"
+    "lint-staged": "lint-staged",
+    "release": "npm run clean && npm run build && changeset publish"
   },
   "lint-staged": {
     "*.{js,ts,jsx,tsx}": [
