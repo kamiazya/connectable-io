@@ -11,6 +11,8 @@
       "@connectable-io/storage-plugin-gs/pnp": ["./packages/@connectable-io/storage-plugin-gs/src/pnp.ts"],
       "@connectable-io/storage-plugin-memory": ["./packages/@connectable-io/storage-plugin-memory/src/index.ts"],
       "@connectable-io/storage-plugin-memory/pnp": ["./packages/@connectable-io/storage-plugin-memory/src/pnp.ts"],
+      "@connectable-io/storage-plugin-tmp": ["./packages/@connectable-io/storage-plugin-tmp/src/index.ts"],
+      "@connectable-io/storage-plugin-tmp/pnp": ["./packages/@connectable-io/storage-plugin-tmp/src/pnp.ts"],
       "@connectable-io/queue": ["./packages/@connectable-io/queue/src/index.ts"],
       "@connectable-io/logger": ["./packages/@connectable-io/logger/src/index.ts"],
       "@connectable-io/logger-plugin-console": ["./packages/@connectable-io/logger-plugin-console/src/index.ts"],

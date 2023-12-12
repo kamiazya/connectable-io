@@ -1,6 +1,6 @@
 import { describe, expect, it, vi, beforeEach } from 'vitest'
 import { FileSystemStoragePlugin } from './FileSystemStoragePlugin.js'
-import { join } from 'node:path'
+import { join, resolve } from 'node:path'
 import { FileSystemStorageAdapter } from '../adapters/FileSystemStorageAdapter.js'
 import { mkdir } from 'node:fs/promises'
 
@@ -64,10 +64,16 @@ describe('FileSystemStoragePlugin', () => {
       expect(storage.urlSchema).toBe('file:')
     })
 
-    it('should set the baseDir to the host and pathname of the url', async () => {
+    it('should set the baseDir to the host and absolute pathname of the url', async () => {
       const plugin = new FileSystemStoragePlugin({ createDirectoryIfNotExists: false })
       const storage = await plugin.build(new URL('file:///foo/bar'))
       expect(storage.baseDir).toBe('/foo/bar')
+    })
+
+    it('should set the baseDir to the host and relative pathname of the url', async () => {
+      const plugin = new FileSystemStoragePlugin({ createDirectoryIfNotExists: false })
+      const storage = await plugin.build(new URL('file://../foo/bar'))
+      expect(storage.baseDir).toBe(`${join(resolve(process.cwd(), '..'), 'foo', 'bar')}`)
     })
 
     it('should create the directory if createDirectoryIfNotExists is true(default)', async () => {
