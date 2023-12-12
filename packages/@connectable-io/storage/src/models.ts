@@ -85,6 +85,7 @@ export interface Storage {
    * @returns list of files. relative path from the storage root.
    * @throws {PermissionDeniedError} given key is outside of the storage.
    * Or if directory is not readable.
+   * Or if storage is not readable.
    * @throws {OperationFailedError} if the operation is failed.
    *
    * @example List all files.
