@@ -1,6 +1,7 @@
 {
   "name": "@connectable-io/preset-gcp",
-  "version": "0.0.0",
+  "private": true,
+  "version": "0.0.1",
   "type": "module",
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -11,7 +12,7 @@
     }
   },
   "dependencies": {
-    "@connectable-io/storage": "^0.0.0",
-    "@connectable-io/storage-plugin-gs": "^0.0.0"
+    "@connectable-io/storage": "^0.0.1",
+    "@connectable-io/storage-plugin-gs": "^0.0.1"
   }
 }
