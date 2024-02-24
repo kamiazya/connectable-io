@@ -15,7 +15,7 @@
     }
   },
   "dependencies": {
-    "@connectable-io/core": "^0.0.0",
-    "@connectable-io/storage": "^0.0.0"
+    "@connectable-io/core": "^0.0.1",
+    "@connectable-io/storage": "^0.0.1"
   }
 }
