@@ -1,0 +1,21 @@
+{
+  "name": "@connectable-io/storage-plugin-tmp",
+  "version": "0.0.0",
+  "type": "module",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./lib/index.js",
+      "types": "./lib/index.d.ts"
+    },
+    "./pnp": {
+      "import": "./lib/pnp.js",
+      "types": "./lib/pnp.d.ts"
+    }
+  },
+  "dependencies": {
+    "@connectable-io/core": "^0.0.1",
+    "@connectable-io/storage": "^0.0.1"
+  }
+}
