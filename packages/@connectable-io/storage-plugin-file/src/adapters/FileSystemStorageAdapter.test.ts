@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, afterEach, beforeEach } from 'vitest'
 import { FileSystemStorageAdapter } from './FileSystemStorageAdapter.js'
-import { access, lstat, open, readdir, rm, mkdir } from 'node:fs/promises'
+import { access, lstat, open, readdir, rm, mkdir, constants } from 'node:fs/promises'
 
 vi.mock('node:fs/promises')
 vi.mock('glob')
@@ -125,6 +125,7 @@ describe('FileSystemStorageAdapter', () => {
   describe('list method', () => {
     it('should list the files in the baseDir', async () => {
       const storage = new FileSystemStorageAdapter()
+      vi.spyOn(storage, '_exists').mockResolvedValue(true)
       vi.mocked(glob).mockResolvedValue([
         {
           isDirectory: () => false,
@@ -136,14 +137,20 @@ describe('FileSystemStorageAdapter', () => {
         },
       ] as any[])
       expect(await storage.list()).toEqual(['foo', 'bar/'])
-      expect(glob).toHaveBeenCalledWith('*', {
-        cwd: storage.baseDir,
+      expect(glob).toHaveBeenCalledWith(join(process.cwd(), '*'), {
         withFileTypes: true,
       })
     })
 
+    it('should return empty array if the baseDir does not exist', async () => {
+      const storage = new FileSystemStorageAdapter()
+      vi.spyOn(storage, '_exists').mockResolvedValue(false)
+      expect(await storage.list()).toEqual([])
+    })
+
     it('should list the files with prefix', async () => {
       const storage = new FileSystemStorageAdapter()
+      vi.spyOn(storage, '_exists').mockResolvedValue(true)
       vi.mocked(glob).mockResolvedValueOnce([
         {
           isDirectory: () => false,
@@ -156,19 +163,34 @@ describe('FileSystemStorageAdapter', () => {
       ] as any[])
 
       expect(await storage.list('baz')).toEqual(['baz/foo', 'baz/bar/'])
-      expect(glob).toHaveBeenCalledWith('baz', {
-        cwd: storage.baseDir,
+      expect(glob).toHaveBeenCalledWith(join(process.cwd(), 'baz'), {
         withFileTypes: true,
       })
     })
 
-    it('should throw if the directory is out of the base directory', async () => {
+    it('should throw PermissionDeniedError if the directory is out of the base directory', async () => {
       const storage = new FileSystemStorageAdapter({ urlSchema: 'fs', baseDir: 'foo' })
       await expect(storage.list('../bar')).rejects.toThrow(PermissionDeniedError)
     })
 
+    it('should check glob base directory if given prefix has glob pattern', async () => {
+      const storage = new FileSystemStorageAdapter()
+      vi.spyOn(storage, '_exists').mockResolvedValue(true)
+      vi.mocked(access).mockResolvedValueOnce(undefined)
+      vi.mocked(glob).mockResolvedValueOnce([])
+
+      await storage.list('foo/**/bar')
+      expect(access).toHaveBeenCalledWith(join(process.cwd(), 'foo/'), constants.R_OK)
+    })
+
+    it('should throw PermissionDeniedError if storage is not readable', async () => {
+      const storage = new FileSystemStorageAdapter({ read: false })
+      await expect(storage.list()).rejects.toThrow(PermissionDeniedError)
+    })
+
     it('should throw OperationFailedError if list failed', async () => {
       const storage = new FileSystemStorageAdapter()
+      vi.spyOn(storage, '_exists').mockResolvedValue(true)
       vi.mocked(access).mockResolvedValueOnce(undefined)
       vi.mocked(readdir).mockRejectedValueOnce(new Error('Failed to list'))
       await expect(storage.list()).rejects.toThrow(OperationFailedError)

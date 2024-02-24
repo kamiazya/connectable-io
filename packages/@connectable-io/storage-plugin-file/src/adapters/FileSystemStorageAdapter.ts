@@ -13,6 +13,7 @@ import {
   OperationFailedError,
 } from '@connectable-io/storage'
 import { DEFAULT_SCHEMA } from '../constant.js'
+import { getGlobBase } from '../utils/get-glob-base.js'
 
 /**
  * Options for FileSystemStorageAdapter
@@ -208,20 +209,30 @@ export class FileSystemStorageAdapter implements Storage {
     }
   }
 
-  async list(prefix?: string) {
+  async list(prefix: string = '*') {
     const resolved = this._resolvePath(prefix)
+
+    // Check storage level read permission
+    if (this.read === false) throw new PermissionDeniedError(`Read permission denied. url:${prefix}`)
+
+    // Check directory is in base directory
     if (relative(this.baseDir, resolved).startsWith('..'))
       throw new PermissionDeniedError(`Path is out of base directory. url:${prefix}`)
 
+    // Check directory permission
+    const globBase = getGlobBase(resolved)
+    if ((await this._exists(globBase)) === false) {
+      // If directory does not exists, return empty array
+      return []
+    }
     try {
-      await access(this._resolvePath(prefix), constants.R_OK)
+      await access(globBase, constants.R_OK)
     } catch (e) {
       throw new PermissionDeniedError(`Read permission denied. url:${prefix}`, { cause: e })
     }
 
     try {
-      const results = await glob(prefix ?? '*', {
-        cwd: this.baseDir,
+      const results = await glob(resolved, {
         withFileTypes: true,
       })
       return results.map((result) =>
